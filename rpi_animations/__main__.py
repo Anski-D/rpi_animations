@@ -1,7 +1,10 @@
-from rpi_animations import text_animator
-
+from rpi_animations.text_animator import TextAnimator
 
 if __name__ == '__main__':
-    text_animator = text_animator.TextAnimator()
+    # Message to display
+    message_file = 'message.json'
+
+    # Create the text animator
+    text_animator = TextAnimator(message_file)
 
     text_animator.run()
