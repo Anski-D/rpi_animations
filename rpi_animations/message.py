@@ -1,9 +1,12 @@
 import pygame
+from pygame.sprite import Sprite
 import json
 
 
-class Message:
+class Message(Sprite):
     def __init__(self, text_animator: object, message_file: str):
+        super().__init__()
+
         # Save the text animator
         self._screen = text_animator.screen
         # Get the size of the text animator rectangle
@@ -25,6 +28,8 @@ class Message:
         self.bg_colour = tuple(map(int, message['bg_colour'].split(',')))
         self.text_colour = tuple(map(int, message['text_colour'].split(',')))
         self.text = message['text']
+        self.text_size = int(message['text_size'])
+        self.text_speed = float(message['text_speed'])
 
     @staticmethod
     def _load_json(message_file: str):
@@ -39,7 +44,7 @@ class Message:
 
     def _set_font(self):
         # Set font
-        font = pygame.font.SysFont(None, 64)
+        font = pygame.font.SysFont(None, self.text_size)
 
         # Render text
         self._msg = font.render(self.text, True, self.text_colour)
@@ -49,7 +54,7 @@ class Message:
         self._msg_rect = self._msg.get_rect()
 
         # Place the rectangle
-        self._msg_rect.midleft = self._screen_rect.midleft
+        self._msg_rect.midright = self._screen_rect.midleft
 
     def draw_msg(self):
         # Draw the message
@@ -57,5 +62,19 @@ class Message:
 
     def update(self):
         # Move the message to the right
-        self.x += 0.1
+        self.x += self.text_speed
         self._msg_rect.x = self.x
+
+    def is_on_screen(self):
+        # Check if this message is still on the screen
+        if self._msg_rect.left >= self._screen_rect.right:
+            return False
+
+        return True
+
+    def is_at_screen_left(self):
+        # Check if the left of message is now on screen
+        if self._msg_rect.left == self._screen_rect.left:
+            return True
+
+        return False

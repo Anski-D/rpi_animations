@@ -1,5 +1,7 @@
 {
   "bg_colour": "4, 99, 7",
   "text_colour": "255, 0, 0",
-  "text": "  MERRY CHRISTMAS!"
+  "text": "  MERRY CHRISTMAS!",
+  "text_size": 400,
+  "text_speed": 0.3
 }
