@@ -11,7 +11,7 @@ class TextAnimator:
         pygame.init()
 
         # Set the screen size
-        self._screen = pygame.display.set_mode((800, 400))
+        self.screen = pygame.display.set_mode((800, 400))
         # Set the screen title
         pygame.display.set_caption('Text animator')
 
@@ -29,9 +29,15 @@ class TextAnimator:
             # Set the background colour
             self._set_bg()
 
+            # Draw the message
+            self._message.draw_msg()
+
+            # Update the message
+            self._message.update()
+
             # Redraw the screen
             pygame.display.flip()
 
     def _set_bg(self):
         """Set the background of the animation."""
-        self._screen.fill(self._message.bg_colour)
+        self.screen.fill(self._message.bg_colour)
