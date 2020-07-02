@@ -3,5 +3,7 @@
   "text_colour": "255, 0, 0",
   "text": "MERRY CHRISTMAS!",
   "text_size": 400,
-  "text_speed": 0.5
+  "text_speed": 0.5,
+  "image_src": "../resources/image.bmp",
+
 }
