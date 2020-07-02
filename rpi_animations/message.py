@@ -39,7 +39,7 @@ class Message(Sprite):
         self._msg_rect = self._msg.get_rect()
 
         # Place the rectangle
-        self._msg_rect.midright = self._screen_rect.midleft
+        self._msg_rect.midleft = self._screen_rect.midright
 
     def draw_msg(self):
         # Draw the message
@@ -47,19 +47,19 @@ class Message(Sprite):
 
     def update(self):
         # Move the message to the right
-        self.x += self._settings.text_speed
+        self.x -= self._settings.text_speed
         self._msg_rect.x = self.x
 
     def is_on_screen(self):
         # Check if this message is still on the screen
-        if self._msg_rect.left >= self._screen_rect.right:
+        if self._msg_rect.right <= self._screen_rect.left:
             return False
 
         return True
 
     def has_just_emerged(self):
         # Check if the left of message is now on screen
-        if not self._has_fully_emerged and self._msg_rect.left >= self._screen_rect.left:
+        if not self._has_fully_emerged and self._msg_rect.right <= self._screen_rect.right:
             self._has_fully_emerged = True
             return True
 

@@ -16,7 +16,7 @@ class Settings:
         # Split the dictionary
         self.bg_colour = tuple(map(int, message['bg_colour'].split(',')))
         self.text_colour = tuple(map(int, message['text_colour'].split(',')))
-        self.text = f"  {message['text']}"
+        self.text = f"{message['text']}  "
         self.text_size = int(message['text_size'])
         self.text_speed = float(message['text_speed'])
         self.image_src = message['image_src']
