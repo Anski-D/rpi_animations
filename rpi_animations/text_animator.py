@@ -54,10 +54,12 @@ class TextAnimator:
         self._messages.add(message)
 
     def _check_messages(self):
+        # Check whether the message has fully emerged on screen, then create another if so.
         for message in self._messages.sprites():
             if message.has_just_emerged():
                 self._create_message()
 
+            # If the message has left the screen, get rid of it.
             if not message.is_on_screen():
                 message.kill()
 
