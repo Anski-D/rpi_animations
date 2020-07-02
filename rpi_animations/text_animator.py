@@ -1,8 +1,8 @@
 import pygame
 import sys
-from rpi_animations.message import Message
-from rpi_animations.picture import Picture
-from rpi_animations.settings import Settings
+from .message import Message
+from .picture import Picture
+from .settings import Settings
 
 
 class TextAnimator:

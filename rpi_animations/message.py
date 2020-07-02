@@ -3,7 +3,7 @@ from pygame.sprite import Sprite
 
 
 class Message(Sprite):
-    def __init__(self, text_animator: object):
+    def __init__(self, text_animator):
         super().__init__()
 
         # Get the settings
