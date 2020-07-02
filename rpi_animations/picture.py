@@ -4,8 +4,11 @@ import random
 
 
 class Picture(Sprite):
-    def __init__(self, text_animator: object):
+    def __init__(self, text_animator: object, image_src: str):
         super().__init__()
+
+        # Save image src
+        self._image_src = image_src
 
         # Get the settings
         self._settings = text_animator.settings
@@ -24,7 +27,7 @@ class Picture(Sprite):
 
     def _load_image(self):
         # Load the image
-        self._image = pygame.image.load(self._settings.image_src)
+        self._image = pygame.image.load(self._image_src)
 
         # Get the image rect
         self._rect = self._image.get_rect()

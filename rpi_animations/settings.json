@@ -4,6 +4,6 @@
   "text": "MERRY CHRISTMAS!",
   "text_size": 400,
   "text_speed": 0.5,
-  "image_src": "../resources/image.bmp",
+  "image_src": "../resources/tree.bmp,../resources/present.bmp",
   "num_images": 20
 }

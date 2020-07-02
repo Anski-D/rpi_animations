@@ -60,10 +60,12 @@ class TextAnimator:
     def _create_images(self):
         # Create all the required images
         for i in range(self.settings.num_images):
-            # Create an image
-            image = Picture(self)
-            # Add image to images
-            self._images.add(image)
+            # Create an image of each type
+            for image_src in self.settings.image_src:
+                # Create an image
+                image = Picture(self, image_src)
+                # Add image to images
+                self._images.add(image)
 
     def _create_message(self):
         # Create a message
@@ -83,6 +85,16 @@ class TextAnimator:
                 message.kill()
 
     def _update_items(self):
+        # Update images
+        self._update_images()
+
+        # Update messages
+        self._messages.update()
+
+        # Swap colours every so often
+        self._swap_colours()
+
+    def _update_images(self):
         # Update images when required
         self._image_update_counter += 1
         if self._image_update_counter == 1000:
@@ -91,10 +103,7 @@ class TextAnimator:
             # Reset the counter
             self._image_update_counter = 0
 
-        # Update messages
-        self._messages.update()
-
-        # Swap colours every so often
+    def _swap_colours(self):
         self._text_colour_swap_count += 1
         if self._text_colour_swap_count == 5000:
             tmp_text_colour = self.settings.bg_colour

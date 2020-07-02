@@ -11,16 +11,16 @@ class Settings:
 
     def _load_message(self):
         # Load the json
-        message = self._load_json()
+        settings = self._load_json()
 
         # Split the dictionary
-        self.bg_colour = tuple(map(int, message['bg_colour'].split(',')))
-        self.text_colour = tuple(map(int, message['text_colour'].split(',')))
-        self.text = f"{message['text']}  "
-        self.text_size = int(message['text_size'])
-        self.text_speed = float(message['text_speed'])
-        self.image_src = message['image_src']
-        self.num_images = int(message['num_images'])
+        self.bg_colour = tuple(map(int, settings['bg_colour'].split(',')))
+        self.text_colour = tuple(map(int, settings['text_colour'].split(',')))
+        self.text = f"{settings['text']}  "
+        self.text_size = int(settings['text_size'])
+        self.text_speed = float(settings['text_speed'])
+        self.image_src = settings['image_src'].split(',')
+        self.num_images = int(settings['num_images'])
 
     def _load_json(self):
         # Open the json file safely
