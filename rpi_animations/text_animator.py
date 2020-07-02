@@ -1,6 +1,7 @@
 import pygame
 import sys
 from rpi_animations.message import Message
+from rpi_animations.picture import Picture
 from rpi_animations.settings import Settings
 
 
@@ -21,6 +22,11 @@ class TextAnimator:
         self.screen = pygame.display.set_mode((800, 400))
         # Set the screen title
         pygame.display.set_caption('Text animator')
+
+        # Create the images group
+        self._images = pygame.sprite.Group()
+        # Create the images
+        self._create_images()
 
         # Create the messages group
         self._messages = pygame.sprite.Group()
@@ -48,6 +54,14 @@ class TextAnimator:
         """Set the background of the animation."""
         self.screen.fill(self.settings.bg_colour)
 
+    def _create_images(self):
+        # Create all the required images
+        for i in range(self.settings.num_images):
+            # Create an image
+            image = Picture(self)
+            # Add image to images
+            self._images.add(image)
+
     def _create_message(self):
         # Create a message
         message = Message(self)
@@ -68,6 +82,10 @@ class TextAnimator:
     def _update_screen(self):
         # Set the background colour
         self._set_bg()
+
+        # Draw each image
+        for image in self._images.sprites():
+            image.blitme()
 
         # Draw each active message
         for message in self._messages.sprites():
