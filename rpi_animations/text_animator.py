@@ -40,6 +40,8 @@ class TextAnimator:
             # Draw the message
             self._update_screen()
 
+            print(self._messages.sprites())
+
     def _set_bg(self):
         """Set the background of the animation."""
         self.screen.fill(self._messages.sprites()[0].bg_colour)
@@ -53,11 +55,11 @@ class TextAnimator:
 
     def _check_messages(self):
         for message in self._messages.sprites():
+            if message.has_just_emerged():
+                self._create_message()
+
             if not message.is_on_screen():
                 message.kill()
-
-            if message.is_at_screen_left():
-                self._create_message()
 
     def _update_screen(self):
         # Set the background colour

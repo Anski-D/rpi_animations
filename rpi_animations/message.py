@@ -21,13 +21,16 @@ class Message(Sprite):
         # Store x position as float
         self.x = float(self._msg_rect.x)
 
+        # Set the flag that the message hasn't fully emerged
+        self._has_fully_emerged = False
+
     def _load_message(self, message_file: str):
         message = self._load_json(message_file)
 
         # Split the dictionary
         self.bg_colour = tuple(map(int, message['bg_colour'].split(',')))
         self.text_colour = tuple(map(int, message['text_colour'].split(',')))
-        self.text = message['text']
+        self.text = f"  {message['text']}"
         self.text_size = int(message['text_size'])
         self.text_speed = float(message['text_speed'])
 
@@ -72,9 +75,10 @@ class Message(Sprite):
 
         return True
 
-    def is_at_screen_left(self):
+    def has_just_emerged(self):
         # Check if the left of message is now on screen
-        if self._msg_rect.left == self._screen_rect.left:
+        if not self._has_fully_emerged and self._msg_rect.left >= self._screen_rect.left:
+            self._has_fully_emerged = True
             return True
 
         return False
