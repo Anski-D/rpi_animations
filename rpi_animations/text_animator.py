@@ -52,9 +52,9 @@ class TextAnimator:
         self._messages.add(message)
 
     def _check_messages(self):
-        for message in self._messages.copy():
+        for message in self._messages.sprites():
             if not message.is_on_screen():
-                self._messages.remove(message)
+                message.kill()
 
             if message.is_at_screen_left():
                 self._create_message()
