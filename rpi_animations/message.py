@@ -9,6 +9,9 @@ class Message(Sprite):
         # Get the settings
         self._settings = text_animator.settings
 
+        # Set default message
+        self._msg = None
+
         # Save the text animator
         self._screen = text_animator.screen
         # Get the size of the text animator rectangle
@@ -24,10 +27,10 @@ class Message(Sprite):
         self._has_fully_emerged = False
 
     def _setup_message(self):
-        self._set_font()
+        self.set_font()
         self._place_msg()
 
-    def _set_font(self):
+    def set_font(self):
         # Set font
         font = pygame.font.SysFont(None, self._settings.text_size)
 

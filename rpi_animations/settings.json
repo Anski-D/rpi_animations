@@ -1,9 +1,9 @@
 {
   "bg_colour": "4, 99, 7",
-  "text_colour": "255, 0, 0",
+  "text_colour": "192, 0, 0",
   "text": "MERRY CHRISTMAS!",
   "text_size": 400,
   "text_speed": 0.5,
   "image_src": "../resources/image.bmp",
-  "num_images": 10
+  "num_images": 20
 }

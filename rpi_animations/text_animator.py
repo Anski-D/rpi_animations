@@ -27,11 +27,14 @@ class TextAnimator:
         self._images = pygame.sprite.Group()
         # Create the images
         self._create_images()
+        # Set a counter for when images should be updated
+        self._image_update_counter = 0
 
         # Create the messages group
         self._messages = pygame.sprite.Group()
         # Write the first message and add to group
         self._create_message()
+        self._text_colour_swap_count = 0
 
     def run(self):
         """Main loop of the animation."""
@@ -42,10 +45,10 @@ class TextAnimator:
                     sys.exit()
 
             # Update the message
-            self._update_messages()
+            self._update_items()
 
             # Check the messages for certain criteria
-            self._check_messages()
+            self._check_items()
 
             # Draw the message
             self._update_screen()
@@ -69,7 +72,7 @@ class TextAnimator:
         # Add message to message group
         self._messages.add(message)
 
-    def _check_messages(self):
+    def _check_items(self):
         # Check whether the message has fully emerged on screen, then create another if so.
         for message in self._messages.sprites():
             if message.has_just_emerged():
@@ -78,6 +81,35 @@ class TextAnimator:
             # If the message has left the screen, get rid of it.
             if not message.is_on_screen():
                 message.kill()
+
+    def _update_items(self):
+        # Update images when required
+        self._image_update_counter += 1
+        if self._image_update_counter == 1000:
+            self._images.update()
+
+            # Reset the counter
+            self._image_update_counter = 0
+
+        # Update messages
+        self._messages.update()
+
+        # Swap colours every so often
+        self._text_colour_swap_count += 1
+        if self._text_colour_swap_count == 5000:
+            tmp_text_colour = self.settings.bg_colour
+            tmp_bg_colour = self.settings.text_colour
+
+            # Swap colours
+            self.settings.text_colour = tmp_text_colour
+            self.settings.bg_colour = tmp_bg_colour
+
+            # Update the message colours
+            for message in self._messages.sprites():
+                message.set_font()
+
+            # Reset the counter
+            self._text_colour_swap_count = 0
 
     def _update_screen(self):
         # Set the background colour
@@ -93,6 +125,3 @@ class TextAnimator:
 
         # Redraw the screen
         pygame.display.flip()
-
-    def _update_messages(self):
-        self._messages.update()
