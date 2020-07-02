@@ -1,14 +1,18 @@
 import pygame
 import sys
 from rpi_animations.message import Message
+from rpi_animations.settings import Settings
 
 
 class TextAnimator:
-    def __init__(self, message_file: str):
+    def __init__(self, settings_file: str):
         """Initialise the animation, and create resources."""
 
         # Store the message file variable
-        self._message_file = message_file
+        self._message_file = settings_file
+
+        # Create the settings file and hold
+        self.settings = Settings(settings_file)
 
         # Initialise pygame
         pygame.init()
@@ -40,15 +44,13 @@ class TextAnimator:
             # Draw the message
             self._update_screen()
 
-            print(self._messages.sprites())
-
     def _set_bg(self):
         """Set the background of the animation."""
-        self.screen.fill(self._messages.sprites()[0].bg_colour)
+        self.screen.fill(self.settings.bg_colour)
 
     def _create_message(self):
         # Create a message
-        message = Message(self, self._message_file)
+        message = Message(self)
 
         # Add message to message group
         self._messages.add(message)

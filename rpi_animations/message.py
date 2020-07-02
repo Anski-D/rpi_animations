@@ -1,19 +1,18 @@
 import pygame
 from pygame.sprite import Sprite
-import json
 
 
 class Message(Sprite):
-    def __init__(self, text_animator: object, message_file: str):
+    def __init__(self, text_animator: object):
         super().__init__()
+
+        # Get the settings
+        self._settings = text_animator.settings
 
         # Save the text animator
         self._screen = text_animator.screen
         # Get the size of the text animator rectangle
         self._screen_rect = self._screen.get_rect()
-
-        # Load the message from the json file
-        self._load_message(message_file)
 
         # Setup the message
         self._setup_message()
@@ -24,33 +23,16 @@ class Message(Sprite):
         # Set the flag that the message hasn't fully emerged
         self._has_fully_emerged = False
 
-    def _load_message(self, message_file: str):
-        message = self._load_json(message_file)
-
-        # Split the dictionary
-        self.bg_colour = tuple(map(int, message['bg_colour'].split(',')))
-        self.text_colour = tuple(map(int, message['text_colour'].split(',')))
-        self.text = f"  {message['text']}"
-        self.text_size = int(message['text_size'])
-        self.text_speed = float(message['text_speed'])
-
-    @staticmethod
-    def _load_json(message_file: str):
-        # Open the json file safely
-        with open(message_file) as msg_file:
-            # Load the json
-            return json.load(msg_file)
-
     def _setup_message(self):
         self._set_font()
         self._place_msg()
 
     def _set_font(self):
         # Set font
-        font = pygame.font.SysFont(None, self.text_size)
+        font = pygame.font.SysFont(None, self._settings.text_size)
 
         # Render text
-        self._msg = font.render(self.text, True, self.text_colour)
+        self._msg = font.render(self._settings.text, True, self._settings.text_colour)
 
     def _place_msg(self):
         # Get the message rectangle
@@ -65,7 +47,7 @@ class Message(Sprite):
 
     def update(self):
         # Move the message to the right
-        self.x += self.text_speed
+        self.x += self._settings.text_speed
         self._msg_rect.x = self.x
 
     def is_on_screen(self):
