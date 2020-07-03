@@ -1,5 +1,6 @@
 import json
 import random
+import importlib.resources
 
 
 class Settings:
@@ -27,7 +28,7 @@ class Settings:
         self.text = f"{settings['text']}  "
         # Set the message size
         self.text_size = int(settings['text_size'])
-        # Set the mesage scroll speed
+        # Set the message scroll speed
         self.text_speed = float(settings['text_speed'])
         # Set the list of image sources
         self.image_src = settings['image_src'].split(',')
@@ -36,7 +37,7 @@ class Settings:
 
     def _load_json(self):
         # Open the json file safely
-        with open(self._settings_file) as msg_file:
+        with importlib.resources.open_text('resources', self._settings_file) as msg_file:
             # Load the json
             return json.load(msg_file)
 
