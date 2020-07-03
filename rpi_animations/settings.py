@@ -27,6 +27,8 @@ class Settings:
         self.set_colours()
         # Set the message text
         self.text = f"{settings['text']}  "
+        # Set the typeface
+        self.typeface = settings['typeface']
         # Set the message size
         self.text_size = int(settings['text_size'])
         # Set the message scroll speed

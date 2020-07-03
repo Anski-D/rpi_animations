@@ -32,7 +32,7 @@ class Message(Sprite):
 
     def set_font(self):
         # Set font
-        font = pygame.font.SysFont(None, self._settings.text_size)
+        font = pygame.font.SysFont(self._settings.typeface, self._settings.text_size)
 
         # Render text
         self._msg = font.render(self._settings.text, True, self._settings.text_colour)
