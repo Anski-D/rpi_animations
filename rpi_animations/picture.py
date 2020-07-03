@@ -6,7 +6,7 @@ from . import resources
 
 
 class Picture(Sprite):
-    def __init__(self, text_animator: object, image_src: str):
+    def __init__(self, text_animator, image_src: str):
         super().__init__()
 
         # Save image src
