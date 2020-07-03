@@ -97,7 +97,7 @@ class TextAnimator:
     def _update_images(self):
         # Update images when required
         self._image_update_counter += 1
-        if self._image_update_counter == 1000:
+        if self._image_update_counter == self.settings.image_update_counter_limit:
             self._images.update()
 
             # Reset the counter
@@ -105,7 +105,7 @@ class TextAnimator:
 
     def _change_colours(self):
         self._text_colour_swap_count += 1
-        if self._text_colour_swap_count == 5000:
+        if self._text_colour_swap_count == self.settings.colour_change_counter_limit:
             # Use the settings method to randomise colours
             self.settings.set_colours()
 

@@ -4,6 +4,8 @@
   "typeface": "Lucida Bright",
   "text_size": 350,
   "text_speed": 0.5,
-  "image_src": "tree.bmp,present.bmp",
-  "num_images": 10
+  "image_src": "tree.bmp,present.bmp,snowflake.bmp",
+  "num_images": 10,
+  "image_update_counter_limit": 1000,
+  "colour_change_counter_limit": 5000
 }

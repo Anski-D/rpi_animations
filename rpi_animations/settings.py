@@ -37,6 +37,10 @@ class Settings:
         self.image_src = settings['image_src'].split(',')
         # Set how many of each image will be displayed
         self.num_images = int(settings['num_images'])
+        # Set the image update counter limit
+        self.image_update_counter_limit = int(settings['image_update_counter_limit'])
+        # Set the colour change counter limit
+        self.colour_change_counter_limit = int(settings['colour_change_counter_limit'])
 
     def _load_json(self):
         # Open the json file safely
