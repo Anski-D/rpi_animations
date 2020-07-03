@@ -1,9 +1,10 @@
 {
+  "colours": "4, 99, 7/192, 0, 0/218,165,32",
   "bg_colour": "4, 99, 7",
   "text_colour": "192, 0, 0",
   "text": "MERRY CHRISTMAS!",
   "text_size": 400,
   "text_speed": 0.5,
   "image_src": "../resources/tree.bmp,../resources/present.bmp",
-  "num_images": 20
+  "num_images": 10
 }

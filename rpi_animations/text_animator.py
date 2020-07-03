@@ -92,7 +92,7 @@ class TextAnimator:
         self._messages.update()
 
         # Swap colours every so often
-        self._swap_colours()
+        self._change_colours()
 
     def _update_images(self):
         # Update images when required
@@ -103,15 +103,11 @@ class TextAnimator:
             # Reset the counter
             self._image_update_counter = 0
 
-    def _swap_colours(self):
+    def _change_colours(self):
         self._text_colour_swap_count += 1
         if self._text_colour_swap_count == 5000:
-            tmp_text_colour = self.settings.bg_colour
-            tmp_bg_colour = self.settings.text_colour
-
-            # Swap colours
-            self.settings.text_colour = tmp_text_colour
-            self.settings.bg_colour = tmp_bg_colour
+            # Use the settings method to randomise colours
+            self.settings.set_colours()
 
             # Update the message colours
             for message in self._messages.sprites():
