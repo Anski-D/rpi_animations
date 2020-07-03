@@ -2,6 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 import random
 import importlib.resources
+from . import resources
 
 
 class Picture(Sprite):
@@ -28,7 +29,7 @@ class Picture(Sprite):
 
     def _load_image(self):
         # Load the image
-        self._image = pygame.image.load(importlib.resources.open_binary('resources', self._image_src))
+        self._image = pygame.image.load(importlib.resources.open_binary(resources, self._image_src))
 
         # Get the image rect
         self._rect = self._image.get_rect()

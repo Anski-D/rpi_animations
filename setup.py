@@ -1,9 +1,9 @@
-from setuptools import setup
+import setuptools
 
-setup(
+setuptools.setup(
     name='rpi_animations',
     version='',
-    packages=['rpi_animations'],
+    packages=setuptools.find_packages(),
     url='https://github.com/Anski-D/rpi_animations',
     license='MIT',
     author='David Anscombe',
