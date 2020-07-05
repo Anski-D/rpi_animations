@@ -19,7 +19,7 @@ class TextAnimator:
         pygame.init()
 
         # Set the screen size
-        self.screen = pygame.display.set_mode((800, 400))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         # Set the screen title
         pygame.display.set_caption('Text animator')
 
@@ -39,10 +39,8 @@ class TextAnimator:
     def run(self):
         """Main loop of the animation."""
         while True:
-            # Watch for events
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            # Check for events
+            self._check_events()
 
             # Update the message
             self._update_items()
@@ -52,6 +50,17 @@ class TextAnimator:
 
             # Draw the message
             self._update_screen()
+
+    def _check_events(self):
+        # Watch for events
+        for event in pygame.event.get():
+            # Check if should quit
+            self._check_quit(event)
+
+    @staticmethod
+    def _check_quit(event):
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
+            sys.exit()
 
     def _set_bg(self):
         """Set the background of the animation."""
