@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='rpi_animations',
-    version='',
+    version='0.0.1',
     packages=setuptools.find_packages(),
     url='https://github.com/Anski-D/rpi_animations',
     license='MIT',
