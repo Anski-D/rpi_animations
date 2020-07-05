@@ -1,11 +1,11 @@
 {
-  "colours": "4, 99, 7/192, 0, 0/218,165,32",
-  "text": "MERRY CHRISTMAS!",
+  "colours": "135,206,235/253,253,150/0,128,0",
+  "text": "SUMMER TIME!",
   "typeface": "Serif Regular",
   "text_size": 350,
-  "text_speed": 0.5,
-  "image_src": "tree.bmp,present.bmp,snowflake.bmp",
+  "text_speed": 0.7,
+  "image_src": "beach-ball.bmp,coconut-tree.bmp,sun.bmp",
   "num_images": 10,
-  "image_update_counter_limit": 1000,
-  "colour_change_counter_limit": 5000
+  "image_update_counter_limit": 500,
+  "colour_change_counter_limit": 2500
 }
