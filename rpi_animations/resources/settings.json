@@ -3,11 +3,11 @@
   "text": "SUMMER TIME!",
   "typeface": "Serif Regular",
   "text_size": 350,
-  "text_speed": 2.0,
+  "text_speed": 1.5,
   "outline_width": 2,
   "outline_colour": "0,0,0",
   "image_src": "beach-ball.bmp,coconut-tree.bmp,sun.bmp",
   "num_images": 10,
-  "image_update_counter_limit": 200,
-  "colour_change_counter_limit": 1000
+  "image_update_counter_limit": 100,
+  "colour_change_counter_limit": 500
 }
