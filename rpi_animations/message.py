@@ -10,6 +10,7 @@ class Message(Sprite):
         self._settings = text_animator.settings
 
         # Set default message
+        self._font = None
         self._msg = None
 
         # Save the text animator
@@ -27,15 +28,17 @@ class Message(Sprite):
         self._has_fully_emerged = False
 
     def _setup_message(self):
-        self.set_font()
+        self._set_font()
+        self.set_font_colour()
         self._place_msg()
 
-    def set_font(self):
+    def _set_font(self):
         # Set font
-        font = pygame.font.SysFont(self._settings.typeface, self._settings.text_size)
+        self._font = pygame.font.SysFont(self._settings.typeface, self._settings.text_size)
 
+    def set_font_colour(self):
         # Render text
-        self._msg = font.render(self._settings.text, True, self._settings.text_colour)
+        self._msg = self._font.render(self._settings.text, True, self._settings.text_colour)
 
     def _place_msg(self):
         # Get the message rectangle
@@ -44,7 +47,21 @@ class Message(Sprite):
         # Place the rectangle
         self._rect.midleft = self._screen_rect.midright
 
+    def _draw_outline(self):
+        # Set the outline text
+        outline_text = self._font.render(self._settings.text, True, self._settings.outline_colour)
+
+        # Repetitively draw the outline
+        outline_width = self._settings.outline_width
+        self._screen.blit(outline_text, (self._rect.x-outline_width, self._rect.y-outline_width))
+        self._screen.blit(outline_text, (self._rect.x-outline_width, self._rect.y+outline_width))
+        self._screen.blit(outline_text, (self._rect.x+outline_width, self._rect.y-outline_width))
+        self._screen.blit(outline_text, (self._rect.x+outline_width, self._rect.y+outline_width))
+
     def draw_msg(self):
+        # Draw the message outline first
+        self._draw_outline()
+
         # Draw the message
         self._screen.blit(self._msg, self._rect)
 

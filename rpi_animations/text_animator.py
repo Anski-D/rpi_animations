@@ -120,7 +120,7 @@ class TextAnimator:
 
             # Update the message colours
             for message in self._messages.sprites():
-                message.set_font()
+                message.set_font_colour()
 
             # Reset the counter
             self._text_colour_swap_count = 0
