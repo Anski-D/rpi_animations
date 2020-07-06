@@ -28,14 +28,14 @@ class Message(Sprite):
 
     def _setup_message(self):
         self._set_font()
-        self.set_font_colour()
+        self._set_font_colour()
         self._place_msg()
 
     def _set_font(self):
         # Set font
         self._font = pygame.font.SysFont(self._settings.typeface, self._settings.text_size)
 
-    def set_font_colour(self):
+    def _set_font_colour(self):
         # Render text
         self._msg = self._font.render(self._settings.text, True, self._settings.text_colour)
 
@@ -48,6 +48,7 @@ class Message(Sprite):
 
     def draw_msg(self):
         # Draw the message
+        self._set_font_colour()
         self._screen.blit(self._msg, self._rect)
 
     def update(self):
@@ -63,7 +64,7 @@ class Message(Sprite):
         return True
 
     def has_just_emerged(self):
-        # Check if the left of message is now on screen
+        # Check if the right of message is now on screen
         if not self._has_fully_emerged and self._rect.right <= self._screen_rect.right:
             self._has_fully_emerged = True
             return True

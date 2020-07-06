@@ -118,10 +118,6 @@ class TextAnimator:
             # Use the settings method to randomise colours
             self.settings.set_colours()
 
-            # Update the message colours
-            for message in self._messages.sprites():
-                message.set_font_colour()
-
             # Reset the counter
             self._text_colour_swap_count = 0
 
