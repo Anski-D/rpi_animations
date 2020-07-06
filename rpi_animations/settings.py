@@ -34,6 +34,10 @@ class Settings:
         self.text_size = int(settings['text_size'])
         # Set the message scroll speed
         self.text_speed = float(settings['text_speed'])
+        # Set the outline width
+        self.outline_width = int(settings['outline_width'])
+        # Set the outline colour
+        self.outline_colour = tuple(map(int, settings['outline_colour'].split(',')))
         # Set the list of image sources
         self.image_src = settings['image_src'].split(',')
         # Set how many of each image will be displayed

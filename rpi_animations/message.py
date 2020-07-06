@@ -46,7 +46,21 @@ class Message(Sprite):
         # Place the rectangle
         self.rect.midleft = self._screen_rect.midright
 
+    def _draw_outline(self):
+        # Set the outline text
+        outline_text = self._font.render(self._settings.text, True, self._settings.outline_colour)
+
+        # Repetitively draw the outline
+        outline_width = self._settings.outline_width
+        self._screen.blit(outline_text, (self.rect.x - outline_width, self.rect.y - outline_width))
+        self._screen.blit(outline_text, (self.rect.x - outline_width, self.rect.y + outline_width))
+        self._screen.blit(outline_text, (self.rect.x + outline_width, self.rect.y - outline_width))
+        self._screen.blit(outline_text, (self.rect.x + outline_width, self.rect.y + outline_width))
+
     def draw_msg(self):
+        # Draw outline text
+        self._draw_outline()
+
         # Draw the message
         self._set_font_colour()
         self._screen.blit(self._msg, self.rect)
