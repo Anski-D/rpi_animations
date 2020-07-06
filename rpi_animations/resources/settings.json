@@ -6,6 +6,6 @@
   "text_speed": 2.5,
   "image_src": "beach-ball.bmp,coconut-tree.bmp,sun.bmp",
   "num_images": 10,
-  "image_update_counter_limit": 500,
+  "image_update_counter_limit": 100,
   "colour_change_counter_limit": 2500
 }
