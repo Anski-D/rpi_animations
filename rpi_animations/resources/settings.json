@@ -3,7 +3,7 @@
   "text": "SUMMER TIME!",
   "typeface": "Serif Regular",
   "text_size": 350,
-  "text_speed": 1.0,
+  "text_speed": 1.5,
   "image_src": "beach-ball.bmp,coconut-tree.bmp,sun.bmp",
   "num_images": 10,
   "image_update_counter_limit": 500,

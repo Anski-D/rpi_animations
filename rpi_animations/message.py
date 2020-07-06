@@ -21,7 +21,7 @@ class Message(Sprite):
         self._setup_message()
 
         # Store x position as float
-        self.x = float(self._rect.x)
+        self.x = float(self.rect.x)
 
         # Set the flag that the message hasn't fully emerged
         self._has_fully_emerged = False
@@ -41,31 +41,31 @@ class Message(Sprite):
 
     def _place_msg(self):
         # Get the message rectangle
-        self._rect = self._msg.get_rect()
+        self.rect = self._msg.get_rect()
 
         # Place the rectangle
-        self._rect.midleft = self._screen_rect.midright
+        self.rect.midleft = self._screen_rect.midright
 
     def draw_msg(self):
         # Draw the message
         self._set_font_colour()
-        self._screen.blit(self._msg, self._rect)
+        self._screen.blit(self._msg, self.rect)
 
     def update(self):
         # Move the message to the right
         self.x -= self._settings.text_speed
-        self._rect.x = self.x
+        self.rect.x = self.x
 
     def is_on_screen(self):
         # Check if this message is still on the screen
-        if self._rect.right <= self._screen_rect.left:
+        if self.rect.right <= self._screen_rect.left:
             return False
 
         return True
 
     def has_just_emerged(self):
         # Check if the right of message is now on screen
-        if not self._has_fully_emerged and self._rect.right <= self._screen_rect.right:
+        if not self._has_fully_emerged and self.rect.right <= self._screen_rect.right:
             self._has_fully_emerged = True
             return True
 

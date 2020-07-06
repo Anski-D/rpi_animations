@@ -20,6 +20,7 @@ class TextAnimator:
 
         # Set the screen size
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
         # Set the screen title
         pygame.display.set_caption('Text animator')
 
@@ -87,11 +88,20 @@ class TextAnimator:
         # Check whether the message has fully emerged on screen, then create another if so.
         for message in self._messages.sprites():
             if message.has_just_emerged():
+                # Create a new message
                 self._create_message()
+                # Check if the number of messages is more than required, delete if so.
+                if len(self._messages.sprites()) > self._reqd_num_of_messages():
+                    # Check which message is now off screen
+                    for sprite in self._messages.sprites():
+                        # Get rid of the message if of screen
+                        if not sprite.is_on_screen():
+                            sprite.kill()
 
-            # If the message has left the screen, get rid of it.
-            if not message.is_on_screen():
-                message.kill()
+    def _reqd_num_of_messages(self):
+        # Work out how many rectangles fit on the screen, pad by 2 because that is the minimum required if the
+        # message is wider than the screen.
+        return int(self.screen.get_rect().width / self._messages.sprites()[0].rect.width) + 2
 
     def _update_items(self):
         # Update images
