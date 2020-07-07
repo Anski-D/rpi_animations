@@ -1,7 +1,7 @@
 import json
 import random
 import importlib.resources
-from . import resources
+from . import inputs
 
 
 class Settings:
@@ -49,7 +49,7 @@ class Settings:
 
     def _load_json(self):
         # Open the json file safely
-        with importlib.resources.open_text(resources, self._settings_file) as msg_file:
+        with importlib.resources.open_text(inputs, self._settings_file) as msg_file:
             # Load the json
             return json.load(msg_file)
 
