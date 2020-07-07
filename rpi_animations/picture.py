@@ -35,22 +35,20 @@ class Picture(Sprite):
         self._rect = self._image.get_rect()
 
     def update(self):
+        # Get the screen limits
+        top, bottom, left, right = self._screen_limits()
+
         # Place the image in a random location
-        self._rect.x = random.randint(0, self._screen_rect.right)
-        self._rect.y = random.randint(0, self._screen_rect.bottom)
+        self._rect.centerx = random.randint(left, right)
+        self._rect.centery = random.randint(top, bottom)
 
-        # Check whether the image is on screen
-        if self._rect.top < self._screen_rect.top:
-            self._rect.top = self._screen_rect.top
+    def _screen_limits(self):
+        top = self._screen_rect.top + int(self._rect.height/2)
+        bottom = self._screen_rect.bottom - int(self._rect.height/2)
+        left = self._screen_rect.left + int(self._rect.width/2)
+        right = self._screen_rect.right - int(self._rect.width/2)
 
-        if self._rect.left < self._screen_rect.left:
-            self._rect.left = self._screen_rect.left
-
-        if self._rect.bottom > self._screen_rect.bottom:
-            self._rect.bottom = self._screen_rect.bottom
-
-        if self._rect.right > self._screen_rect.right:
-            self._rect.right = self._screen_rect.right
+        return top, bottom, left, right
 
     def blitme(self):
         self._screen.blit(self._image, self._rect)
