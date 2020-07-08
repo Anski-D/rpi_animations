@@ -26,7 +26,7 @@ class Settings:
         # Randomise the colour allocations
         self.set_colours()
         # Set the message text
-        self.text = f"{settings['text']}  "
+        self._messages = settings['text'].split(';')
         # Set the typeface
         # self.typeface = settings['typeface']
         self.typeface = None
@@ -37,7 +37,7 @@ class Settings:
         # Set the outline width
         self.outline_width = int(settings['outline_width'])
         # Set the outline colour
-        self.outline_colour = tuple(map(int, settings['outline_colour'].split(',')))
+        self.outline_colour = tuple([int(colour) for colour in settings['outline_colour'].split(',')])
         # Set the list of image sources
         self.image_src = settings['image_src'].split(',')
         # Set how many of each image will be displayed
@@ -67,7 +67,12 @@ class Settings:
     @staticmethod
     def _split_colours(colours):
         # Split the list of colours into distinct colours
-        split_colours = colours.split('/')
+        split_colours = colours.split(';')
 
         # Each colours is a string that needs to be split further, turned into an int and then held as a tuple
         return [tuple([int(pigment) for pigment in colour.split(',')]) for colour in split_colours]
+
+    @property
+    def text(self):
+        # Set the message text
+        return f"{self._messages[random.randint(0, len(self._messages) - 1)]}  "

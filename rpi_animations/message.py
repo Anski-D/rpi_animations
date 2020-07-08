@@ -25,6 +25,7 @@ class Message(Sprite):
 
     def _setup_message(self):
         self._set_font()
+        self._set_text()
         self._render_text()
         self._place_msg()
 
@@ -32,9 +33,13 @@ class Message(Sprite):
         # Set font
         self._font = pygame.font.SysFont(self._settings.typeface, self._settings.text_size)
 
+    def _set_text(self):
+        # Set the message text
+        self._text = self._settings.text
+
     def _render_text(self):
         # Render text
-        self._msg = self._font.render(self._settings.text, True, self._settings.text_colour)
+        self._msg = self._font.render(self._text, True, self._settings.text_colour)
 
     def _place_msg(self):
         # Get the message rectangle
@@ -45,7 +50,7 @@ class Message(Sprite):
 
     def _draw_outline(self):
         # Set the outline text
-        outline_text = self._font.render(self._settings.text, True, self._settings.outline_colour)
+        outline_text = self._font.render(self._text, True, self._settings.outline_colour)
 
         # Repetitively draw the outline
         outline_width = self._settings.outline_width
