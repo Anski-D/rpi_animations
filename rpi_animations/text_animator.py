@@ -102,7 +102,7 @@ class TextAnimator:
     def _reqd_num_of_messages(self):
         # Work out how many rectangles fit on the screen, pad by 2 because that is the minimum required if the
         # message is wider than the screen.
-        return int(self.screen.get_rect().width / self._messages.sprites()[0].rect.width) + 2
+        return int(self.screen.get_rect().width / min(message.rect.width for message in self._messages.sprites())) + 2
 
     def _update_items(self):
         # Update images
