@@ -138,11 +138,11 @@ class TextAnimator:
 
         # Draw each image
         for image in self._images.sprites():
-            image.blitme()
+            image.blit()
 
         # Draw each active message
         for message in self._messages.sprites():
-            message.draw_msg()
+            message.blit()
 
         # Redraw the screen
         pygame.display.flip()

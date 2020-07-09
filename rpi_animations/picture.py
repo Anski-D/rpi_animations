@@ -39,5 +39,5 @@ class Picture(Sprite):
         self._rect.left = random.randint(0, self._screen_rect.right - self._rect.width)
         self._rect.top = random.randint(0, self._screen_rect.bottom - self._rect.height)
 
-    def blitme(self):
+    def blit(self):
         self._screen.blit(self._image, self._rect)

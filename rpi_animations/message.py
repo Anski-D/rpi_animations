@@ -59,7 +59,7 @@ class Message(Sprite):
         self._screen.blit(outline_text, (self.rect.x + outline_width, self.rect.y - outline_width))
         self._screen.blit(outline_text, (self.rect.x + outline_width, self.rect.y + outline_width))
 
-    def draw_msg(self):
+    def blit(self):
         # Draw outline text
         self._draw_outline()
 
