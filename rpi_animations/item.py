@@ -1,10 +1,10 @@
 from pygame.sprite import Sprite
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 
-class Item(Sprite):
-    def __init__(self, text_animator):
-        super().__init__()
+class Item(ABC, Sprite):
+    def __init__(self, group, text_animator):
+        super().__init__(group)
 
         # Set the settings
         self._settings = text_animator.settings
@@ -21,6 +21,22 @@ class Item(Sprite):
     def _setup_item(self):
         pass
 
+    @property
+    @abstractmethod
+    def content(self):
+        return self._content
 
-if __name__ == '__main__':
-    item = Item('test')
+    @abstractmethod
+    def _set_item_content(self):
+        pass
+
+    @property
+    def rect(self):
+        return self.content.get_rect()
+
+    @abstractmethod
+    def _place_item(self):
+        pass
+
+    def blit(self):
+        self._screen.blit(self.content, self.rect)
