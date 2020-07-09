@@ -19,8 +19,8 @@ class TextAnimator:
         pygame.init()
 
         # Set the screen size
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        # self.screen = pygame.display.set_mode((800, 600))  # Test screen size
+        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((800, 600))  # Test screen size
 
         # Set the screen title
         pygame.display.set_caption('Text animator')
@@ -80,10 +80,7 @@ class TextAnimator:
 
     def _create_message(self):
         # Create a message
-        message = Message(self)
-
-        # Add message to message group
-        self._messages.add(message)
+        Message(self._messages, self)
 
     def _check_items(self):
         # Check whether the message has fully emerged on screen, then create another if so.

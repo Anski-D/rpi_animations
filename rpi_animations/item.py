@@ -6,6 +6,10 @@ class Item(ABC, Sprite):
     def __init__(self, group, text_animator):
         super().__init__(group)
 
+        # Set default values
+        self._content = None
+        self._rect = None
+
         # Set the settings
         self._settings = text_animator.settings
 
@@ -22,17 +26,24 @@ class Item(ABC, Sprite):
         pass
 
     @property
-    @abstractmethod
     def content(self):
         return self._content
 
-    @abstractmethod
-    def _set_item_content(self):
-        pass
+    @content.setter
+    def content(self, content):
+        self._content = content
 
     @property
     def rect(self):
         return self.content.get_rect()
+
+    @rect.setter
+    def rect(self, rect):
+        self._rect = rect
+
+    @abstractmethod
+    def _set_item_content(self):
+        pass
 
     @abstractmethod
     def _place_item(self):
