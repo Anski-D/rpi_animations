@@ -3,8 +3,8 @@ from pygame.sprite import Sprite
 
 
 class Message(Sprite):
-    def __init__(self, text_animator):
-        super().__init__()
+    def __init__(self, group, text_animator):
+        super().__init__(group)
 
         # Get the settings
         self._settings = text_animator.settings

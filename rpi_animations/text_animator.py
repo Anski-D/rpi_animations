@@ -74,16 +74,11 @@ class TextAnimator:
             # Create an image of each type
             for image_src in self.settings.image_src:
                 # Create an image
-                image = Picture(self, image_src)
-                # Add image to images
-                self._images.add(image)
+                Picture(self._images, self, image_src)
 
     def _create_message(self):
         # Create a message
-        message = Message(self)
-
-        # Add message to message group
-        self._messages.add(message)
+        Message(self._messages, self)
 
     def _check_items(self):
         # Check whether the message has fully emerged on screen, then create another if so.
