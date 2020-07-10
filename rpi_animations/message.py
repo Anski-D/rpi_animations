@@ -1,33 +1,20 @@
 import pygame
-from pygame.sprite import Sprite
+from .item import Item
 
 
-class Message(Sprite):
+class Message(Item):
     def __init__(self, group, text_animator):
-        super().__init__(group)
-
-        # Get the settings
-        self._settings = text_animator.settings
-
-        # Save the text animator
-        self._screen = text_animator.screen
-        # Get the size of the text animator rectangle
-        self._screen_rect = self._screen.get_rect()
-
-        # Setup the message
-        self._setup_message()
-
+        super().__init__(group, text_animator)
         # Store x position as float
-        self.x = float(self.rect.x)
+        self._x = float(self.rect.x)
 
         # Set the flag that the message hasn't fully emerged
         self._has_fully_emerged = False
 
-    def _setup_message(self):
+    def _setup_item(self):
         self._set_font()
         self._set_text()
-        self._render_text()
-        self._place_msg()
+        super()._setup_item()
 
     def _set_font(self):
         # Set font
@@ -37,16 +24,13 @@ class Message(Sprite):
         # Set the message text
         self._text = self._settings.text
 
-    def _render_text(self):
+    def _set_item_content(self):
         # Render text
-        self._msg = self._font.render(self._text, True, self._settings.text_colour)
+        self.content = self._font.render(self._text, True, self._settings.text_colour)
 
-    def _place_msg(self):
-        # Get the message rectangle
-        self.rect = self._msg.get_rect()
-
+    def _place_item(self):
         # Place the rectangle
-        self.rect.midleft = self._screen_rect.midright
+        self._rect.midleft = self._screen_rect.midright
 
     def _draw_outline(self):
         # Set the outline text
@@ -54,23 +38,23 @@ class Message(Sprite):
 
         # Repetitively draw the outline
         outline_width = self._settings.outline_width
-        self._screen.blit(outline_text, (self.rect.x - outline_width, self.rect.y - outline_width))
-        self._screen.blit(outline_text, (self.rect.x - outline_width, self.rect.y + outline_width))
-        self._screen.blit(outline_text, (self.rect.x + outline_width, self.rect.y - outline_width))
-        self._screen.blit(outline_text, (self.rect.x + outline_width, self.rect.y + outline_width))
+        self._screen.blit(outline_text, (self._rect.x - outline_width, self._rect.y - outline_width))
+        self._screen.blit(outline_text, (self._rect.x - outline_width, self._rect.y + outline_width))
+        self._screen.blit(outline_text, (self._rect.x + outline_width, self._rect.y - outline_width))
+        self._screen.blit(outline_text, (self._rect.x + outline_width, self._rect.y + outline_width))
 
-    def draw_msg(self):
+    def blit(self):
         # Draw outline text
         self._draw_outline()
 
         # Draw the message
-        self._render_text()
-        self._screen.blit(self._msg, self.rect)
+        self._set_item_content()
+        super().blit()
 
     def update(self):
         # Move the message to the right
-        self.x -= self._settings.text_speed
-        self.rect.x = self.x
+        self._x -= self._settings.text_speed
+        self._rect.x = self._x
 
     def is_on_screen(self):
         # Check if this message is still on the screen
