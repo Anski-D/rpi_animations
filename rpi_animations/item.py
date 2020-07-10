@@ -33,13 +33,13 @@ class Item(ABC, Sprite):
     def content(self, content):
         self._content = content
 
+        # If the rectangle has not been found, get it.
+        if self._rect is None:
+            self._rect = content.get_rect()
+
     @property
     def rect(self):
-        return self.content.get_rect()
-
-    @rect.setter
-    def rect(self, rect):
-        self._rect = rect
+        return self._rect
 
     @abstractmethod
     def _set_item_content(self):

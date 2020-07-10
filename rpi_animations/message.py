@@ -31,9 +31,7 @@ class Message(Item):
 
     def _place_item(self):
         # Place the rectangle
-        rect = self.rect
-        rect.midleft = self._screen_rect.midright
-        self.rect = rect
+        self._rect.midleft = self._screen_rect.midright
 
     def _draw_outline(self):
         # Set the outline text
@@ -57,9 +55,7 @@ class Message(Item):
     def update(self):
         # Move the message to the right
         self._x -= self._settings.text_speed
-        rect = self.rect
-        rect.x = self._x
-        self.rect = rect
+        self._rect.x = self._x
 
     def is_on_screen(self):
         # Check if this message is still on the screen
