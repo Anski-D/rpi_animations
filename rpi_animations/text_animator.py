@@ -19,8 +19,8 @@ class TextAnimator:
         pygame.init()
 
         # Set the screen size
-        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.screen = pygame.display.set_mode((800, 600))  # Test screen size
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        # self.screen = pygame.display.set_mode((800, 600))  # Test screen size
 
         # Set the screen title
         pygame.display.set_caption('Text animator')
@@ -74,9 +74,7 @@ class TextAnimator:
             # Create an image of each type
             for image_src in self.settings.image_src:
                 # Create an image
-                image = Picture(self, image_src)
-                # Add image to images
-                self._images.add(image)
+                Picture(self._images, self, image_src)
 
     def _create_message(self):
         # Create a message

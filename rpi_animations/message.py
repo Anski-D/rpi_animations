@@ -14,8 +14,7 @@ class Message(Item):
     def _setup_item(self):
         self._set_font()
         self._set_text()
-        self._set_item_content()
-        self._place_item()
+        super()._setup_item()
 
     def _set_font(self):
         # Set font

@@ -21,9 +21,9 @@ class Item(ABC, Sprite):
         # Setup the item
         self._setup_item()
 
-    @abstractmethod
     def _setup_item(self):
-        pass
+        self._set_item_content()
+        self._place_item()
 
     @property
     def content(self):
