@@ -5,6 +5,7 @@ from .item import Item
 class Message(Item):
     def __init__(self, group, text_animator):
         super().__init__(group, text_animator)
+
         # Store x position as float
         self._x = float(self.rect.x)
 
