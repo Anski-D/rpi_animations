@@ -43,9 +43,9 @@ class Settings:
         # Set how many of each image will be displayed
         self.num_images = int(settings['num_images'])
         # Set the image update counter limit
-        self.image_update_counter_limit = int(settings['image_update_counter_limit'])
+        self.image_change_time = int(settings['image_change_time'])
         # Set the colour change counter limit
-        self.colour_change_counter_limit = int(settings['colour_change_counter_limit'])
+        self.colour_change_time = int(settings['colour_change_time'])
 
     def _load_json(self):
         # Open the json file safely

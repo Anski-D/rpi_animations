@@ -1,5 +1,6 @@
 import pygame
 import sys
+from time import time
 from .message import Message
 from .picture import Picture
 from .settings import Settings
@@ -25,18 +26,25 @@ class TextAnimator:
         # Set the screen title
         pygame.display.set_caption('Text animator')
 
+        # Create groups
+        self._create_images_group()
+        self._create_messages_group()
+
+        # Set initial time variables
+        self._image_change_time = time()
+        self._colour_change_time = time()
+
+    def _create_images_group(self):
         # Create the images group
         self._images = pygame.sprite.Group()
         # Create the images
         self._create_images()
-        # Set a counter for when images should be updated
-        self._image_update_counter = 0
 
+    def _create_messages_group(self):
         # Create the messages group
         self._messages = pygame.sprite.Group()
         # Write the first message and add to group
         self._create_message()
-        self._text_colour_swap_count = 0
 
     def run(self):
         """Main loop of the animation."""
@@ -111,21 +119,19 @@ class TextAnimator:
 
     def _update_images(self):
         # Update images when required
-        self._image_update_counter += 1
-        if self._image_update_counter == self.settings.image_update_counter_limit:
+        image_change_time_new = time()
+        if image_change_time_new - self._image_change_time >= self.settings.image_change_time:
+            # Move the images
             self._images.update()
-
-            # Reset the counter
-            self._image_update_counter = 0
+            self._image_change_time = image_change_time_new
 
     def _change_colours(self):
-        self._text_colour_swap_count += 1
-        if self._text_colour_swap_count == self.settings.colour_change_counter_limit:
+        # Update colours when required
+        colour_change_time_new = time()
+        if colour_change_time_new - self._colour_change_time >= self.settings.colour_change_time:
             # Use the settings method to randomise colours
             self.settings.set_colours()
-
-            # Reset the counter
-            self._text_colour_swap_count = 0
+            self._colour_change_time = colour_change_time_new
 
     def _update_screen(self):
         # Set the background colour
