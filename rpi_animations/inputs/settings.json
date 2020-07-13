@@ -4,7 +4,7 @@
   "typeface": "Serif Regular",
   "text_size": 350,
   "text_speed": 8,
-  "outline_width": 2,
+  "outline_width": 3,
   "outline_colour": "0,0,0",
   "image_src": "beach-ball.bmp,coconut-tree.bmp,sun.bmp",
   "num_images": 10,
