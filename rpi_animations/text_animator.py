@@ -98,7 +98,7 @@ class TextAnimator:
                 if len(self._messages.sprites()) > self._reqd_num_of_messages():
                     # Check which message is now off screen
                     for sprite in self._messages.sprites():
-                        # Get rid of the message if of screen
+                        # Get rid of the message if off screen
                         if not sprite.is_on_screen():
                             sprite.kill()
 
