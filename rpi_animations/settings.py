@@ -55,14 +55,14 @@ class Settings:
 
     def set_colours(self):
         # Allocate colours by random
-        self.bg_colour = self._colours[random.randint(0, len(self._colours) - 1)]
+        self.bg_colour = self._colours[random.randrange(0, len(self._colours))]
 
         # Allocate a different text colour. Need to do this initial one, otherwise it won't change if already
         # different from the background.
-        self.text_colour = self._colours[random.randint(0, len(self._colours) - 1)]
+        self.text_colour = self._colours[random.randrange(0, len(self._colours))]
         # Check if this clashes with the background, if so, allocate again
         while self.text_colour == self.bg_colour:
-            self.text_colour = self._colours[random.randint(0, len(self._colours) - 1)]
+            self.text_colour = self._colours[random.randrange(0, len(self._colours))]
 
     @staticmethod
     def _split_colours(colours):
