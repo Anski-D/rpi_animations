@@ -80,9 +80,9 @@ class TextAnimator:
         # Create all the required images
         for i in range(self.settings.num_images):
             # Create an image of each type
-            for image_src in self.settings.image_src:
+            for image in self.settings.images:
                 # Create an image
-                Picture(self._images, self, image_src)
+                Picture(self._images, self, image)
 
     def _create_message(self):
         # Create a message

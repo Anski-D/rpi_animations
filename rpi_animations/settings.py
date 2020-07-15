@@ -1,7 +1,8 @@
+import pygame
 import json
 import random
 import importlib.resources
-from . import inputs
+from . import inputs, resources
 
 
 class Settings:
@@ -38,8 +39,8 @@ class Settings:
         self.outline_width = int(settings['outline_width'])
         # Set the outline colour
         self.outline_colour = tuple([int(colour) for colour in settings['outline_colour'].split(',')])
-        # Set the list of image sources
-        self.image_src = settings['image_src'].split(',')
+        # Load images
+        self._load_images(settings['image_src'])
         # Set how many of each image will be displayed
         self.num_images = int(settings['num_images'])
         # Set the image update counter limit
@@ -76,3 +77,10 @@ class Settings:
     def text(self):
         # Set the message text
         return f"{self._messages[random.randint(0, len(self._messages) - 1)]}   "
+
+    def _load_images(self, image_srcs):
+        self.images = [
+            pygame.image.load(importlib.resources.open_binary(resources, image_src))
+            for image_src
+            in image_srcs.split(',')
+        ]

@@ -6,16 +6,16 @@ from .item import Item
 
 
 class Picture(Item):
-    def __init__(self, group, text_animator, image_src: str):
+    def __init__(self, group, text_animator, image):
         # Save image src
-        self._image_src = image_src
+        self._image = image
 
         # Run parent class init
         super().__init__(group, text_animator)
 
     def _set_item_content(self):
         # Load the image
-        self.content = pygame.image.load(importlib.resources.open_binary(resources, self._image_src))
+        self.content = self._image
 
     def _place_item(self):
         # Place the image in a random location
