@@ -50,4 +50,4 @@ class Item(ABC, Sprite):
         pass
 
     def blit(self):
-        self._screen.blit(self.content, self.rect)
+        self._screen.blit(self._content, self._rect)
