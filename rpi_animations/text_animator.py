@@ -31,8 +31,11 @@ class TextAnimator:
         self._create_messages_group()
 
         # Set initial time variables
-        self._image_change_time = time()
-        self._colour_change_time = time()
+        self._image_change_time = pygame.time.get_ticks()
+        self._colour_change_time = pygame.time.get_ticks()
+
+        # Add clock
+        self._clock = pygame.time.Clock()
 
     def _create_images_group(self):
         # Create the images group
@@ -49,6 +52,9 @@ class TextAnimator:
     def run(self):
         """Main loop of the animation."""
         while True:
+            # Set the FPS
+            self._clock.tick(self.settings.fps)
+
             # Check for events
             self._check_events()
 
@@ -119,16 +125,16 @@ class TextAnimator:
 
     def _update_images(self):
         # Update images when required
-        image_change_time_new = time()
-        if image_change_time_new - self._image_change_time >= self.settings.image_change_time:
+        image_change_time_new = pygame.time.get_ticks()
+        if image_change_time_new - self._image_change_time >= self.settings.image_change_time * 1000:
             # Move the images
             self._images.update()
             self._image_change_time = image_change_time_new
 
     def _change_colours(self):
         # Update colours when required
-        colour_change_time_new = time()
-        if colour_change_time_new - self._colour_change_time >= self.settings.colour_change_time:
+        colour_change_time_new = pygame.time.get_ticks()
+        if colour_change_time_new - self._colour_change_time >= self.settings.colour_change_time * 1000:
             # Use the settings method to randomise colours
             self.settings.set_colours()
             self._colour_change_time = colour_change_time_new

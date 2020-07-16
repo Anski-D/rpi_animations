@@ -9,5 +9,6 @@
   "image_src": "beach-ball.bmp,coconut-tree.bmp,sun.bmp",
   "num_images": 10,
   "image_change_time": 1.5,
-  "colour_change_time": 15
+  "colour_change_time": 15,
+  "fps": 60
 }
