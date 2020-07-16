@@ -7,7 +7,7 @@ class Message(Item):
         super().__init__(group, text_animator)
 
         # Store x position as float
-        self._x = float(self.rect.x)
+        self._x = float(self._rect.x)
 
         # Set the flag that the message hasn't fully emerged
         self._has_fully_emerged = False
