@@ -151,8 +151,6 @@ class TextAnimator:
         for message in self._messages.sprites():
             message.blit()
 
-        self._draw_fps()
-
         # Redraw the screen
         pygame.display.flip()
 
