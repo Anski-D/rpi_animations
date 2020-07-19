@@ -1,7 +1,4 @@
-import pygame
 import random
-import importlib.resources
-from . import resources
 from .item import Item
 
 
