@@ -1,14 +1,14 @@
 {
-  "colours": "135,206,235;253,253,150;255,209,220",
-  "text": "HAPPY BIRTHDAY, LUCY!;HAPPY 29th, LUCY!;ENJOY YOUR BIRTHDAY!",
+  "colours": "135,206,235;253,253,150;119,221,119",
+  "text": "SUMMERTIME!;WELCOME!;HI, LUCY!;HALLO, AUS BRISTOL!;BIENVENUE CHEZ NOUS !;ALL THE TWOS, TWOTY-TWO!",
   "typeface": "Serif Regular",
   "text_size": 350,
   "text_speed": 8,
   "outline_width": 3,
   "outline_colour": "0,0,0",
-  "image_src": "bday-present.bmp,bday-cake.bmp,bday-hat.bmp",
+  "image_src": "beach-ball.bmp,coconut-tree.bmp,sun.bmp",
   "num_images": 10,
-  "image_change_time": 1.5,
+  "image_change_time": 2,
   "colour_change_time": 15,
   "fps": 30
 }
