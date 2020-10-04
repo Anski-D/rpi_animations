@@ -1,5 +1,5 @@
 {
-  "colours": "128,0,0;181,101,29;255,128,0",
+  "colours": "128,0,0;149,69,53;255,69,0",
   "text": "COSY AUTUMN!;WELCOME!;HI, LUCY!;HALLO, AUS BRISTOL!;BIENVENUE CHEZ NOUS !;ALL THE TWOS, TWOTY-TWO!",
   "typeface": "Serif Regular",
   "text_size": 350,
@@ -7,7 +7,7 @@
   "outline_width": 3,
   "outline_colour": "0,0,0",
   "image_src": "chestnuts.bmp,maple-leaves.bmp,pumpkin.bmp",
-  "num_images": 10,
+  "num_images": 5,
   "image_change_time": 2,
   "colour_change_time": 15,
   "fps": 30
