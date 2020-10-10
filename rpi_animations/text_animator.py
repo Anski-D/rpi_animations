@@ -1,6 +1,5 @@
 import pygame
 import sys
-from time import time
 from .message import Message
 from .picture import Picture
 from .settings import Settings
