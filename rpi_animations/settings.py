@@ -52,9 +52,9 @@ class Settings:
 
     def _load_json(self):
         # Open the json file safely
-        with importlib.resources.open_text(inputs, self._settings_file) as msg_file:
+        with importlib.resources.open_text(inputs, self._settings_file) as settings_file:
             # Load the json
-            return json.load(msg_file)
+            return json.load(settings_file)
 
     def set_colours(self):
         # Allocate colours by random
