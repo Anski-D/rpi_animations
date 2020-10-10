@@ -148,13 +148,13 @@ class TextAnimator:
 
         # Redraw the screen
         pygame.display.flip()
-
-    def _draw_fps(self):
-        fps_font = pygame.font.SysFont(self.settings.typeface, 36)
-        text = f'{self._clock.get_fps():.2f}'
-        content = fps_font.render(text, True, (0, 0, 0))
-        rect = content.get_rect()
-        screen_rect = self.screen.get_rect()
-        rect.x = 10
-        rect.y = 10
-        self.screen.blit(content, rect)
+    #
+    # def _draw_fps(self):
+    #     fps_font = pygame.font.SysFont(self.settings.typeface, 36)
+    #     text = f'{self._clock.get_fps():.2f}'
+    #     content = fps_font.render(text, True, (0, 0, 0))
+    #     rect = content.get_rect()
+    #     screen_rect = self.screen.get_rect()
+    #     rect.x = 10
+    #     rect.y = 10
+    #     self.screen.blit(content, rect)
