@@ -3,19 +3,16 @@ import pytest
 
 
 class TestSettings:
-    def mock_load_settings(self):
-        return None
-
-    def test_settings_init(self, monkeypatch):
-        monkeypatch.setattr(Settings, '_load_settings', self.mock_load_settings)
-
+    @pytest.fixture
+    def settings_with_dummy_input(self, monkeypatch):
+        monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
         class_input = 'test.json'
+        return Settings(class_input)
 
-        settings = Settings(class_input)
-
-        assert settings._settings_file == class_input \
-               and settings.bg_colour is None \
-               and settings.text_colour is None
+    def test_settings_init(self, settings_with_dummy_input):
+        assert settings_with_dummy_input._settings_file == 'test.json' \
+               and settings_with_dummy_input.bg_colour is None \
+               and settings_with_dummy_input.text_colour is None
 
     def test_load_json_type(self):
         assert type(Settings('settings.json')._load_json()) == dict
@@ -44,3 +41,9 @@ class TestSettings:
                 break
 
         assert is_tuple
+
+    def test_text(self, settings_with_dummy_input):
+        messages = ['Test1', 'Test2', 'Test3']
+        settings_with_dummy_input._messages = messages
+
+        assert settings_with_dummy_input.text[:-3] in messages
