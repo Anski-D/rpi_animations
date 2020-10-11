@@ -48,16 +48,19 @@ class TestSettings:
 
         assert settings_with_dummy_input.text[:-3] in messages
 
-    def test_set_colours(self, settings_with_dummy_input):
+    @pytest.fixture
+    def settings_with_colours(self, settings_with_dummy_input):
         colours = [(0, 0, 0), (255, 255, 255)]
         settings_with_dummy_input._colours = colours
         settings_with_dummy_input.set_colours()
+        return settings_with_dummy_input
 
-        # Check each colour setting now reflects option available
-        is_in_colours = False
-        if settings_with_dummy_input.bg_colour in colours:
-            is_in_colours += True
-        if settings_with_dummy_input.text_colour in colours:
-            is_in_colours += True
+    def test_set_colours_return_values(self, settings_with_colours):
+        colours = [(0, 0, 0), (255, 255, 255)]
 
-        assert is_in_colours == 2
+        assert settings_with_colours.bg_colour in colours \
+               and settings_with_colours.text_colour in colours
+
+    def test_set_colours_return_types(self, settings_with_colours):
+        assert type(settings_with_colours.bg_colour) == tuple \
+               and type(settings_with_colours.text_colour) == tuple
