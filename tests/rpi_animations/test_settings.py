@@ -47,3 +47,17 @@ class TestSettings:
         settings_with_dummy_input._messages = messages
 
         assert settings_with_dummy_input.text[:-3] in messages
+
+    def test_set_colours(self, settings_with_dummy_input):
+        colours = [(0, 0, 0), (255, 255, 255)]
+        settings_with_dummy_input._colours = colours
+        settings_with_dummy_input.set_colours()
+
+        # Check each colour setting now reflects option available
+        is_in_colours = False
+        if settings_with_dummy_input.bg_colour in colours:
+            is_in_colours += True
+        if settings_with_dummy_input.text_colour in colours:
+            is_in_colours += True
+
+        assert is_in_colours == 2
