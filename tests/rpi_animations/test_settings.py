@@ -12,7 +12,8 @@ class TestSettings:
     def test_settings_init(self, settings_with_dummy_input):
         assert settings_with_dummy_input._settings_file == 'test.json' \
                and settings_with_dummy_input.bg_colour is None \
-               and settings_with_dummy_input.text_colour is None
+               and settings_with_dummy_input.text_colour is None \
+               and settings_with_dummy_input.outline_colour is None
 
     def test_load_settings(self, monkeypatch):
         settings_dict = {
@@ -22,7 +23,7 @@ class TestSettings:
             "text_size": 7,
             "text_speed": 7,
             "outline_width": 7,
-            "outline_colour": "0,0,0",
+            "outline_colours": "0,0,0;255,255,255",
             "image_src": "test1.bmp,test2.bmp,test3.bmp",
             "num_images": 7,
             "image_change_time": 7,
@@ -39,10 +40,10 @@ class TestSettings:
                and settings_dummy.text_size == 7 \
                and settings_dummy.text_speed == 7 \
                and settings_dummy.outline_width == 7 \
-               and settings_dummy.outline_colour == (0, 0, 0) \
+               and settings_dummy._outline_colours == [(0, 0, 0), (255, 255, 255)] \
                and settings_dummy.num_images == 7 \
-               and settings_dummy.image_change_time == 7.0 \
-               and settings_dummy.colour_change_time == 7.0 \
+               and settings_dummy.image_change_time == 7 \
+               and settings_dummy.colour_change_time == 7 \
                and settings_dummy.fps == 7
 
         # self._colours = self._split_colours(settings['colours'])
@@ -86,6 +87,7 @@ class TestSettings:
     def settings_with_colours(self, settings_with_dummy_input):
         colours = [(0, 0, 0), (255, 255, 255)]
         settings_with_dummy_input._colours = colours
+        settings_with_dummy_input._outline_colours = colours
         settings_with_dummy_input.set_colours()
         return settings_with_dummy_input
 
@@ -93,8 +95,10 @@ class TestSettings:
         colours = [(0, 0, 0), (255, 255, 255)]
 
         assert settings_with_colours.bg_colour in colours \
-               and settings_with_colours.text_colour in colours
+               and settings_with_colours.text_colour in colours \
+               and settings_with_colours.outline_colour in colours
 
     def test_set_colours_return_types(self, settings_with_colours):
         assert type(settings_with_colours.bg_colour) == tuple \
-               and type(settings_with_colours.text_colour) == tuple
+               and type(settings_with_colours.text_colour) == tuple \
+               and type(settings_with_colours.outline_colour) == tuple
