@@ -13,6 +13,7 @@ class Settings:
         # Set default colours
         self.bg_colour = None
         self.text_colour = None
+        self.outline_colour = None
 
         # Import the json file
         self._load_settings()
@@ -24,8 +25,6 @@ class Settings:
         # Split the dictionary
         # Split the colour list up
         self._colours = self._split_colours(settings['colours'])
-        # Randomise the colour allocations
-        self.set_colours()
         # Set the message text
         self._messages = settings['text'].split(';')
         # Set the typeface
@@ -38,7 +37,9 @@ class Settings:
         # Set the outline width
         self.outline_width = int(settings['outline_width'])
         # Set the outline colour
-        self.outline_colour = tuple([int(colour) for colour in settings['outline_colour'].split(',')])
+        self._outline_colours = self._split_colours(settings['outline_colours'])
+        # Randomise the colour allocations
+        self.set_colours()
         # Load images
         self._load_images(settings['image_src'])
         # Set how many of each image will be displayed
@@ -66,6 +67,9 @@ class Settings:
         # Check if this clashes with the background, if so, allocate again
         while self.text_colour == self.bg_colour:
             self.text_colour = self._colours[random.randrange(0, len(self._colours))]
+
+        # Set the outline colour
+        self.outline_colour = self._outline_colours[random.randrange(0, len(self._outline_colours))]
 
     @staticmethod
     def _split_colours(colours):
