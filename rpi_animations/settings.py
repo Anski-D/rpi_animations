@@ -78,7 +78,7 @@ class Settings:
     @property
     def text(self):
         # Set the message text
-        return f"{self._messages[random.randint(0, len(self._messages) - 1)]}   "
+        return f"{self._messages[random.randrange(0, len(self._messages))]}   "
 
     def _load_images(self, image_srcs):
         self.images = [
