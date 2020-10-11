@@ -69,11 +69,8 @@ class Settings:
 
     @staticmethod
     def _split_colours(colours):
-        # Split the list of colours into distinct colours
-        split_colours = colours.split(';')
-
         # Each colours is a string that needs to be split further, turned into an int and then held as a tuple
-        return [tuple([int(pigment) for pigment in colour.split(',')]) for colour in split_colours]
+        return [tuple([int(pigment) for pigment in colour.split(',')]) for colour in colours.split(';')]
 
     @property
     def text(self):
