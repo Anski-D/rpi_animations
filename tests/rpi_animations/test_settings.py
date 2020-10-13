@@ -60,10 +60,7 @@ class TestSettings:
         return Settings._split_colours(colours_in)
 
     def test_split_colours_return_value(self, settings_split_colours):
-        # Expected format of colour
-        colours_out = [(0, 0, 0), (255, 255, 255)]
-
-        assert settings_split_colours == colours_out
+        assert settings_split_colours == [(0, 0, 0), (255, 255, 255)]
 
     def test_split_colours_return_type(self, settings_split_colours):
         # Check expected type of split colours
