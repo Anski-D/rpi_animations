@@ -1,5 +1,7 @@
 from rpi_animations.settings import Settings
 import pytest
+import pygame
+import importlib.resources
 
 
 class TestSettings:
@@ -102,3 +104,17 @@ class TestSettings:
         assert type(settings_with_colours.bg_colour) == tuple \
                and type(settings_with_colours.text_colour) == tuple \
                and type(settings_with_colours.outline_colour) == tuple
+
+    @pytest.fixture
+    def settings_return_images(self, settings_with_dummy_input, monkeypatch):
+        monkeypatch.setattr(importlib.resources, 'open_binary', lambda x, y: y)
+        monkeypatch.setattr(pygame.image, 'load', lambda x: x)
+        images_srcs = 'test1.bmp,test2.bmp,test3.bmp'
+        settings_with_dummy_input._load_images(images_srcs)
+        return settings_with_dummy_input
+
+    def test_load_images_return_values(self, settings_return_images):
+        assert settings_return_images.images == 'test1.bmp,test2.bmp,test3.bmp'.split(',')
+
+    def test_load_images_length(self, settings_return_images):
+        assert len(settings_return_images.images) == len('test1.bmp,test2.bmp,test3.bmp'.split(','))
