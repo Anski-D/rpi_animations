@@ -6,7 +6,7 @@ from . import inputs, resources
 
 
 class Settings:
-    def __init__(self, settings_file: str):
+    def __init__(self, settings_file: str) -> None:
         # Set the settings file
         self._settings_file = settings_file
 
@@ -18,7 +18,7 @@ class Settings:
         # Import the json file
         self._load_settings()
 
-    def _load_settings(self):
+    def _load_settings(self) -> None:
         # Load the json
         settings = self._load_json()
 
@@ -51,13 +51,13 @@ class Settings:
         # Set the FPS
         self.fps = int(settings['fps'])
 
-    def _load_json(self):
+    def _load_json(self) -> dict:
         # Open the json file safely
         with importlib.resources.open_text(inputs, self._settings_file) as settings_file:
             # Load the json
             return json.load(settings_file)
 
-    def set_colours(self):
+    def set_colours(self) -> None:
         # Allocate colours by random
         self.bg_colour = self._colours[random.randrange(0, len(self._colours))]
 
@@ -72,16 +72,16 @@ class Settings:
         self.outline_colour = self._outline_colours[random.randrange(0, len(self._outline_colours))]
 
     @staticmethod
-    def _split_colours(colours):
+    def _split_colours(colours: str) -> list:
         # Each colours is a string that needs to be split further, turned into an int and then held as a tuple
         return [tuple([int(pigment) for pigment in colour.split(',')]) for colour in colours.split(';')]
 
     @property
-    def text(self):
+    def text(self) -> str:
         # Set the message text
         return f"{self._messages[random.randrange(0, len(self._messages))]}   "
 
-    def _load_images(self, images_sources):
+    def _load_images(self, images_sources: str) -> None:
         self.images = [
             pygame.image.load(importlib.resources.open_binary(resources, image_src))
             for image_src
