@@ -22,11 +22,17 @@ class TestSettings:
         class_input = 'test.json'
         return Settings(class_input)
 
-    def test_settings_init(self, settings_with_dummy_input):
+    def test_settings_init_values(self, settings_with_dummy_input):
         assert settings_with_dummy_input._settings_file == 'test.json' \
-               and settings_with_dummy_input.bg_colour is None \
-               and settings_with_dummy_input.text_colour is None \
-               and settings_with_dummy_input.outline_colour is None
+               and settings_with_dummy_input.bg_colour == (0, 0, 0) \
+               and settings_with_dummy_input.text_colour == (0, 0, 0) \
+               and settings_with_dummy_input.outline_colour == (0, 0, 0)
+
+    def test_setting_init_types(self, settings_with_dummy_input):
+        assert type(settings_with_dummy_input._settings_file) == str \
+               and type(settings_with_dummy_input.bg_colour) == tuple \
+               and type(settings_with_dummy_input.text_colour) == tuple \
+               and type(settings_with_dummy_input.outline_colour) == tuple
 
     def test_load_settings(self, common, monkeypatch):
         settings_dict = {
