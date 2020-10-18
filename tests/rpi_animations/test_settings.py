@@ -13,8 +13,8 @@ class TestSettings:
         pytest.messages_in = 'Test1;Test2;Test3'
         pytest.messages_out = ['Test1', 'Test2', 'Test3']
 
-        pytest.image_srcs_in = 'test1.bmp,test2.bmp,test3.bmp'
-        pytest.image_srcs_out = ['test1.bmp', 'test2.bmp', 'test3.bmp']
+        pytest.image_sources_in = 'test1.bmp,test2.bmp,test3.bmp'
+        pytest.image_sources_out = ['test1.bmp', 'test2.bmp', 'test3.bmp']
 
     @pytest.fixture
     def settings_with_dummy_input(self, monkeypatch):
@@ -37,7 +37,7 @@ class TestSettings:
             "text_speed": 7,
             "outline_width": 7,
             "outline_colours": pytest.colours_in,
-            "image_src": pytest.image_srcs_in,
+            "image_sources": pytest.image_sources_in,
             "num_images": 7,
             "image_change_time": 7,
             "colour_change_time": 7,
@@ -111,11 +111,11 @@ class TestSettings:
     def settings_return_images(self, common, settings_with_dummy_input, monkeypatch):
         monkeypatch.setattr(importlib.resources, 'open_binary', lambda x, y: y)
         monkeypatch.setattr(pygame.image, 'load', lambda x: x)
-        settings_with_dummy_input._load_images(pytest.image_srcs_in)
+        settings_with_dummy_input._load_images(pytest.image_sources_in)
         return settings_with_dummy_input
 
     def test_load_images_return_values(self, common, settings_return_images):
-        assert settings_return_images.images == pytest.image_srcs_in.split(',')
+        assert settings_return_images.images == pytest.image_sources_out
 
     def test_load_images_length(self, common, settings_return_images):
-        assert len(settings_return_images.images) == len(pytest.image_srcs_in.split(','))
+        assert len(settings_return_images.images) == len(pytest.image_sources_out)
