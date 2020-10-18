@@ -6,7 +6,7 @@
   "text_speed": 8,
   "outline_width": 3,
   "outline_colours": "0,0,0",
-  "image_src": "beach-ball.bmp,coconut-tree.bmp,sun.bmp",
+  "image_sources": "beach-ball.bmp,coconut-tree.bmp,sun.bmp",
   "num_images": 10,
   "image_change_time": 1.5,
   "colour_change_time": 15,

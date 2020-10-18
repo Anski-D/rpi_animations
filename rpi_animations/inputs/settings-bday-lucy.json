@@ -6,7 +6,7 @@
   "text_speed": 8,
   "outline_width": 3,
   "outline_colours": "0,0,0",
-  "image_src": "bday-present.bmp,bday-cake.bmp,bday-hat.bmp",
+  "image_sources": "bday-present.bmp,bday-cake.bmp,bday-hat.bmp",
   "num_images": 5,
   "image_change_time": 1.5,
   "colour_change_time": 15,

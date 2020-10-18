@@ -41,7 +41,7 @@ class Settings:
         # Randomise the colour allocations
         self.set_colours()
         # Load images
-        self._load_images(settings['image_src'])
+        self._load_images(settings['image_sources'])
         # Set how many of each image will be displayed
         self.num_images = int(settings['num_images'])
         # Set the image update counter limit
