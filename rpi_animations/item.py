@@ -21,7 +21,7 @@ class Item(ABC, Sprite):
         # Setup the item
         self._setup_item()
 
-    def _setup_item(self):
+    def _setup_item(self) -> None:
         self._set_item_content()
         self._place_item()
 
@@ -30,7 +30,7 @@ class Item(ABC, Sprite):
         return self._content
 
     @content.setter
-    def content(self, content):
+    def content(self, content) -> None:
         self._content = content
 
         # If the rectangle has not been found, get it.
@@ -49,5 +49,5 @@ class Item(ABC, Sprite):
     def _place_item(self):
         pass
 
-    def blit(self):
+    def blit(self) -> None:
         self._screen.blit(self._content, self._rect)
