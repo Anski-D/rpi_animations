@@ -6,7 +6,7 @@ from .settings import Settings
 
 
 class TextAnimator:
-    def __init__(self, settings_file: str):
+    def __init__(self, settings_file: str) -> None:
         """Initialise the animation, and create resources."""
 
         # Store the message file variable
@@ -36,19 +36,19 @@ class TextAnimator:
         # Add clock
         self._clock = pygame.time.Clock()
 
-    def _create_images_group(self):
+    def _create_images_group(self) -> None:
         # Create the images group
         self._images = pygame.sprite.Group()
         # Create the images
         self._create_images()
 
-    def _create_messages_group(self):
+    def _create_messages_group(self) -> None:
         # Create the messages group
         self._messages = pygame.sprite.Group()
         # Write the first message and add to group
         self._create_message()
 
-    def run(self):
+    def run(self) -> None:
         """Main loop of the animation."""
         while True:
             # Set the FPS
@@ -66,22 +66,22 @@ class TextAnimator:
             # Draw the message
             self._update_screen()
 
-    def _check_events(self):
+    def _check_events(self) -> None:
         # Watch for events
         for event in pygame.event.get():
             # Check if should quit
             self._check_quit(event)
 
     @staticmethod
-    def _check_quit(event):
+    def _check_quit(event) -> None:
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
             sys.exit()
 
-    def _set_bg(self):
+    def _set_bg(self) -> None:
         """Set the background of the animation."""
         self.screen.fill(self.settings.bg_colour)
 
-    def _create_images(self):
+    def _create_images(self) -> None:
         # Create all the required images
         for i in range(self.settings.num_images):
             # Create an image of each type
@@ -89,11 +89,11 @@ class TextAnimator:
                 # Create an image
                 Picture(self._images, self, image)
 
-    def _create_message(self):
+    def _create_message(self) -> None:
         # Create a message
         Message(self._messages, self)
 
-    def _check_items(self):
+    def _check_items(self) -> None:
         # Check whether the message has fully emerged on screen, then create another if so.
         for message in self._messages.sprites():
             if message.has_just_emerged():
@@ -103,12 +103,12 @@ class TextAnimator:
             if not message.is_on_screen():
                 message.kill()
 
-    def _reqd_num_of_messages(self):
+    def _reqd_num_of_messages(self) -> int:
         # Work out how many rectangles fit on the screen, pad by 2 because that is the minimum required if the
         # message is wider than the screen.
         return int(self.screen.get_rect().width / min(message.rect.width for message in self._messages.sprites())) + 2
 
-    def _update_items(self):
+    def _update_items(self) -> None:
         # Update images
         self._update_images()
 
@@ -118,7 +118,7 @@ class TextAnimator:
         # Swap colours every so often
         self._change_colours()
 
-    def _update_images(self):
+    def _update_images(self) -> None:
         # Update images when required
         image_change_time_new = pygame.time.get_ticks()
         if image_change_time_new - self._image_change_time >= self.settings.image_change_time * 1000:
@@ -126,7 +126,7 @@ class TextAnimator:
             self._images.update()
             self._image_change_time = image_change_time_new
 
-    def _change_colours(self):
+    def _change_colours(self) -> None:
         # Update colours when required
         colour_change_time_new = pygame.time.get_ticks()
         if colour_change_time_new - self._colour_change_time >= self.settings.colour_change_time * 1000:
@@ -134,7 +134,7 @@ class TextAnimator:
             self.settings.set_colours()
             self._colour_change_time = colour_change_time_new
 
-    def _update_screen(self):
+    def _update_screen(self) -> None:
         # Set the background colour
         self._set_bg()
 
