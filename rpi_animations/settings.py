@@ -81,9 +81,9 @@ class Settings:
         # Set the message text
         return f"{self._messages[random.randrange(0, len(self._messages))]}   "
 
-    def _load_images(self, image_srcs):
+    def _load_images(self, images_sources):
         self.images = [
             pygame.image.load(importlib.resources.open_binary(resources, image_src))
             for image_src
-            in image_srcs.split(',')
+            in images_sources.split(',')
         ]
