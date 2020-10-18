@@ -6,14 +6,26 @@ from . import inputs, resources
 
 
 class Settings:
+    _colours: list
+    _messages: list
+    typeface: None
+    text_size: int
+    text_speed: float
+    outline_width: int
+    _outline_colours: list
+    num_images: int
+    image_change_time: int
+    colour_change_time: int
+    fps: int
+
     def __init__(self, settings_file: str) -> None:
         # Set the settings file
         self._settings_file = settings_file
 
         # Set default colours
-        self.bg_colour = None
-        self.text_colour = None
-        self.outline_colour = None
+        self.bg_colour = (0, 0, 0)
+        self.text_colour = (0, 0, 0)
+        self.outline_colour = (0, 0, 0)
 
         # Import the json file
         self._load_settings()
