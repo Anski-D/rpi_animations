@@ -94,7 +94,7 @@ class TestSettings:
 
     def test_text(self, common, settings_with_dummy_input):
         settings_with_dummy_input._messages = pytest.messages_out
-        assert settings_with_dummy_input.text[:-3] in pytest.messages_out
+        assert settings_with_dummy_input.text.rstrip() in pytest.messages_out
 
     @pytest.fixture
     def settings_with_colours(self, common, settings_with_dummy_input):
