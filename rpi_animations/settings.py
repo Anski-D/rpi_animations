@@ -6,18 +6,6 @@ from . import inputs, resources
 
 
 class Settings:
-    _colours: list
-    _messages: list
-    typeface: None
-    text_size: int
-    text_speed: float
-    outline_width: int
-    _outline_colours: list
-    num_images: int
-    image_change_time: int
-    colour_change_time: int
-    fps: int
-
     def __init__(self, settings_file: str) -> None:
         # Set the settings file
         self._settings_file = settings_file
