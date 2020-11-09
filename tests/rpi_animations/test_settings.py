@@ -13,6 +13,8 @@ class TestSettings:
         pytest.messages_in = 'Test1;Test2;Test3'
         pytest.messages_out = ['Test1', 'Test2', 'Test3']
 
+        pytest.message_sep = '   '
+
         pytest.image_sources_in = 'test1.bmp,test2.bmp,test3.bmp'
         pytest.image_sources_out = ['test1.bmp', 'test2.bmp', 'test3.bmp']
 
@@ -38,6 +40,7 @@ class TestSettings:
         settings_dict = {
             "colours": pytest.colours_in,
             "text": pytest.messages_in,
+            "message_sep": pytest.message_sep,
             "typeface": "Serif Regular",
             "text_size": 7,
             "text_speed": 7,
@@ -55,6 +58,7 @@ class TestSettings:
 
         assert settings_dummy._colours == pytest.colours_out \
                and settings_dummy._messages == pytest.messages_out \
+               and settings_dummy._message_sep == pytest.message_sep \
                and settings_dummy.typeface is None \
                and settings_dummy.text_size == 7 \
                and settings_dummy.text_speed == 7 \
@@ -94,7 +98,8 @@ class TestSettings:
 
     def test_text(self, common, settings_with_dummy_input):
         settings_with_dummy_input._messages = pytest.messages_out
-        assert settings_with_dummy_input.text.rstrip() in pytest.messages_out
+        settings_with_dummy_input._message_sep = pytest.message_sep
+        assert settings_with_dummy_input.text in [f'{message}{pytest.message_sep}' for message in pytest.messages_out]
 
     @pytest.fixture
     def settings_with_colours(self, common, settings_with_dummy_input):
