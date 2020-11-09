@@ -1,6 +1,7 @@
 {
   "colours": "128,0,0;149,69,53;255,69,0",
   "text": "COSY AUTUMN!;WELCOME!;HI, LUCY!;HALLO, AUS BRISTOL!;BIENVENUE CHEZ NOUS !;ALL THE TWOS, TWOTY-TWO!;HEJ, BEN!;LOCKDOWN 2: THE SHITTENING",
+  "message_sep": "   ",
   "typeface": "Serif Regular",
   "text_size": 350,
   "text_speed": 8,

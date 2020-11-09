@@ -27,6 +27,8 @@ class Settings:
         self._colours = self._split_colours(settings['colours'])
         # Set the message text
         self._messages = settings['text'].split(';')
+        # Set the message seperator
+        self._message_sep = settings['message_sep']
         # Set the typeface
         # self.typeface = settings['typeface']
         self.typeface = None
@@ -79,7 +81,7 @@ class Settings:
     @property
     def text(self) -> str:
         # Set the message text
-        return f"{self._messages[random.randrange(0, len(self._messages))]}   "
+        return f"{self._messages[random.randrange(0, len(self._messages))]}{self._message_sep}"
 
     def _load_images(self, images_sources: str) -> None:
         self.images = [
