@@ -1,5 +1,5 @@
 {
-  "colours": "153,0,0;34,139,34;218,165,32",
+  "colours": "153,0,0;34,139,34;165,242,243",
   "text": "WELCOME!;HI, LUCY!;HALLO, AUS BRISTOL!;BIENVENUE CHEZ NOUS !;ALL THE TWOS, TWOTY-TWO!;HEJ, BEN!;2021!!!;LOCKDOWN 3: THE SHITTER SHITTENING!",
   "message_sep": "   ",
   "typeface": "Serif Regular",
@@ -7,7 +7,7 @@
   "text_speed": 8,
   "outline_width": 3,
   "outline_colours": "0,0,0",
-  "image_sources": "snowflake.bmp,winter-scene.bmp,penguin.bmp",
+  "image_sources": "snowflake.bmp,penguin.bmp",
   "num_images": 10,
   "image_change_time": 2,
   "colour_change_time": 15,
