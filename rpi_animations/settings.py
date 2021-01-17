@@ -87,5 +87,5 @@ class Settings:
         self.images = [
             pygame.image.load(importlib.resources.open_binary(resources, image_src))
             for image_src
-            in images_sources.split(',')
+            in images_sources.split(';')
         ]
