@@ -6,7 +6,10 @@ from . import inputs, resources
 
 
 class Settings:
-    def __init__(self, settings_file: str) -> None:
+    def __init__(self, resource_loc, settings_file: str) -> None:
+        # Set the resources location
+        self._resource_loc = resource_loc
+
         # Set the settings file
         self._settings_file = settings_file
 

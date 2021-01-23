@@ -6,14 +6,11 @@ from .settings import Settings
 
 
 class TextAnimator:
-    def __init__(self, settings_file: str) -> None:
+    def __init__(self, resource_loc: str, settings_file: str) -> None:
         """Initialise the animation, and create resources."""
 
-        # Store the message file variable
-        self._message_file = settings_file
-
         # Create the settings file and hold
-        self.settings = Settings(settings_file)
+        self.settings = Settings(resource_loc, settings_file)
 
         # Initialise pygame
         pygame.init()
