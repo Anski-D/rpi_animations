@@ -1,0 +1,14 @@
+README.md
+setup.py
+rpi_animations/__init__.py
+rpi_animations/__main__.py
+rpi_animations/item.py
+rpi_animations/message.py
+rpi_animations/picture.py
+rpi_animations/settings.py
+rpi_animations/text_animator.py
+rpi_animations.egg-info/PKG-INFO
+rpi_animations.egg-info/SOURCES.txt
+rpi_animations.egg-info/dependency_links.txt
+rpi_animations.egg-info/requires.txt
+rpi_animations.egg-info/top_level.txt
