@@ -1,7 +1,7 @@
 from rpi_animations.settings import Settings
 import pytest
 import pygame
-import importlib.resources
+import os
 
 
 class TestSettings:
@@ -15,14 +15,15 @@ class TestSettings:
 
         pytest.message_sep = '   '
 
-        pytest.image_sources_in = 'test1.bmp,test2.bmp,test3.bmp'
-        pytest.image_sources_out = ['test1.bmp', 'test2.bmp', 'test3.bmp']
+        pytest.image_sources_in = 'test1.bmp;test2.bmp;test3.bmp'
+        pytest.image_sources_out = [os.path.join('test', file) for file in ['test1.bmp', 'test2.bmp', 'test3.bmp']]
 
     @pytest.fixture
     def settings_with_dummy_input(self, monkeypatch):
         monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
-        class_input = 'test.json'
-        return Settings(class_input)
+        class_input_dir = 'test'
+        class_input_file = 'test.json'
+        return Settings(class_input_dir, class_input_file)
 
     def test_settings_init_values(self, settings_with_dummy_input):
         assert settings_with_dummy_input._settings_file == 'test.json' \
@@ -54,7 +55,7 @@ class TestSettings:
         }
         monkeypatch.setattr(Settings, '_load_json', lambda x: settings_dict)
         monkeypatch.setattr(Settings, '_load_images', lambda x, y: None)
-        settings_dummy = Settings('test.json')
+        settings_dummy = Settings('test', 'test.json')
 
         assert settings_dummy._colours == pytest.colours_out \
                and settings_dummy._messages == pytest.messages_out \
@@ -73,7 +74,7 @@ class TestSettings:
         # self._load_images(settings['image_src'])
 
     def test_load_json_type(self):
-        assert type(Settings('settings.json')._load_json()) == dict
+        assert type(Settings('inputs', 'settings.json')._load_json()) == dict
 
     @pytest.fixture
     def settings_split_colours(self, common):
@@ -120,7 +121,6 @@ class TestSettings:
 
     @pytest.fixture
     def settings_return_images(self, common, settings_with_dummy_input, monkeypatch):
-        monkeypatch.setattr(importlib.resources, 'open_binary', lambda x, y: y)
         monkeypatch.setattr(pygame.image, 'load', lambda x: x)
         settings_with_dummy_input._load_images(pytest.image_sources_in)
         return settings_with_dummy_input
