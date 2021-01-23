@@ -22,9 +22,7 @@ source .venv/bin/activate
 ```
 
 Install package:
-```
-pip install rpi_animations
-``` 
+TBD.
 
 ## Usage
 
