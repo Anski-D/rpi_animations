@@ -1,8 +1,6 @@
 import pygame
 import json
 import random
-import importlib.resources
-from . import inputs, resources
 import os
 
 
