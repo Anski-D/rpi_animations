@@ -3,14 +3,13 @@ import json
 import random
 import importlib.resources
 from . import inputs, resources
+import os
 
 
 class Settings:
     def __init__(self, resource_loc, settings_file: str) -> None:
-        # Set the resources location
+        # Set the resources location and settings
         self._resource_loc = resource_loc
-
-        # Set the settings file
         self._settings_file = settings_file
 
         # Set default colours
@@ -58,7 +57,7 @@ class Settings:
 
     def _load_json(self) -> dict:
         # Open the json file safely
-        with importlib.resources.open_text(inputs, self._settings_file) as settings_file:
+        with open(os.path.join(self._resource_loc, self._settings_file)) as settings_file:
             # Load the json
             return json.load(settings_file)
 
@@ -88,7 +87,7 @@ class Settings:
 
     def _load_images(self, images_sources: str) -> None:
         self.images = [
-            pygame.image.load(importlib.resources.open_binary(resources, image_src))
+            pygame.image.load(os.path.join(self._resource_loc, image_src))
             for image_src
             in images_sources.split(';')
         ]
