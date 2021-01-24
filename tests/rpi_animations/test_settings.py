@@ -74,7 +74,7 @@ class TestSettings:
         # self._load_images(settings['image_src'])
 
     def test_load_json_type(self):
-        assert type(Settings('inputs', 'settings.json')._load_json()) == dict
+        assert type(Settings('inputs', 'settings_example.json')._load_json()) == dict
 
     @pytest.fixture
     def settings_split_colours(self, common):
