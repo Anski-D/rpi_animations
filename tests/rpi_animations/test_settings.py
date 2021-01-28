@@ -51,7 +51,8 @@ class TestSettings:
             "num_images": 7,
             "image_change_time": 7,
             "colour_change_time": 7,
-            "fps": 7
+            "fps": 7,
+            "reposition_attempts": 7
         }
         monkeypatch.setattr(Settings, '_load_json', lambda x: settings_dict)
         monkeypatch.setattr(Settings, '_load_images', lambda x, y: None)
@@ -68,7 +69,8 @@ class TestSettings:
                and settings_dummy.num_images == 7 \
                and settings_dummy.image_change_time == 7 \
                and settings_dummy.colour_change_time == 7 \
-               and settings_dummy.fps == 7
+               and settings_dummy.fps == 7 \
+               and settings_dummy.reposition_attempts == 7
 
         # self._colours = self._split_colours(settings['colours'])
         # self._load_images(settings['image_src'])
