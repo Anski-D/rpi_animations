@@ -35,7 +35,7 @@ class Item(ABC, Sprite):
 
         # If the rectangle has not been found, get it.
         if self._rect is None:
-            self._rect = content.get_rect()
+            self._rect = self._content.get_rect()
 
     @property
     def rect(self):
