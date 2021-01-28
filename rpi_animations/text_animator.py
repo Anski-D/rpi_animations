@@ -128,7 +128,6 @@ class TextAnimator:
             # Move the images
             self._images.update(image_group_new)
             self._images = image_group_new
-            self._image_change_time = image_change_time_new
 
     def _change_colours(self) -> None:
         # Update colours when required
