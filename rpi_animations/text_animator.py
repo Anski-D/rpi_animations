@@ -119,8 +119,12 @@ class TextAnimator:
         # Update images when required
         image_change_time_new = pygame.time.get_ticks()
         if image_change_time_new - self._image_change_time >= self.settings.image_change_time * 1000:
+            # Create a new group for the images
+            image_group_new = pygame.sprite.Group()
+
             # Move the images
-            self._images.update()
+            self._images.update(image_group_new)
+            self._images = image_group_new
             self._image_change_time = image_change_time_new
 
     def _change_colours(self) -> None:
