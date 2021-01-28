@@ -16,8 +16,8 @@ class TextAnimator:
         pygame.init()
 
         # Set the screen size
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        # self.screen = pygame.display.set_mode((800, 600))  # Test screen size
+        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((800, 480))  # Test screen size
 
         # Set the screen title
         pygame.display.set_caption('Text animator')
