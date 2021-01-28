@@ -119,6 +119,9 @@ class TextAnimator:
         # Update images when required
         image_change_time_new = pygame.time.get_ticks()
         if image_change_time_new - self._image_change_time >= self.settings.image_change_time * 1000:
+            # Update time measurement with new time
+            self._image_change_time = image_change_time_new
+
             # Create a new group for the images
             image_group_new = pygame.sprite.Group()
 
@@ -131,9 +134,11 @@ class TextAnimator:
         # Update colours when required
         colour_change_time_new = pygame.time.get_ticks()
         if colour_change_time_new - self._colour_change_time >= self.settings.colour_change_time * 1000:
+            # Update time measurement with new time
+            self._colour_change_time = colour_change_time_new
+
             # Use the settings method to randomise colours
             self.settings.set_colours()
-            self._colour_change_time = colour_change_time_new
 
     def _update_screen(self) -> None:
         # Set the background colour
