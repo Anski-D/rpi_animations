@@ -52,6 +52,8 @@ class Settings:
         self.colour_change_time = int(settings['colour_change_time'])
         # Set the FPS
         self.fps = int(settings['fps'])
+        # Set the max number of reposition attemps
+        self.reposition_attempts = settings['reposition_attempts']
 
     def _load_json(self) -> dict:
         # Open the json file safely

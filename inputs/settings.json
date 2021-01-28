@@ -11,5 +11,6 @@
   "num_images": 10,
   "image_change_time": 2,
   "colour_change_time": 15,
-  "fps": 30
+  "fps": 30,
+  "reposition_attempts": 50
 }

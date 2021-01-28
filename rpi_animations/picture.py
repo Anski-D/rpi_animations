@@ -29,7 +29,7 @@ class Picture(Item):
         self._place_item()
 
         # Keep trying to place the image while there is a collision
-        for attempt in range(1000):
+        for attempt in range(self._settings.reposition_attempts):
             # Check if there is not a collision, in which case can stop the loop
             if not pygame.sprite.spritecollideany(self, image_group):
                 break

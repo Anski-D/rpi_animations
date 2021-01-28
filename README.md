@@ -84,7 +84,8 @@ In the `inputs` directory, edit the `settings.json` file and then add the image 
   "num_images": 10,
   "image_change_time": 2,
   "colour_change_time": 15,
-  "fps": 30
+  "fps": 30,
+  "reposition_attempts": 50
 }
 ```
 
@@ -126,3 +127,6 @@ colour_change_time
 
 fps
 : Frames per second rate at which the program should run. This helps maintain a consistent scroll speed as the message lengths vary. If the scroll speed appears to keep changing, try reducing this value.
+
+reposition_attempts
+: Number of times an individual image should be randomly repositioned to avoid collision with the other images.
