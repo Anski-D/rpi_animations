@@ -6,7 +6,7 @@ from .settings import Settings
 
 
 class TextAnimator:
-    def __init__(self, resource_loc: str, settings_file: str) -> None:
+    def __init__(self, resource_loc: str, settings_file: str, debug_mode=False) -> None:
         """Initialise the animation, and create resources."""
 
         # Create the settings file and hold
@@ -16,8 +16,10 @@ class TextAnimator:
         pygame.init()
 
         # Set the screen size
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        # self.screen = pygame.display.set_mode((800, 480))  # Test screen size
+        if debug_mode:
+            self.screen = pygame.display.set_mode((800, 480))
+        else:
+            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
         # Set the screen title
         pygame.display.set_caption('RPi_Animations')
