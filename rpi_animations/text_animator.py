@@ -20,7 +20,7 @@ class TextAnimator:
         # self.screen = pygame.display.set_mode((800, 480))  # Test screen size
 
         # Set the screen title
-        pygame.display.set_caption('Text animator')
+        pygame.display.set_caption('RPi_Animations')
 
         # Create groups
         self._create_images_group()
@@ -54,13 +54,13 @@ class TextAnimator:
             # Check for events
             self._check_events()
 
-            # Update the message
+            # Update the items
             self._update_items()
 
-            # Check the messages for certain criteria
+            # Check the items for certain criteria
             self._check_items()
 
-            # Draw the message
+            # Draw the animations
             self._update_screen()
 
     def _check_events(self) -> None:
@@ -99,11 +99,6 @@ class TextAnimator:
             # If the message has left the screen, get rid of it.
             if not message.is_on_screen():
                 message.kill()
-    #
-    # def _reqd_num_of_messages(self) -> int:
-    #     # Work out how many rectangles fit on the screen, pad by 2 because that is the minimum required if the
-    #     # message is wider than the screen.
-    #     return int(self.screen.get_rect().width / min(message.rect.width for message in self._messages.sprites())) + 2
 
     def _update_items(self) -> None:
         # Update images
