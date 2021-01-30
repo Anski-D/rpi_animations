@@ -18,7 +18,7 @@ class Message(Item):
 
     def _set_text(self):
         # Set font
-        self._font = pygame.font.SysFont(self._settings.typeface, self._settings.text_size)
+        self._font = pygame.font.SysFont(self._settings.settings['typeface'], self._settings.settings['text_size'])
 
         # Set the message text
         self._text = self._settings.text
@@ -36,7 +36,7 @@ class Message(Item):
 
     def _draw_outline(self):
         # Repetitively draw the outline
-        outline_width = self._settings.outline_width
+        outline_width = self._settings.settings['outline_width']
         self._screen.blit(self._outline_text, (self._rect.x - outline_width, self._rect.y - outline_width))
         self._screen.blit(self._outline_text, (self._rect.x - outline_width, self._rect.y + outline_width))
         self._screen.blit(self._outline_text, (self._rect.x + outline_width, self._rect.y - outline_width))
@@ -52,7 +52,7 @@ class Message(Item):
 
     def update(self):
         # Move the message to the right
-        self._x -= self._settings.text_speed
+        self._x -= self._settings.settings['text_speed']
         self._rect.x = self._x
 
     def is_on_screen(self):

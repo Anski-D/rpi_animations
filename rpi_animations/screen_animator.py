@@ -51,7 +51,7 @@ class ScreenAnimator:
         """Main loop of the animation."""
         while True:
             # Set the FPS
-            self._clock.tick(self.settings.fps)
+            self._clock.tick(self.settings.settings['fps'])
 
             # Check for events
             self._check_events()
@@ -82,7 +82,7 @@ class ScreenAnimator:
 
     def _create_images(self) -> None:
         # Create all the required images
-        for i in range(self.settings.num_images):
+        for i in range(self.settings.settings['num_images']):
             # Create an image of each type
             for image in self.settings.images:
                 # Create an image
@@ -115,7 +115,7 @@ class ScreenAnimator:
     def _update_images(self) -> None:
         # Update images when required
         image_change_time_new = pygame.time.get_ticks()
-        if image_change_time_new - self._image_change_time >= self.settings.image_change_time * 1000:
+        if image_change_time_new - self._image_change_time >= self.settings.settings['image_change_time'] * 1000:
             # Update time measurement with new time
             self._image_change_time = image_change_time_new
 
@@ -129,7 +129,7 @@ class ScreenAnimator:
     def _change_colours(self) -> None:
         # Update colours when required
         colour_change_time_new = pygame.time.get_ticks()
-        if colour_change_time_new - self._colour_change_time >= self.settings.colour_change_time * 1000:
+        if colour_change_time_new - self._colour_change_time >= self.settings.settings['colour_change_time'] * 1000:
             # Update time measurement with new time
             self._colour_change_time = colour_change_time_new
 

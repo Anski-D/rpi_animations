@@ -1,6 +1,6 @@
 {
   "colours": "255,0,0;0,255,0;0,0,255",
-  "text": "EXAMPLE MESSAGE 1!;EXAMPLE MESSAGE 2!;EXAMPLE MESSAGE 3!;EXAMPLE MESSAGE 4!",
+  "messages": "EXAMPLE MESSAGE 1!;EXAMPLE MESSAGE 2!;EXAMPLE MESSAGE 3!;EXAMPLE MESSAGE 4!",
   "message_sep": "   ",
   "typeface": "Serif Regular",
   "text_size": 350,

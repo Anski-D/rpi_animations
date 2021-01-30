@@ -73,7 +73,7 @@ In the `inputs` directory, edit the `settings.json` file and then add the image 
 ```json
 {
   "colours": "255,0,0;0,255,0;0,0,255",
-  "text": "EXAMPLE MESSAGE 1!;EXAMPLE MESSAGE 2!;EXAMPLE MESSAGE 3!;EXAMPLE MESSAGE 4!",
+  "messages": "EXAMPLE MESSAGE 1!;EXAMPLE MESSAGE 2!;EXAMPLE MESSAGE 3!;EXAMPLE MESSAGE 4!",
   "message_sep": "   ",
   "typeface": "Serif Regular",
   "text_size": 350,
@@ -92,7 +92,7 @@ In the `inputs` directory, edit the `settings.json` file and then add the image 
 colours
 : Semicolon-separated list of colours that will be randomly selected and applied to the text and background. Colours will randomly alternate based on the time in `colour_change_time`. Background and message colour will always be different. 
 
-text
+messages
 : Semicolon-separated list of messages that will be randomly selected to scroll across the screen. No whitespace is required before or after the message; message separation is controlled by the `message_sep` field.
 
 message_sep
