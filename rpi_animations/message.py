@@ -18,17 +18,30 @@ class Message(Item):
 
     def _set_text(self):
         # Set font
-        self._font = pygame.font.SysFont(self._settings.settings['typeface'], self._settings.settings['text_size'])
+        self._font = pygame.font.SysFont(
+            self._settings.settings['typeface'],
+            self._settings.settings['text_size'],
+            bold=self._settings.settings['bold_text'],
+            italic=self._settings.settings['italic_text']
+        )
 
         # Set the message text
         self._text = self._settings.text
 
         # Set the outline text
-        self._outline_text = self._font.render(self._text, False, self._settings.outline_colour)
+        self._outline_text = self._font.render(
+            self._text,
+            self._settings.settings['text_aa'],
+            self._settings.outline_colour
+        )
 
     def _set_item_content(self):
         # Render text
-        self.content = self._font.render(self._text, False, self._settings.text_colour)
+        self.content = self._font.render(
+            self._text,
+            self._settings.settings['text_aa'],
+            self._settings.text_colour
+        )
 
     def _place_item(self):
         # Place the rectangle

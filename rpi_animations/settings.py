@@ -34,10 +34,36 @@ class Settings:
         self._settings['colours'] = self._split_colours(self._settings['colours'])
         # Set the message text
         self._settings['messages'] = self._settings['messages'].split(';')
-        # Set the message scroll speed
+        # Make sure the message separator is a string
+        self._settings['message_sep'] = str(self._settings['message_sep'])
+        # Make sure the typeface is a string
+        self._settings['typeface'] = str(self._settings['typeface'])
+        # Make sure the text size is an integer
+        self._settings['text_size'] = int(self._settings['text_size'])
+        # Get bold boolean
+        self._settings['bold_text'] = bool(self._settings['bold_text'])
+        # Get italic boolean
+        self._settings['italic_text'] = bool(self._settings['italic_text'])
+        # Get text anti-aliasing boolean
+        self._settings['text_aa'] = bool(self._settings['text_aa'])
+        # Make sure the text speed is a float
         self._settings['text_speed'] = float(self._settings['text_speed'])
+        # Make sure the outline width is an integer
+        self._settings['outline_width'] = int(self._settings['outline_width'])
         # Set the outline colour
         self._settings['outline_colours'] = self._split_colours(self._settings['outline_colours'])
+        # Make sure the image sources list is initially a string
+        self._settings['image_sources'] = str(self._settings['image_sources'])
+        # Make sure number of each image is an integer
+        self._settings['num_images'] = int(self._settings['num_images'])
+        # Make sure image change time is a float
+        self._settings['image_change_time'] = float(self._settings['image_change_time'])
+        # Make sure colour change time is a float
+        self._settings['colour_change_time'] = float(self._settings['colour_change_time'])
+        # Make sure fps is an integer
+        self._settings['fps'] = int(self._settings['fps'])
+        # Make sure number of reposition attempts is an integer
+        self._settings['reposition_attempts'] = int(self._settings['reposition_attempts'])
 
         # Load resources and set parameters
         self._set_parameters()
