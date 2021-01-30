@@ -8,6 +8,7 @@ def get_args():
     # Determine any arguments set
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--debug', help='run the program in debug mode', action='store_true')
+    parser.add_argument('-f', '--fps', help='add fps counter', action='store_true')
     parser.add_argument(
         'settings',
         help='(optional) filename of settings JSON, defaults to "settings.json"',
@@ -26,7 +27,7 @@ if __name__ == '__main__':
     resources = os.path.join(sys.path[0], 'inputs')
 
     # Create the text animator
-    screen_animator = ScreenAnimator(resources, args.settings, args.debug)
+    screen_animator = ScreenAnimator(resources, args.settings, args.debug, args.fps)
 
     # Set the animator running
     screen_animator.run()

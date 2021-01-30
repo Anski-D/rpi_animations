@@ -6,7 +6,7 @@ from .settings import Settings
 
 
 class ScreenAnimator:
-    def __init__(self, resource_loc: str, settings_file: str, debug_mode=False) -> None:
+    def __init__(self, resource_loc: str, settings_file: str, debug_mode=False, fps_on=False) -> None:
         """Initialise the animation, and create resources."""
 
         # Create the settings file and hold
@@ -20,6 +20,9 @@ class ScreenAnimator:
             self.screen = pygame.display.set_mode((800, 480))
         else:
             self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
+        # Determine if fps counter should be shown
+        self._fps_on = fps_on
 
         # Set the screen title
         pygame.display.set_caption('RPi_Animations')
@@ -148,15 +151,19 @@ class ScreenAnimator:
         for message in self._messages.sprites():
             message.blit()
 
+        # Draw optional fps counter
+        if self._fps_on:
+            self._draw_fps()
+
         # Redraw the screen
         pygame.display.flip()
-    #
-    # def _draw_fps(self):
-    #     fps_font = pygame.font.SysFont(self.settings.typeface, 36)
-    #     text = f'{self._clock.get_fps():.2f}'
-    #     content = fps_font.render(text, True, (0, 0, 0))
-    #     rect = content.get_rect()
-    #     screen_rect = self.screen.get_rect()
-    #     rect.x = 10
-    #     rect.y = 10
-    #     self.screen.blit(content, rect)
+
+    def _draw_fps(self):
+        fps_font = pygame.font.SysFont(self.settings.settings['typeface'], 36)
+        text = f'{self._clock.get_fps():.2f}'
+        content = fps_font.render(text, True, (0, 0, 0))
+        rect = content.get_rect()
+        # screen_rect = self.screen.get_rect()
+        rect.x = 10
+        rect.y = 10
+        self.screen.blit(content, rect)
