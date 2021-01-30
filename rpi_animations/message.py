@@ -24,11 +24,11 @@ class Message(Item):
         self._text = self._settings.text
 
         # Set the outline text
-        self._outline_text = self._font.render(self._text, True, self._settings.outline_colour)
+        self._outline_text = self._font.render(self._text, False, self._settings.outline_colour)
 
     def _set_item_content(self):
         # Render text
-        self.content = self._font.render(self._text, True, self._settings.text_colour)
+        self.content = self._font.render(self._text, False, self._settings.text_colour)
 
     def _place_item(self):
         # Place the rectangle
