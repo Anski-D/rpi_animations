@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 
 class Item(ABC, Sprite):
-    def __init__(self, group, text_animator):
+    def __init__(self, group, screen_animator):
         super().__init__(group)
 
         # Set default values
@@ -11,10 +11,10 @@ class Item(ABC, Sprite):
         self._rect = None
 
         # Set the settings
-        self._settings = text_animator.settings
+        self._settings = screen_animator.settings
 
         # Save the text animator screen
-        self._screen = text_animator.screen
+        self._screen = screen_animator.screen
         # Get the size of the text animator screen rectangle
         self._screen_rect = self._screen.get_rect()
 

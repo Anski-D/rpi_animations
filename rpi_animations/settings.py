@@ -18,42 +18,37 @@ class Settings:
         # Import the json file
         self._load_settings()
 
+    @property
+    def settings(self):
+        return self._settings
+
     def _load_settings(self) -> None:
         # Load the json
-        settings = self._load_json()
+        self._settings = self._load_json()
 
-        # Split the dictionary
+        # Process the settings
+        self._process_settings()
+
+    def _process_settings(self):
         # Split the colour list up
-        self._colours = self._split_colours(settings['colours'])
+        self._settings['colours'] = self._split_colours(self._settings['colours'])
         # Set the message text
-        self._messages = settings['text'].split(';')
-        # Set the message seperator
-        self._message_sep = settings['message_sep']
-        # Set the typeface
-        # self.typeface = settings['typeface']
-        self.typeface = None
-        # Set the message size
-        self.text_size = int(settings['text_size'])
+        self._settings['messages'] = self._settings['messages'].split(';')
+        # Set the typeface, set to None for now
+        self._settings['typeface'] = None
         # Set the message scroll speed
-        self.text_speed = float(settings['text_speed'])
-        # Set the outline width
-        self.outline_width = int(settings['outline_width'])
+        self._settings['text_speed'] = float(self._settings['text_speed'])
         # Set the outline colour
-        self._outline_colours = self._split_colours(settings['outline_colours'])
+        self._settings['outline_colours'] = self._split_colours(self._settings['outline_colours'])
+
+        # Load resources and set parameters
+        self._set_parameters()
+
+    def _set_parameters(self):
         # Randomise the colour allocations
         self.set_colours()
         # Load images
-        self._load_images(settings['image_sources'])
-        # Set how many of each image will be displayed
-        self.num_images = int(settings['num_images'])
-        # Set the image update counter limit
-        self.image_change_time = int(settings['image_change_time'])
-        # Set the colour change counter limit
-        self.colour_change_time = int(settings['colour_change_time'])
-        # Set the FPS
-        self.fps = int(settings['fps'])
-        # Set the max number of reposition attemps
-        self.reposition_attempts = settings['reposition_attempts']
+        self._load_images(self._settings['image_sources'])
 
     def _load_json(self) -> dict:
         # Open the json file safely
@@ -63,17 +58,18 @@ class Settings:
 
     def set_colours(self) -> None:
         # Allocate colours by random
-        self.bg_colour = self._colours[random.randrange(0, len(self._colours))]
+        self.bg_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
 
         # Allocate a different text colour. Need to do this initial one, otherwise it won't change if already
         # different from the background.
-        self.text_colour = self._colours[random.randrange(0, len(self._colours))]
+        self.text_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
         # Check if this clashes with the background, if so, allocate again
         while self.text_colour == self.bg_colour:
-            self.text_colour = self._colours[random.randrange(0, len(self._colours))]
+            self.text_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
 
         # Set the outline colour
-        self.outline_colour = self._outline_colours[random.randrange(0, len(self._outline_colours))]
+        self.outline_colour = \
+            self._settings['outline_colours'][random.randrange(0, len(self._settings['outline_colours']))]
 
     @staticmethod
     def _split_colours(colours: str) -> list:
@@ -83,7 +79,7 @@ class Settings:
     @property
     def text(self) -> str:
         # Set the message text
-        return f'{self._messages[random.randrange(0, len(self._messages))]}{self._message_sep}'
+        return f"{self._settings['messages'][random.randrange(0, len(self._settings['messages']))]}{self._settings['message_sep']}"
 
     def _load_images(self, images_sources: str) -> None:
         self.images = [

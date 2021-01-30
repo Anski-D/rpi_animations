@@ -5,8 +5,8 @@ from .picture import Picture
 from .settings import Settings
 
 
-class TextAnimator:
-    def __init__(self, resource_loc: str, settings_file: str, debug_mode=False) -> None:
+class ScreenAnimator:
+    def __init__(self, resource_loc: str, settings_file: str, debug_mode=False, fps_on=False) -> None:
         """Initialise the animation, and create resources."""
 
         # Create the settings file and hold
@@ -20,6 +20,9 @@ class TextAnimator:
             self.screen = pygame.display.set_mode((800, 480))
         else:
             self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+
+        # Determine if fps counter should be shown
+        self._fps_on = fps_on
 
         # Set the screen title
         pygame.display.set_caption('RPi_Animations')
@@ -51,7 +54,7 @@ class TextAnimator:
         """Main loop of the animation."""
         while True:
             # Set the FPS
-            self._clock.tick(self.settings.fps)
+            self._clock.tick(self.settings.settings['fps'])
 
             # Check for events
             self._check_events()
@@ -82,7 +85,7 @@ class TextAnimator:
 
     def _create_images(self) -> None:
         # Create all the required images
-        for i in range(self.settings.num_images):
+        for i in range(self.settings.settings['num_images']):
             # Create an image of each type
             for image in self.settings.images:
                 # Create an image
@@ -115,7 +118,7 @@ class TextAnimator:
     def _update_images(self) -> None:
         # Update images when required
         image_change_time_new = pygame.time.get_ticks()
-        if image_change_time_new - self._image_change_time >= self.settings.image_change_time * 1000:
+        if image_change_time_new - self._image_change_time >= self.settings.settings['image_change_time'] * 1000:
             # Update time measurement with new time
             self._image_change_time = image_change_time_new
 
@@ -129,7 +132,7 @@ class TextAnimator:
     def _change_colours(self) -> None:
         # Update colours when required
         colour_change_time_new = pygame.time.get_ticks()
-        if colour_change_time_new - self._colour_change_time >= self.settings.colour_change_time * 1000:
+        if colour_change_time_new - self._colour_change_time >= self.settings.settings['colour_change_time'] * 1000:
             # Update time measurement with new time
             self._colour_change_time = colour_change_time_new
 
@@ -148,15 +151,19 @@ class TextAnimator:
         for message in self._messages.sprites():
             message.blit()
 
+        # Draw optional fps counter
+        if self._fps_on:
+            self._draw_fps()
+
         # Redraw the screen
         pygame.display.flip()
-    #
-    # def _draw_fps(self):
-    #     fps_font = pygame.font.SysFont(self.settings.typeface, 36)
-    #     text = f'{self._clock.get_fps():.2f}'
-    #     content = fps_font.render(text, True, (0, 0, 0))
-    #     rect = content.get_rect()
-    #     screen_rect = self.screen.get_rect()
-    #     rect.x = 10
-    #     rect.y = 10
-    #     self.screen.blit(content, rect)
+
+    def _draw_fps(self):
+        fps_font = pygame.font.SysFont(self.settings.settings['typeface'], 36)
+        text = f'{self._clock.get_fps():.2f}'
+        content = fps_font.render(text, True, (0, 0, 0))
+        rect = content.get_rect()
+        # screen_rect = self.screen.get_rect()
+        rect.x = 10
+        rect.y = 10
+        self.screen.blit(content, rect)
