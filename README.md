@@ -77,6 +77,9 @@ In the `inputs` directory, edit the `settings.json` file and then add the image 
   "message_sep": "   ",
   "typeface": "Serif Regular",
   "text_size": 350,
+  "bold_text": 1,
+  "italic_text": 0,
+  "text_aa": 0,
   "text_speed": 8,
   "outline_width": 3,
   "outline_colours": "0,0,0;255,255,255",
@@ -104,8 +107,17 @@ typeface
 text_size
 : Text height for scrolling text.
 
+bold_text
+: Sets the message text as bold. Should be set to 1 (True) or 0 (False).
+
+italic_text
+: Sets the message text as italic. Should be set to 1 (True) or 0 (False).
+
+text_aa
+: Turns message text anti-aliasing on or off. Can cause notable performance penalty with little visual benefit when activated on a Raspberry Pi 4B 4GB. Should be set to 1 (True) or 0 (False). 
+
 text_speed
-: Set the scrolling speed of the text. Value is fairly arbitrary, so adjust as required. 
+: Set the scrolling speed of the text. Value is approximately pixels per second, and should remain constant when fps is changed.
 
 outline_width
 : Sets a pixel width for the outline of the scrolling text.

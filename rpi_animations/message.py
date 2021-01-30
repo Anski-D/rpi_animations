@@ -65,7 +65,7 @@ class Message(Item):
 
     def update(self):
         # Move the message to the right
-        self._x -= self._settings.settings['text_speed']
+        self._x -= self._settings.settings['text_speed'] / self._settings.settings['fps']
         self._rect.x = self._x
 
     def is_on_screen(self):
