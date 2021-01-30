@@ -5,7 +5,7 @@ from .picture import Picture
 from .settings import Settings
 
 
-class TextAnimator:
+class ScreenAnimator:
     def __init__(self, resource_loc: str, settings_file: str, debug_mode=False) -> None:
         """Initialise the animation, and create resources."""
 

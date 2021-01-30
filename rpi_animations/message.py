@@ -3,8 +3,8 @@ from .item import Item
 
 
 class Message(Item):
-    def __init__(self, group, text_animator):
-        super().__init__(group, text_animator)
+    def __init__(self, group, screen_animator):
+        super().__init__(group, screen_animator)
 
         # Store x position as float
         self._x = float(self._rect.x)

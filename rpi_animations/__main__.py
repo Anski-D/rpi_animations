@@ -1,4 +1,4 @@
-from rpi_animations.text_animator import TextAnimator
+from rpi_animations.screen_animator import ScreenAnimator
 import sys
 import os
 import argparse
@@ -10,7 +10,7 @@ def get_args():
     parser.add_argument('-d', '--debug', help='run the program in debug mode', action='store_true')
     parser.add_argument(
         'settings',
-        help='(optional) filename of settings JSON, defaults to \'settings.json\'',
+        help='(optional) filename of settings JSON, defaults to "settings.json"',
         type=str,
         default='settings.json',
         nargs='?'
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     resources = os.path.join(sys.path[0], 'inputs')
 
     # Create the text animator
-    text_animator = TextAnimator(resources, args.settings, args.debug)
+    screen_animator = ScreenAnimator(resources, args.settings, args.debug)
 
     # Set the animator running
-    text_animator.run()
+    screen_animator.run()

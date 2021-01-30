@@ -4,12 +4,12 @@ import pygame.sprite
 
 
 class Picture(Item):
-    def __init__(self, group, text_animator, image):
+    def __init__(self, group, screen_animator, image):
         # Save image src
         self._image = image
 
         # Run parent class init
-        super().__init__(group, text_animator)
+        super().__init__(group, screen_animator)
 
     def _set_item_content(self):
         # Load the image
