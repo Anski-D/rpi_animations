@@ -99,7 +99,7 @@ message_sep
 : A separator inserted between each randomly-selected message.
 
 typeface
-: Currently unused.
+: Set the typeface to be used. At a python prompt, run `pygame.font.get_fonts()` to see available system fonts.
 
 text_size
 : Text height for scrolling text.

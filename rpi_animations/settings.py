@@ -34,8 +34,6 @@ class Settings:
         self._settings['colours'] = self._split_colours(self._settings['colours'])
         # Set the message text
         self._settings['messages'] = self._settings['messages'].split(';')
-        # Set the typeface, set to None for now
-        self._settings['typeface'] = None
         # Set the message scroll speed
         self._settings['text_speed'] = float(self._settings['text_speed'])
         # Set the outline colour
