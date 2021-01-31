@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='rpi_animations',
-    version='0.2.5',
+    version='0.2.6',
     packages=find_packages(exclude=['tests', 'tests.*']),
     url='https://github.com/Anski-D/rpi_animations',
     license='MIT',
@@ -14,5 +14,5 @@ setup(
     description='Display animated scrolling text and pictures that periodically move.',
     long_description=long_description,
     python_requires='>=3.7',
-    install_requires=['pygame<2']
+    install_requires=['pygame<2', 'wheel']
 )
