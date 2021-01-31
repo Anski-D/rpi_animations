@@ -80,7 +80,7 @@ In the `inputs` directory, edit the `settings.json` file and then add the image 
   "bold_text": 1,
   "italic_text": 0,
   "text_aa": 0,
-  "text_speed": 8,
+  "text_speed": 240.0,
   "outline_width": 3,
   "outline_colours": "0,0,0;255,255,255",
   "image_sources": "bday-cake.bmp;bday-hat.bmp;bday-present.bmp",
