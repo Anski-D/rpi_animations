@@ -1,5 +1,7 @@
-import pygame
 import sys
+
+import pygame
+
 from .message import Message
 from .picture import Picture
 from .settings import Settings
