@@ -1,4 +1,6 @@
 from setuptools import setup, find_packages
+import os
+import sys
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -15,5 +17,5 @@ setup(
     long_description=long_description,
     python_requires='>=3.7',
     install_requires=['pygame<2', 'wheel'],
-    data_files=[('', ['run.sh'])]
+    data_files=[(os.path.join(sys.prefix, '..'), ['run.sh'])]
 )
