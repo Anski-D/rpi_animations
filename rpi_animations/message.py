@@ -18,12 +18,7 @@ class Message(Item):
 
     def _set_text(self):
         # Set font
-        self._font = pygame.font.SysFont(
-            self._settings.settings['typeface'],
-            self._settings.settings['text_size'],
-            bold=self._settings.settings['bold_text'],
-            italic=self._settings.settings['italic_text']
-        )
+        self._font = self._settings.font
 
         # Set the message text
         self._text = self._settings.text

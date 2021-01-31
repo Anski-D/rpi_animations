@@ -73,6 +73,13 @@ class Settings:
         self.set_colours()
         # Load images
         self._load_images(self._settings['image_sources'])
+        # Load the font
+        self.font = pygame.font.SysFont(
+            self._settings['typeface'],
+            self._settings['text_size'],
+            bold=self._settings['bold_text'],
+            italic=self._settings['italic_text']
+        )
 
     def _load_json(self) -> dict:
         # Open the json file safely
