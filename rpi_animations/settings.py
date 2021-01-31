@@ -114,7 +114,19 @@ class Settings:
 
     def _load_images(self, images_sources: str) -> None:
         self.images = [
-            pygame.image.load(os.path.join(self._resource_loc, image_src))
-            for image_src
-            in images_sources.split(';')
+            image for image in [
+                self._load_single_image(os.path.join(self._resource_loc, image_src))
+                for image_src
+                in images_sources.split(';')
+            ]
+            if image is not None
         ]
+
+    @staticmethod
+    def _load_single_image(image_loc):
+        try:
+            image = pygame.image.load(image_loc)
+        except FileNotFoundError as err:
+            print(f'{image_loc} not found.')
+        else:
+            return image
