@@ -2,6 +2,7 @@ import pygame
 import json
 import random
 import os
+import sys
 
 
 class Settings:
@@ -26,8 +27,18 @@ class Settings:
         # Load the json
         self._settings = self._load_json()
 
-        # Process the settings
-        self._process_settings()
+        try:
+            # Process the settings
+            self._process_settings()
+        except ValueError as err:
+            print(err)
+            sys.exit(1)
+        except AttributeError as err:
+            print(err)
+            sys.exit(1)
+        except KeyError as err:
+            print(f'{err} not found in provided settings')
+            sys.exit(1)
 
     def _process_settings(self):
         # Split the colour list up
