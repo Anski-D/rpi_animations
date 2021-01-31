@@ -17,5 +17,5 @@ setup(
     long_description=long_description,
     python_requires='>=3.7',
     install_requires=['pygame<2', 'wheel'],
-    data_files=[(os.path.join(sys.prefix, '..'), ['run.sh'])]
+    data_files=[(os.path.join(sys.prefix, '..'), ['./run.sh'])]
 )
