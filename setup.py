@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='rpi_animations',
-    version='0.2.6',
+    version='0.2.7',
     packages=find_packages(exclude=['tests', 'tests.*']),
     url='https://github.com/Anski-D/rpi_animations',
     license='MIT',
@@ -15,5 +15,5 @@ setup(
     long_description=long_description,
     python_requires='>=3.7',
     install_requires=['pygame<2', 'wheel'],
-    data_files=['', 'run.sh']
+    data_files=['run', 'run.sh']
 )
