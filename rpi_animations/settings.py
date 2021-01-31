@@ -33,9 +33,6 @@ class Settings:
         except ValueError as err:
             print(err)
             sys.exit(1)
-        except AttributeError as err:
-            print(err)
-            sys.exit(1)
         except KeyError as err:
             print(f'{err} not found in provided settings')
             sys.exit(1)
@@ -93,10 +90,14 @@ class Settings:
         )
 
     def _load_json(self) -> dict:
-        # Open the json file safely
-        with open(os.path.join(self._resource_loc, self._settings_file)) as settings_file:
-            # Load the json
-            return json.load(settings_file)
+        try:
+            # Open the json file safely
+            with open(os.path.join(self._resource_loc, self._settings_file)) as settings_file:
+                # Load the json
+                return json.load(settings_file)
+        except FileNotFoundError as err:
+            print(f'{err.filename} not found')
+            sys.exit(1)
 
     def set_colours(self) -> None:
         # Allocate colours by random
@@ -138,6 +139,6 @@ class Settings:
         try:
             image = pygame.image.load(image_loc)
         except FileNotFoundError as err:
-            print(f'{image_loc} not found.')
+            print(f'{image_loc} not found')
         else:
             return image
