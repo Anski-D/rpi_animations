@@ -4,19 +4,9 @@ Raspberry Pi Python package to display scrolling messages selected at random fro
 
 ## Installation
 
-Setup a new virtual environment in your installation directory, activate virtual environment, then install package. Examples assume setup on a Raspberry Pi running Raspberry Pi OS.
+In your directory of choice, create a new virtual environment, install the package, and setup the package to run at startup. Examples assume setup on a Raspberry Pi running Raspberry Pi OS.
 
-Clone the git repository:
-```bash
-git clone https://github.com/Anski-D/rpi_animations.git
-```
-
-Move into the cloned git directory:
-```bash
-cd rpi_animations
-```
-
-Setup a virtual environment to isolate program. If using `venv`:
+Create a working directory, e.g. `<working dir>`. Change directory into the working directory, then setup a new Python virtual environment. If using `venv`:
 ```
 python3 -m venv .venv
 ```
@@ -26,14 +16,24 @@ Activate the virtual environment:
 source .venv/bin/activate
 ```
 
-Install the package:
+Update `pip` (optional):
 ```bash
-pip install .
+pip install --upgrade pip
 ```
 
-Make the `run.sh` script executable:
+Install the package from `git`:
 ```bash
-chmod +x run.sh
+pip install git+https://github.com/Anski-D/rpi_animations.git
+```
+
+Verify that the installation process added a shell script to your virtual environment by checking for `run.sh` in `.venv/bin`.
+
+Edit `run.sh` so that the path points to `<working dir>`:
+```bash
+#!/usr/bin/env bash
+cd /<absolute>/<path>/<to>/<working dir>
+source .venv/bin/activate
+python -m rpi_animations
 ```
 
 To get the program to run at startup, a systemd service needs to be added and registered. Using a text editor, add a service file to `/etc/systemd/system`, e.g. `/etc/systemd/system/rpi_animations.service`.
@@ -45,7 +45,7 @@ Description=Run rpi_animations on display at startup
 After=network.target
 
 [Service]
-ExecStart=<dir to run>/run.sh
+ExecStart=/<absolute>/<path>/<to>/run.sh
 WorkingDirectory=<dir to run>
 StandardOutput=inherit
 StandardError=inherit
@@ -55,7 +55,7 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-Adjust `<dir to run>` to the *absolute* path to the location of program installation, where `run.sh` should be (e.g. `/home/pi/python-projects/rpi_animations`).
+Make sure to update the file path to where `run.sh` is located.
 
 Enable the service:
 ```bash
@@ -68,7 +68,9 @@ Restart your Raspberry Pi.
 
 ## Usage
 
-In the `inputs` directory, edit the `settings.json` file and then add the image files you want to use. The `settings.json` file has the following format:
+### Inputs
+
+Add images to display as part of the animation to the working directory. Also create a settings file called `settings.json`. The `settings.json` file should have the following format:
 
 ```json
 {
@@ -142,3 +144,19 @@ fps
 
 reposition_attempts
 : Number of times an individual image should be randomly repositioned to avoid collision with the other images.
+
+### Optional command line arguments
+
+`run.sh` can be edited to add the following arguments to the `python -m rpi_animations` line.
+
+-d, --debug
+: Run the program in debug mode.
+
+-f, --fps
+: Add fps counter.
+
+--subdir [SUBDIR]
+: Subdirectory where settings JSON and images are stored relative to the working directory. Default is blank.
+
+--settings [SETTINGS]
+: Filename of settings JSON, defaults to `settings.json`.

@@ -6,9 +6,9 @@ import sys
 
 
 class Settings:
-    def __init__(self, resource_loc, settings_file: str) -> None:
+    def __init__(self, inputs_loc, settings_file: str) -> None:
         # Set the resources location and settings
-        self._resource_loc = resource_loc
+        self._resource_loc = inputs_loc
         self._settings_file = settings_file
 
         # Set default colours

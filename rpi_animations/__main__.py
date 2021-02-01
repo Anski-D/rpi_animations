@@ -10,8 +10,15 @@ def get_args():
     parser.add_argument('-d', '--debug', help='run the program in debug mode', action='store_true')
     parser.add_argument('-f', '--fps', help='add fps counter', action='store_true')
     parser.add_argument(
-        'settings',
-        help='(optional) filename of settings JSON, defaults to "settings.json"',
+        '--subdir',
+        help='subdirectory where settings JSON and images are stored, defaults to ""',
+        type=str,
+        default='',
+        nargs='?'
+    )
+    parser.add_argument(
+        '--settings',
+        help='filename of settings JSON, defaults to "settings.json"',
         type=str,
         default='settings.json',
         nargs='?'
@@ -23,11 +30,11 @@ if __name__ == '__main__':
     # Get arguments
     args = get_args()
 
-    # Get the execution path, required for finding resources
-    resources = os.path.join(sys.path[0], 'inputs')
+    # Get the execution path, and set path to resources folder
+    input_loc = os.path.join(sys.path[0], args.subdir)
 
     # Create the text animator
-    screen_animator = ScreenAnimator(resources, args.settings, args.debug, args.fps)
+    screen_animator = ScreenAnimator(input_loc, args.settings, args.debug, args.fps)
 
     # Set the animator running
     screen_animator.run()
