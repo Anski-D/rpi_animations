@@ -15,5 +15,5 @@ setup(
     long_description=long_description,
     python_requires='>=3.7',
     install_requires=['pygame<2'],
-    scripts=['rpi_animations_run.sh']
+    scripts=['run.sh']
 )
