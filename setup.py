@@ -15,6 +15,7 @@ setup(
     long_description=long_description,
     python_requires='>=3.7',
     install_requires=['pygame<2'],
+    package_data={'': ['inputs/*.json', 'inputs/*.bmp']},
     entry_points={
         'console_scripts': ['run_rpi_an=rpi_animations:main']
     }
