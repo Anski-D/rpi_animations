@@ -6,14 +6,14 @@ from .settings import Settings
 
 
 class ScreenAnimator:
-    def __init__(self, resource_loc: str, settings_file: str, debug_mode=False, fps_on=False) -> None:
+    def __init__(self, settings_file: str, debug_mode=False, fps_on=False) -> None:
         """Initialise the animation, and create resources."""
 
         # Initialise pygame
         pygame.init()
 
         # Create the settings file and hold
-        self.settings = Settings(resource_loc, settings_file)
+        self.settings = Settings(settings_file)
 
         # Set the screen size
         if debug_mode:

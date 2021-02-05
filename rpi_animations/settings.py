@@ -1,14 +1,14 @@
 import pygame
 import json
 import random
-import os
 import sys
+import importlib.resources
+from . import inputs
 
 
 class Settings:
-    def __init__(self, inputs_loc, settings_file: str) -> None:
-        # Set the resources location and settings
-        self._resource_loc = inputs_loc
+    def __init__(self, settings_file: str) -> None:
+        # Set the resources settings
         self._settings_file = settings_file
 
         # Set default colours
@@ -92,7 +92,7 @@ class Settings:
     def _load_json(self) -> dict:
         try:
             # Open the json file safely
-            with open(os.path.join(self._resource_loc, self._settings_file)) as settings_file:
+            with importlib.resources.open_text(inputs, self._settings_file) as settings_file:
                 # Load the json
                 return json.load(settings_file)
         except FileNotFoundError as err:
@@ -127,7 +127,7 @@ class Settings:
     def _load_images(self, images_sources: str) -> None:
         self.images = [
             image for image in [
-                self._load_single_image(os.path.join(self._resource_loc, image_src))
+                self._load_single_image(image_src)
                 for image_src
                 in images_sources.split(';')
             ]
@@ -135,10 +135,10 @@ class Settings:
         ]
 
     @staticmethod
-    def _load_single_image(image_loc):
+    def _load_single_image(image_src):
         try:
-            image = pygame.image.load(image_loc)
+            image = pygame.image.load(importlib.resources.open_binary(inputs, image_src))
         except FileNotFoundError as err:
-            print(f'{image_loc} not found')
+            print(f'{image_src} not found')
         else:
             return image
