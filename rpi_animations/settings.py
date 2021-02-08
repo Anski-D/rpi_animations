@@ -80,7 +80,7 @@ class Settings:
         # Randomise the colour allocations
         self.set_colours()
         # Load images
-        self._load_images(self._settings['image_sources'])
+        self._load_images()
         # Load the font
         self.font = pygame.font.SysFont(
             self._settings['typeface'],
@@ -124,12 +124,12 @@ class Settings:
         # Set the message text
         return f"{self._settings['messages'][random.randrange(0, len(self._settings['messages']))]}{self._settings['message_sep']}"
 
-    def _load_images(self, images_sources: str) -> None:
+    def _load_images(self) -> None:
         self.images = [
             image for image in [
                 self._load_single_image(image_src)
                 for image_src
-                in images_sources
+                in self._settings['image_sources']
             ]
             if image is not None
         ]
@@ -139,6 +139,6 @@ class Settings:
         try:
             image = pygame.image.load(importlib.resources.open_binary(inputs, image_src))
         except FileNotFoundError as err:
-            print(f'{image_src} not found')
+            print(f'{err.filename} not found')
         else:
             return image
