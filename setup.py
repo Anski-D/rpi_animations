@@ -14,7 +14,7 @@ setup(
     description='Display animated scrolling text and pictures that periodically move.',
     long_description=long_description,
     python_requires='>=3.7',
-    install_requires=['pygame<2'],
+    install_requires=['pygame<2', 'wheel'],
     package_data={'': ['inputs/*.json', 'inputs/*.bmp']},
     entry_points={
         'console_scripts': [
