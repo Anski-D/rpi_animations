@@ -1,7 +1,7 @@
 from rpi_animations.settings import Settings
 import pytest
 import pygame
-import os
+import importlib.resources
 
 
 class TestSettings:
@@ -136,23 +136,17 @@ class TestSettings:
 
     def test_split_colours_return_contents(self, settings_split_colours):
         # Check each item in list is a tuple
-        is_tuple = True
-        for colour in settings_split_colours:
-            if type(colour) is not tuple:
-                is_tuple = False
-                break
+        is_tuple = [type(colour) is tuple for colour in settings_split_colours]
 
-        assert is_tuple
+        assert all(is_tuple)
 
     def test_text(self, common, settings_with_dummy_input):
-        settings_with_dummy_input._messages = pytest.messages_out
-        settings_with_dummy_input._message_sep = pytest.message_sep
+        settings_with_dummy_input._settings = {'messages': pytest.messages_out, 'message_sep': pytest.message_sep}
         assert settings_with_dummy_input.text in [f'{message}{pytest.message_sep}' for message in pytest.messages_out]
 
     @pytest.fixture
     def settings_with_colours(self, common, settings_with_dummy_input):
-        settings_with_dummy_input._colours = pytest.colours_out
-        settings_with_dummy_input._outline_colours = pytest.colours_out
+        settings_with_dummy_input._settings = {'colours': pytest.colours_out, 'outline_colours': pytest.colours_out}
         settings_with_dummy_input.set_colours()
         return settings_with_dummy_input
 
@@ -162,14 +156,16 @@ class TestSettings:
                and settings_with_colours.outline_colour in pytest.colours_out
 
     def test_set_colours_return_types(self, settings_with_colours):
-        assert type(settings_with_colours.bg_colour) == tuple \
-               and type(settings_with_colours.text_colour) == tuple \
-               and type(settings_with_colours.outline_colour) == tuple
+        assert type(settings_with_colours.bg_colour) is tuple \
+               and type(settings_with_colours.text_colour) is tuple \
+               and type(settings_with_colours.outline_colour) is tuple
 
     @pytest.fixture
     def settings_return_images(self, common, settings_with_dummy_input, monkeypatch):
+        monkeypatch.setattr(importlib.resources, 'open_binary', lambda x, y: y)
         monkeypatch.setattr(pygame.image, 'load', lambda x: x)
-        settings_with_dummy_input._load_images(pytest.image_sources_in)
+        settings_with_dummy_input._settings = {'image_sources': pytest.image_sources_out}
+        settings_with_dummy_input._load_images()
         return settings_with_dummy_input
 
     def test_load_images_return_values(self, common, settings_return_images):
@@ -177,3 +173,7 @@ class TestSettings:
 
     def test_load_images_length(self, common, settings_return_images):
         assert len(settings_return_images.images) == len(pytest.image_sources_out)
+
+    def test_load_single_image_return(self, settings_with_dummy_input):
+        # Check what happens if non existent file
+        assert settings_with_dummy_input._load_single_image('random.bmp') is None
