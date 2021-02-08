@@ -121,7 +121,7 @@ class TestSettings:
 
     def test_load_json_type(self, monkeypatch):
         monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
-        assert type(Settings('settings.json')._load_json()) is dict
+        assert type(Settings('settings_example.json')._load_json()) is dict
 
     @pytest.fixture
     def settings_split_colours(self, common):

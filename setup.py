@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='rpi_animations',
-    version='0.4.1',
+    version='0.4.2',
     packages=find_packages(exclude=['tests', 'tests.*']),
     url='https://github.com/Anski-D/rpi_animations',
     license='MIT',
