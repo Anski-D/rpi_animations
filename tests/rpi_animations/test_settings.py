@@ -14,16 +14,36 @@ class TestSettings:
         pytest.messages_out = ['Test1', 'Test2', 'Test3']
 
         pytest.message_sep = '   '
+        pytest.typeface = 'freeserif'
 
         pytest.image_sources_in = 'test1.bmp;test2.bmp;test3.bmp'
-        pytest.image_sources_out = [os.path.join('test', file) for file in ['test1.bmp', 'test2.bmp', 'test3.bmp']]
+        pytest.image_sources_out = ['test1.bmp', 'test2.bmp', 'test3.bmp']
+
+        pytest.settings_dict = {
+            'colours': pytest.colours_in,
+            'messages': pytest.messages_in,
+            'message_sep': pytest.message_sep,
+            'typeface': 'freeserif',
+            'text_size': 7,
+            'bold_text': 1,
+            'italic_text': 1,
+            'text_aa': 1,
+            'text_speed': 7.0,
+            'outline_width': 7,
+            'outline_colours': pytest.colours_in,
+            'image_sources': pytest.image_sources_in,
+            'num_images': 7,
+            'image_change_time': 7,
+            'colour_change_time': 7,
+            'fps': 7,
+            'reposition_attempts': 7
+        }
 
     @pytest.fixture
     def settings_with_dummy_input(self, monkeypatch):
         monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
-        class_input_dir = 'test'
         class_input_file = 'test.json'
-        return Settings(class_input_dir, class_input_file)
+        return Settings(class_input_file)
 
     def test_settings_init_values(self, settings_with_dummy_input):
         assert settings_with_dummy_input._settings_file == 'test.json' \
@@ -38,45 +58,70 @@ class TestSettings:
                and type(settings_with_dummy_input.outline_colour) == tuple
 
     def test_load_settings(self, common, monkeypatch):
-        settings_dict = {
-            "colours": pytest.colours_in,
-            "text": pytest.messages_in,
-            "message_sep": pytest.message_sep,
-            "typeface": "Serif Regular",
-            "text_size": 7,
-            "text_speed": 7,
-            "outline_width": 7,
-            "outline_colours": pytest.colours_in,
-            "image_sources": pytest.image_sources_in,
-            "num_images": 7,
-            "image_change_time": 7,
-            "colour_change_time": 7,
-            "fps": 7,
-            "reposition_attempts": 7
-        }
-        monkeypatch.setattr(Settings, '_load_json', lambda x: settings_dict)
-        monkeypatch.setattr(Settings, '_load_images', lambda x, y: None)
-        settings_dummy = Settings('test', 'test.json')
+        monkeypatch.setattr(Settings, '_load_json', lambda x: pytest.settings_dict)
+        monkeypatch.setattr(Settings, '_process_settings', lambda x: None)
+        settings_dummy = Settings('test.json')
 
-        assert settings_dummy._colours == pytest.colours_out \
-               and settings_dummy._messages == pytest.messages_out \
-               and settings_dummy._message_sep == pytest.message_sep \
-               and settings_dummy.typeface is None \
-               and settings_dummy.text_size == 7 \
-               and settings_dummy.text_speed == 7 \
-               and settings_dummy.outline_width == 7 \
-               and settings_dummy._outline_colours == pytest.colours_out \
-               and settings_dummy.num_images == 7 \
-               and settings_dummy.image_change_time == 7 \
-               and settings_dummy.colour_change_time == 7 \
-               and settings_dummy.fps == 7 \
-               and settings_dummy.reposition_attempts == 7
+        assert settings_dummy.settings['colours'] == pytest.colours_in \
+               and settings_dummy.settings['messages'] == pytest.messages_in \
+               and settings_dummy.settings['message_sep'] == pytest.message_sep \
+               and settings_dummy.settings['typeface'] == pytest.typeface \
+               and settings_dummy.settings['text_size'] == 7 \
+               and settings_dummy.settings['bold_text'] == 1 \
+               and settings_dummy.settings['italic_text'] == 1 \
+               and settings_dummy.settings['text_aa'] == 1 \
+               and settings_dummy.settings['text_speed'] == 7 \
+               and settings_dummy.settings['outline_width'] == 7 \
+               and settings_dummy.settings['outline_colours'] == pytest.colours_in \
+               and settings_dummy.settings['image_sources'] == pytest.image_sources_in \
+               and settings_dummy.settings['num_images'] == 7 \
+               and settings_dummy.settings['image_change_time'] == 7 \
+               and settings_dummy.settings['colour_change_time'] == 7 \
+               and settings_dummy.settings['fps'] == 7 \
+               and settings_dummy.settings['reposition_attempts'] == 7
 
         # self._colours = self._split_colours(settings['colours'])
         # self._load_images(settings['image_src'])
 
-    def test_load_json_type(self):
-        assert type(Settings('input_examples', 'settings_example.json')._load_json()) == dict
+    def test_process_settings_values(self, common, monkeypatch):
+        monkeypatch.setattr(Settings, '_load_json', lambda x: pytest.settings_dict)
+        monkeypatch.setattr(Settings, '_set_parameters', lambda x: None)
+        settings_dummy = Settings('test.json')
+
+        assert settings_dummy.settings['colours'] == pytest.colours_out \
+               and settings_dummy.settings['messages'] == pytest.messages_out \
+               and settings_dummy.settings['bold_text'] is True \
+               and settings_dummy.settings['italic_text'] is True \
+               and settings_dummy.settings['text_aa'] is True \
+               and settings_dummy.settings['outline_colours'] == pytest.colours_out \
+               and settings_dummy.settings['image_sources'] == pytest.image_sources_out
+
+    def test_process_settings_types(self, common, monkeypatch):
+        monkeypatch.setattr(Settings, '_load_json', lambda x: pytest.settings_dict)
+        monkeypatch.setattr(Settings, '_set_parameters', lambda x: None)
+        settings_dummy = Settings('test.json')
+
+        assert type(settings_dummy.settings['colours']) is list \
+               and type(settings_dummy.settings['messages']) is list \
+               and type(settings_dummy.settings['message_sep']) is str \
+               and type(settings_dummy.settings['typeface']) is str \
+               and type(settings_dummy.settings['text_size']) is int \
+               and type(settings_dummy.settings['bold_text']) is bool \
+               and type(settings_dummy.settings['italic_text']) is bool \
+               and type(settings_dummy.settings['text_aa']) is bool \
+               and type(settings_dummy.settings['text_speed']) is float \
+               and type(settings_dummy.settings['outline_width']) is int \
+               and type(settings_dummy.settings['outline_colours']) is list \
+               and type(settings_dummy.settings['image_sources']) is list \
+               and type(settings_dummy.settings['num_images']) is int \
+               and type(settings_dummy.settings['image_change_time']) is float \
+               and type(settings_dummy.settings['colour_change_time']) is float \
+               and type(settings_dummy.settings['fps']) is int \
+               and type(settings_dummy.settings['reposition_attempts']) is int
+
+    def test_load_json_type(self, monkeypatch):
+        monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
+        assert type(Settings('settings.json')._load_json()) is dict
 
     @pytest.fixture
     def settings_split_colours(self, common):
@@ -87,7 +132,7 @@ class TestSettings:
 
     def test_split_colours_return_type(self, settings_split_colours):
         # Check expected type of split colours
-        assert type(settings_split_colours) == list
+        assert type(settings_split_colours) is list
 
     def test_split_colours_return_contents(self, settings_split_colours):
         # Check each item in list is a tuple
