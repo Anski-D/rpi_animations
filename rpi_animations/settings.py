@@ -39,9 +39,9 @@ class Settings:
 
     def _process_settings(self):
         # Split the colour list up
-        self._settings['colours'] = self._split_colours(self._settings['colours'])
+        self._settings['colours'] = self._split_colours(str(self._settings['colours']))
         # Set the message text
-        self._settings['messages'] = self._settings['messages'].split(';')
+        self._settings['messages'] = str(self._settings['messages']).split(';')
         # Make sure the message separator is a string
         self._settings['message_sep'] = str(self._settings['message_sep'])
         # Make sure the typeface is a string
@@ -59,9 +59,9 @@ class Settings:
         # Make sure the outline width is an integer
         self._settings['outline_width'] = int(self._settings['outline_width'])
         # Set the outline colour
-        self._settings['outline_colours'] = self._split_colours(self._settings['outline_colours'])
+        self._settings['outline_colours'] = self._split_colours(str(self._settings['outline_colours']))
         # Make sure the image sources list is initially a string
-        self._settings['image_sources'] = str(self._settings['image_sources'])
+        self._settings['image_sources'] = str(self._settings['image_sources']).split(';')
         # Make sure number of each image is an integer
         self._settings['num_images'] = int(self._settings['num_images'])
         # Make sure image change time is a float
@@ -129,7 +129,7 @@ class Settings:
             image for image in [
                 self._load_single_image(image_src)
                 for image_src
-                in images_sources.split(';')
+                in images_sources
             ]
             if image is not None
         ]
