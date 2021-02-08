@@ -9,6 +9,7 @@ pygame = "*"
 [dev-packages]
 pytest = "*"
 pytest-cov = "*"
+build = "*"
 
 [requires]
 python_version = ">=3.7"
