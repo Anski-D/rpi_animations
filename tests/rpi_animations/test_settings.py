@@ -174,6 +174,6 @@ class TestSettings:
     def test_load_images_length(self, common, settings_return_images):
         assert len(settings_return_images.images) == len(pytest.image_sources_out)
 
-    def test_load_single_image_return(self, settings_with_dummy_input):
+    def test_load_single_image_return_value(self, settings_with_dummy_input):
         # Check what happens if non existent file
         assert settings_with_dummy_input._load_single_image('random.bmp') is None
