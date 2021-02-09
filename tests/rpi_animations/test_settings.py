@@ -1,7 +1,9 @@
-from rpi_animations.settings import Settings
-import pytest
-import pygame
 import importlib.resources
+
+import pygame
+import pytest
+
+from rpi_animations.settings import Settings
 
 
 class TestSettings:
