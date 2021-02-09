@@ -80,9 +80,6 @@ class TestSettings:
                and settings_dummy.settings['fps'] == 7 \
                and settings_dummy.settings['reposition_attempts'] == 7
 
-        # self._colours = self._split_colours(settings['colours'])
-        # self._load_images(settings['image_src'])
-
     def test_process_settings_values(self, common, monkeypatch):
         monkeypatch.setattr(Settings, '_load_json', lambda x: pytest.settings_dict)
         monkeypatch.setattr(Settings, '_set_parameters', lambda x: None)
@@ -119,9 +116,32 @@ class TestSettings:
                and type(settings_dummy.settings['fps']) is int \
                and type(settings_dummy.settings['reposition_attempts']) is int
 
+    def test_process_settings_errors(self, common, monkeypatch):
+        settings_dict = pytest.settings_dict
+        # Override one of the values with a wrong datatype
+        settings_dict['num_images'] = 'text'
+
+        monkeypatch.setattr(Settings, '_load_json', lambda x: settings_dict)
+        monkeypatch.setattr(Settings, '_set_parameters', lambda x: None)
+
+        with pytest.raises(SystemExit) as exc_info1:
+            Settings('test.json')
+
+        settings_dict = pytest.settings_dict
+        # Delete one of the keys
+        del settings_dict['message_sep']
+
+        with pytest.raises(SystemExit) as exc_info2:
+            Settings('test.json')
+
     def test_load_json_type(self, monkeypatch):
         monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
         assert type(Settings('settings_example.json')._load_json()) is dict
+
+    def test_load_json_error(self, monkeypatch):
+        monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
+        with pytest.raises(SystemExit) as exc_info:
+            Settings('random.json')._load_json()
 
     @pytest.fixture
     def settings_split_colours(self, common):
