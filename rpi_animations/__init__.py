@@ -22,7 +22,7 @@ def main():
     args = get_args()
 
     # Create the text animator
-    screen_animator = ScreenAnimator(args.settings, args.debug, args.fps)
+    animator = ScreenAnimator(args.settings, args.debug, args.fps)
 
     # Set the animator running
-    screen_animator.run()
+    animator.run()
