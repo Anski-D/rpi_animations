@@ -29,7 +29,7 @@ class Item(ABC, Sprite):
 
         # Save main screen animator
         self._screen = screen_animator.screen
-        # Get the size of the text animator screen rectangle
+        # Get the size of the screen animator screen rectangle
         self._screen_rect = self._screen.get_rect()
 
         # Setup the item
