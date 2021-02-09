@@ -8,7 +8,7 @@ class Item(ABC, Sprite):
     Item object that holds the content and position for a single feature in the rpi_animation program.
     """
 
-    def __init__(self, group, screen_animator):
+    def __init__(self, group, screen_animator) -> None:
         """
         Initialise Item object with sprite group and screen object. Run initial setup methods.
 

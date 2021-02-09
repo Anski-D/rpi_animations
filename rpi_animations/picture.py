@@ -4,23 +4,23 @@ import pygame.sprite
 
 
 class Picture(Item):
-    def __init__(self, group, screen_animator, image):
+    def __init__(self, group: pygame.sprite.Group, screen_animator, image) -> None:
         # Save image src
         self._image = image
 
         # Run parent class init
         super().__init__(group, screen_animator)
 
-    def _set_item_content(self):
+    def _set_item_content(self) -> None:
         # Load the image
         self.content = self._image
 
-    def _place_item(self):
+    def _place_item(self) -> None:
         # Place the image in a random location
         self._rect.left = random.randint(0, self._screen_rect.right - self._rect.width)
         self._rect.top = random.randint(0, self._screen_rect.bottom - self._rect.height)
 
-    def update(self, image_group):
+    def update(self, image_group) -> None:
         # Try a few times to place it without collision
         # First remove the sprite from groups it is in
         self.remove()
