@@ -98,6 +98,10 @@ class Settings:
         except FileNotFoundError as err:
             print(f'{err.filename} not found')
             sys.exit(1)
+        except json.decoder.JSONDecodeError as err:
+            print(f'Issue found when loading {self._settings_file}. {err.args[0]}. You might have used single quotes '
+                  f'instead of double quotes.')
+            sys.exit(1)
 
     def set_colours(self) -> None:
         # Allocate colours by random
