@@ -1,5 +1,7 @@
-import pygame
 import sys
+
+import pygame
+
 from .message import Message
 from .picture import Picture
 from .settings import Settings
@@ -16,10 +18,11 @@ class ScreenAnimator:
 
     def __init__(self, settings_file: str, debug_mode=False, fps_on=False) -> None:
         """
-        Initialise ScreenAnimator class with the resource location and settings file.
+        Initialise ScreenAnimator object with the resource location and settings file. Create initial animation
+        features.
 
         Args:
-            settings_file (str): The settings JSON file to where the settings are loaded from.
+            settings_file (str): The settings JSON file from where the settings are loaded.
             debug_mode (bool): Boolean switch for activating debug mode which will run the program in windowed mode.
                 Defaults to False.
             fps_on (bool): Boolean switch for activating the fps counter as part of the animation.
