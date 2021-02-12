@@ -17,13 +17,13 @@ class Settings:
         self.outline_colour = (0, 0, 0)
 
         # Import the json file
-        self._load_settings()
+        self._setup_settings()
 
     @property
     def settings(self):
         return self._settings
 
-    def _load_settings(self) -> None:
+    def _setup_settings(self) -> None:
         # Load the json
         self._settings = self._load_json()
 
@@ -36,6 +36,9 @@ class Settings:
         except KeyError as err:
             print(f'{err} not found in provided settings')
             sys.exit(1)
+        else:
+            # Load resources and set parameters
+            self._set_parameters()
 
     def _process_settings(self):
         # Split the colour list up
@@ -72,9 +75,6 @@ class Settings:
         self._settings['fps'] = int(self._settings['fps'])
         # Make sure number of reposition attempts is an integer
         self._settings['reposition_attempts'] = int(self._settings['reposition_attempts'])
-
-        # Load resources and set parameters
-        self._set_parameters()
 
     def _set_parameters(self):
         # Randomise the colour allocations

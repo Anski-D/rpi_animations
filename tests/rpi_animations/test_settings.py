@@ -43,7 +43,7 @@ class TestSettings:
 
     @pytest.fixture
     def settings_with_dummy_input(self, monkeypatch):
-        monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
+        monkeypatch.setattr(Settings, '_setup_settings', lambda x: None)
         class_input_file = 'test.json'
         return Settings(class_input_file)
 
@@ -59,9 +59,10 @@ class TestSettings:
                and type(settings_with_dummy_input.text_colour) == tuple \
                and type(settings_with_dummy_input.outline_colour) == tuple
 
-    def test_load_settings(self, common, monkeypatch):
+    def test_setup_settings(self, common, monkeypatch):
         monkeypatch.setattr(Settings, '_load_json', lambda x: pytest.settings_dict)
         monkeypatch.setattr(Settings, '_process_settings', lambda x: None)
+        monkeypatch.setattr(Settings, '_set_parameters', lambda x: None)
         settings_dummy = Settings('test.json')
 
         assert settings_dummy.settings['colours'] == pytest.colours_in \
@@ -137,11 +138,11 @@ class TestSettings:
             Settings('test.json')
 
     def test_load_json_type(self, monkeypatch):
-        monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
+        monkeypatch.setattr(Settings, '_setup_settings', lambda x: None)
         assert type(Settings('settings_example.json')._load_json()) is dict
 
     def test_load_json_error(self, monkeypatch):
-        monkeypatch.setattr(Settings, '_load_settings', lambda x: None)
+        monkeypatch.setattr(Settings, '_setup_settings', lambda x: None)
         with pytest.raises(SystemExit) as exc_info:
             Settings('random.json')._load_json()
 
