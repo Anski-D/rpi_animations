@@ -1,8 +1,10 @@
-import pygame
+import importlib.resources
 import json
 import random
 import sys
-import importlib.resources
+
+import pygame
+
 from . import inputs
 
 
@@ -12,12 +14,31 @@ class Settings:
         self._settings_file = settings_file
 
         # Set default colours
-        self.bg_colour = (0, 0, 0)
-        self.text_colour = (0, 0, 0)
-        self.outline_colour = (0, 0, 0)
+        self._bg_colour = (0, 0, 0)
+        self._text_colour = (0, 0, 0)
+        self._outline_colour = (0, 0, 0)
 
         # Import the json file
         self._setup_settings()
+
+    @property
+    def bg_colour(self):
+        """
+        Return the allocated background colour.
+
+        Returns:
+            None
+        """
+
+        return self._bg_colour
+
+    @property
+    def text_colour(self):
+        return self._text_colour
+
+    @property
+    def outline_colour(self):
+        return self._outline_colour
 
     @property
     def settings(self):
@@ -105,17 +126,17 @@ class Settings:
 
     def set_colours(self) -> None:
         # Allocate colours by random
-        self.bg_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
+        self._bg_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
 
         # Allocate a different text colour. Need to do this initial one, otherwise it won't change if already
         # different from the background.
-        self.text_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
+        self._text_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
         # Check if this clashes with the background, if so, allocate again
-        while self.text_colour == self.bg_colour:
-            self.text_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
+        while self._text_colour == self._bg_colour:
+            self._text_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
 
         # Set the outline colour
-        self.outline_colour = \
+        self._outline_colour = \
             self._settings['outline_colours'][random.randrange(0, len(self._settings['outline_colours']))]
 
     @staticmethod

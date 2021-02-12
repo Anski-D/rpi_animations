@@ -174,12 +174,12 @@ class TestSettings:
         return settings_with_dummy_input
 
     def test_set_colours_return_values(self, common, settings_with_colours):
-        assert settings_with_colours.bg_colour in pytest.colours_out \
+        assert settings_with_colours._bg_colour in pytest.colours_out \
                and settings_with_colours.text_colour in pytest.colours_out \
                and settings_with_colours.outline_colour in pytest.colours_out
 
     def test_set_colours_return_types(self, settings_with_colours):
-        assert type(settings_with_colours.bg_colour) is tuple \
+        assert type(settings_with_colours._bg_colour) is tuple \
                and type(settings_with_colours.text_colour) is tuple \
                and type(settings_with_colours.outline_colour) is tuple
 
