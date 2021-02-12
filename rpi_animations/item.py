@@ -16,7 +16,6 @@ class Item(ABC, Sprite):
             group (Group): Pygame sprite group to which the object will be added.
             screen_animator (ScreenAnimator): Main package object controlling the animation.
         """
-
         # Run the parent __init__
         super().__init__(group)
 
@@ -42,7 +41,6 @@ class Item(ABC, Sprite):
         Returns:
             None
         """
-
         self._set_item_content()
         self._place_item()
 
@@ -54,7 +52,6 @@ class Item(ABC, Sprite):
         Returns:
             The main content of the object.
         """
-
         return self._content
 
     @content.setter
@@ -68,7 +65,6 @@ class Item(ABC, Sprite):
         Returns:
             None
         """
-
         self._content = content
 
         # If the rectangle has not been found, get it.
@@ -83,7 +79,6 @@ class Item(ABC, Sprite):
         Returns:
             The rectangular pygame frame of the object content. None, if content not set.
         """
-
         return self._rect
 
     @abstractmethod
@@ -94,7 +89,6 @@ class Item(ABC, Sprite):
         Returns:
             None
         """
-
         pass
 
     @abstractmethod
@@ -105,7 +99,6 @@ class Item(ABC, Sprite):
         Returns:
             None
         """
-
         pass
 
     def blit(self) -> None:
@@ -115,5 +108,4 @@ class Item(ABC, Sprite):
         Returns:
             None
         """
-
         self._screen.blit(self._content, self._rect)

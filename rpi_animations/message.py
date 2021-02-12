@@ -14,7 +14,6 @@ class Message(Item):
             group (Group): Pygame sprite group to which the object will be added.
             screen_animator (ScreenAnimator): Main package object controlling the animation.
         """
-
         super().__init__(group, screen_animator)
 
         # Store x position as float
@@ -30,7 +29,6 @@ class Message(Item):
         Returns:
             None
         """
-
         self._set_text()
 
         # Run parent method
@@ -43,7 +41,6 @@ class Message(Item):
         Returns:
             None
         """
-
         # Set font
         self._font = self._settings.font
 
@@ -64,7 +61,6 @@ class Message(Item):
         Returns:
             None
         """
-
         self.content = self._font.render(
             self._text,
             self._settings.settings['text_aa'],
@@ -78,7 +74,6 @@ class Message(Item):
         Returns:
             None
         """
-
         self._rect.midleft = self._screen_rect.midright
 
     def _draw_outline(self) -> None:
@@ -88,7 +83,6 @@ class Message(Item):
         Returns:
             None
         """
-
         outline_width = self._settings.settings['outline_width']
         self._screen.blit(self._outline_text, (self._rect.x - outline_width, self._rect.y - outline_width))
         self._screen.blit(self._outline_text, (self._rect.x - outline_width, self._rect.y + outline_width))
@@ -102,7 +96,6 @@ class Message(Item):
         Returns:
             None
         """
-
         # Draw outline text
         self._draw_outline()
 
@@ -119,7 +112,6 @@ class Message(Item):
         Returns:
             None
         """
-
         self._x -= self._settings.settings['text_speed'] / self._settings.settings['fps']
         self._rect.x = self._x
 
@@ -130,7 +122,6 @@ class Message(Item):
         Returns:
             bool: True if still on screen, False otherwise.
         """
-
         if self._rect.right <= self._screen_rect.left:
             return False
 
@@ -143,7 +134,6 @@ class Message(Item):
         Returns:
             bool: True if right edge is now on screen, False otherwise.
         """
-
         if not self._has_fully_emerged and self._rect.right <= self._screen_rect.right:
             self._has_fully_emerged = True
             return True

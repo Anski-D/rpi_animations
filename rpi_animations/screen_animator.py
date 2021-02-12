@@ -28,7 +28,6 @@ class ScreenAnimator:
             fps_on (bool): Boolean switch for activating the fps counter as part of the animation.
                 Defaults to False.
         """
-
         # Initialise pygame
         pygame.init()
 
@@ -65,7 +64,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Create the images group
         self._images = pygame.sprite.Group()
         # Create the images
@@ -78,7 +76,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Create the messages group
         self._messages = pygame.sprite.Group()
         # Create a message
@@ -92,7 +89,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Run a continuous loop
         while True:
             # Set the FPS
@@ -117,7 +113,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Loop through each event
         for event in pygame.event.get():
             # Check if should quit
@@ -135,7 +130,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
             sys.exit()
 
@@ -146,7 +140,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         self.screen.fill(self.settings.bg_colour)
 
     def _create_images(self) -> None:
@@ -156,7 +149,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Create all the required images
         for i in range(self.settings.settings['num_images']):
             # Create an image of each type
@@ -171,7 +163,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         Message(self._messages, self)
 
     def _check_items(self) -> None:
@@ -182,7 +173,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Loop through each message
         for message in self._messages.sprites():
             # Check whether the message has fully emerged on screen, then create another if so
@@ -200,7 +190,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Update images
         self._update_images()
 
@@ -217,7 +206,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Get the current clock time
         image_change_time_new = pygame.time.get_ticks()
 
@@ -240,7 +228,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Get the current clock time
         colour_change_time_new = pygame.time.get_ticks()
 
@@ -259,7 +246,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         # Set the background colour
         self._set_bg()
 
@@ -285,7 +271,6 @@ class ScreenAnimator:
         Returns:
             None
         """
-
         fps_font = pygame.font.SysFont(self.settings.settings['typeface'], 36)
         text = f'{self._clock.get_fps():.2f}'
         content = fps_font.render(text, True, (0, 0, 0))

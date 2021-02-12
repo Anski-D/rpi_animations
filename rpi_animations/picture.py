@@ -17,7 +17,6 @@ class Picture(Item):
             screen_animator (ScreenAnimator): Main package object controlling the animation.
             image (image): A loaded pygame image.
         """
-
         # Store pygame image
         self._image = image
 
@@ -31,7 +30,6 @@ class Picture(Item):
         Returns:
             None
         """
-
         self.content = self._image
 
     def _place_item(self) -> None:
@@ -41,7 +39,6 @@ class Picture(Item):
         Returns:
             None
         """
-
         # Place the image in a random location
         self._rect.left = random.randint(0, self._screen_rect.right - self._rect.width)
         self._rect.top = random.randint(0, self._screen_rect.bottom - self._rect.height)
@@ -56,7 +53,6 @@ class Picture(Item):
         Returns:
             None
         """
-
         # Try a few times to place it without collision
         # First remove the sprite from groups it is in
         self.remove()

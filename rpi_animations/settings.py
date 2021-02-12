@@ -9,7 +9,17 @@ from . import inputs
 
 
 class Settings:
+    """
+    Settings object that loads and manages the rpi_animations settings.
+    """
+
     def __init__(self, settings_file: str) -> None:
+        """
+        Initialise Settings object with the settings JSON filename.
+
+        Args:
+            settings_file (str): Settings JSON filename.
+        """
         # Set the resources settings
         self._settings_file = settings_file
 
@@ -29,22 +39,45 @@ class Settings:
         Returns:
             None
         """
-
         return self._bg_colour
 
     @property
     def text_colour(self):
+        """
+        Return the allocated text colour.
+
+        Returns:
+            None
+        """
         return self._text_colour
 
     @property
     def outline_colour(self):
+        """
+        Return the allocated text outline colour.
+
+        Returns:
+            None
+        """
         return self._outline_colour
 
     @property
-    def settings(self):
+    def settings(self) -> dict:
+        """
+        Return the settings dictionary.
+
+        Returns:
+            dict: Dictionary of loaded and processed settings.
+        """
         return self._settings
 
     def _setup_settings(self) -> None:
+        """
+        Run methods to load, process, and set the settings.
+
+        Returns:
+            None
+        """
         # Load the json
         self._settings = self._load_json()
 
@@ -61,7 +94,13 @@ class Settings:
             # Load resources and set parameters
             self._set_parameters()
 
-    def _process_settings(self):
+    def _process_settings(self) -> None:
+        """
+        Process each setting, making sure it is the correct type.
+
+        Returns:
+            None
+        """
         # Split the colour list up
         self._settings['colours'] = self._split_colours(str(self._settings['colours']))
         # Set the message text
@@ -97,7 +136,13 @@ class Settings:
         # Make sure number of reposition attempts is an integer
         self._settings['reposition_attempts'] = int(self._settings['reposition_attempts'])
 
-    def _set_parameters(self):
+    def _set_parameters(self) -> None:
+        """
+        Set settings that are derived from the loaded settings.
+
+        Returns:
+            None
+        """
         # Randomise the colour allocations
         self.set_colours()
         # Load images
@@ -111,6 +156,12 @@ class Settings:
         )
 
     def _load_json(self) -> dict:
+        """
+        Load the settings JSON file.
+
+        Returns:
+            dict: Dictionary of loaded settings.
+        """
         try:
             # Open the json file safely
             with importlib.resources.open_text(inputs, self._settings_file) as settings_file:
@@ -125,6 +176,12 @@ class Settings:
             sys.exit(1)
 
     def set_colours(self) -> None:
+        """
+        Set the different colours in the animation.
+
+        Returns:
+            None
+        """
         # Allocate colours by random
         self._bg_colour = self._settings['colours'][random.randrange(0, len(self._settings['colours']))]
 
@@ -141,15 +198,35 @@ class Settings:
 
     @staticmethod
     def _split_colours(colours: str) -> list:
+        """
+        Split up the string of colour values into a list.
+
+        Args:
+            colours (str): String of semicolon-separated colour.
+
+        Returns:
+            list: List of colours, each represented as a RGB triplet in a tuple.
+        """
         # Each colours is a string that needs to be split further, turned into an int and then held as a tuple
         return [tuple([int(pigment) for pigment in colour.split(',')]) for colour in colours.split(';')]
 
     @property
     def text(self) -> str:
-        # Set the message text
+        """
+        Return a random message as a string.
+
+        Returns:
+            str: A random message.
+        """
         return f"{self._settings['messages'][random.randrange(0, len(self._settings['messages']))]}{self._settings['message_sep']}"
 
     def _load_images(self) -> None:
+        """
+        Attempt to load each image from source provided, filter out any Nones.
+
+        Returns:
+            None
+        """
         self.images = [
             image for image in [
                 self._load_single_image(image_src)
@@ -160,7 +237,16 @@ class Settings:
         ]
 
     @staticmethod
-    def _load_single_image(image_src):
+    def _load_single_image(image_src: str) -> pygame.image:
+        """
+        Load a pygame image.
+
+        Args:
+            image_src (str): Image filename.
+
+        Returns:
+            image: A pygame image.
+        """
         try:
             image = pygame.image.load(importlib.resources.open_binary(inputs, image_src))
         except FileNotFoundError as err:
