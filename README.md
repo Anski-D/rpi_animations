@@ -1,3 +1,0 @@
-# rpi_animations
-
-TBD.
