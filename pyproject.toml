@@ -5,7 +5,7 @@ description = ""
 authors = ["David Anscombe <dave.anski@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 pygame = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
