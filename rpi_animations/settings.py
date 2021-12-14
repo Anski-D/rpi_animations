@@ -1,5 +1,105 @@
 import json
 import pathlib
+from jsonschema import validate
+
+schema = {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "colours": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255
+                }
+            }
+        },
+        "messages": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "message_sep": {
+            "type": "string"
+        },
+        "typeface": {
+            "type": "string"
+        },
+        "text_size": {
+            "type": "integer"
+        },
+        "bold_text": {
+            "type": "integer"
+        },
+        "italic_text": {
+            "type": "integer"
+        },
+        "text_aa": {
+            "type": "integer"
+        },
+        "text_speed": {
+            "type": "number"
+        },
+        "outline_width": {
+            "type": "integer"
+        },
+        "outline_colours": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255
+                }
+            }
+        },
+        "image_sources": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "num_images": {
+            "type": "integer"
+        },
+        "image_change_time": {
+            "type": "integer"
+        },
+        "colour_change_time": {
+            "type": "integer"
+        },
+        "fps": {
+            "type": "integer"
+        },
+        "reposition_attempts": {
+            "type": "integer"
+        }
+    },
+    "required": [
+        "colours",
+        "messages",
+        "message_sep",
+        "typeface",
+        "text_size",
+        "bold_text",
+        "italic_text",
+        "text_aa",
+        "text_speed",
+        "outline_width",
+        "outline_colours",
+        "image_sources",
+        "num_images",
+        "image_change_time",
+        "colour_change_time",
+        "fps",
+        "reposition_attempts"
+    ]
+}
 
 
 class SettingsImporter:
@@ -12,6 +112,7 @@ class SettingsImporter:
 
     def import_settings(self):
         self._read_settings()
+        self._validate_setting()
         self._convert_colours()
 
         return self._settings
@@ -19,6 +120,9 @@ class SettingsImporter:
     def _read_settings(self):
         with open(self._settings_loc) as f:
             self._settings = json.load(f)
+
+    def _validate_setting(self):
+        validate(self._settings, schema)
 
     def _convert_colours(self):
         for key, value in self._settings.items():
