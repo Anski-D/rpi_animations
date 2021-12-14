@@ -2,7 +2,7 @@ import json
 import pathlib
 from jsonschema import validate
 
-schema = {
+JSON_SCHEMA = {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
@@ -122,7 +122,7 @@ class SettingsImporter:
             self._settings = json.load(f)
 
     def _validate_setting(self):
-        validate(self._settings, schema)
+        validate(self._settings, JSON_SCHEMA)
 
     def _convert_colours(self):
         for key, value in self._settings.items():
