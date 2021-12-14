@@ -74,13 +74,8 @@ class TestSettingsImporters:
             "reposition_attempts": 50
         }
 
-    @pytest.fixture
-    def settings_importer_dummy_input(self, imported_json, monkeypatch):
-        monkeypatch.setattr(SettingsImporter, '_read_settings', lambda x: None)
+    def test_settings_import_convert_colours(self, imported_json):
         settings_importer = SettingsImporter()
         settings_importer._settings = pytest.imported_json
-        return settings_importer
-
-    def test_settings_import_convert_colours(self, imported_json, settings_importer_dummy_input, monkeypatch):
-        settings_importer_dummy_input._convert_colours()
-        assert settings_importer_dummy_input._settings == pytest.settings_dict
+        settings_importer._convert_colours()
+        assert settings_importer._settings == pytest.settings_dict
