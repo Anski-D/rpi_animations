@@ -102,6 +102,15 @@ JSON_SCHEMA = {
 }
 
 
+class SettingsManager:
+    def __init__(self, importer, settings_loc):
+        self._importer = importer
+        self._settings = self._import_settings(settings_loc)
+
+    def _import_settings(self, settings_loc):
+        return self._importer.import_settings(settings_loc)
+
+
 class SettingsImporter:
     """Imports and validates the user settings.
     """
@@ -111,7 +120,7 @@ class SettingsImporter:
 
     def import_settings(self, settings_loc):
         self._read_settings(settings_loc)
-        self._validate_setting()
+        self._validate_settings()
         self._convert_colours()
 
         return self._settings
@@ -120,7 +129,7 @@ class SettingsImporter:
         with open(settings_loc, encoding='UTF-8') as settings_file:
             self._settings = json.load(settings_file)
 
-    def _validate_setting(self):
+    def _validate_settings(self):
         validate(self._settings, JSON_SCHEMA)
 
     def _convert_colours(self):
@@ -131,20 +140,8 @@ class SettingsImporter:
                         self._settings[key][idx] = tuple(subvalue)
 
 
-class SettingsManager:
-    def __init__(self, importer, settings_loc):
-        self._settings = None
-        self._settings_importer = importer
-        self._settings_loc = settings_loc
-
-        self._import_settings()
-
-    def _import_settings(self):
-        self._settings = self._settings_importer.import_settings(self._settings_loc)
-
-
 if __name__ == '__main__':
     loc = pathlib.Path('C:\\Users\\david\\PythonProjects\\rpi_animations\\inputs', 'settings.json')
-    settings_importer = SettingsImporter(loc)
-    settings = settings_importer.import_settings()
+    settings_importer = SettingsImporter()
+    settings = settings_importer.import_settings(loc)
     print(settings)
