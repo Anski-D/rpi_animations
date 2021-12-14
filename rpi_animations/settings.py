@@ -137,7 +137,9 @@ class SettingsManager:
         self._settings_importer = importer
         self._settings_loc = settings_loc
 
-    def import_settings(self):
+        self._import_settings()
+
+    def _import_settings(self):
         self._settings = self._settings_importer.import_settings(self._settings_loc)
 
 
