@@ -105,21 +105,20 @@ JSON_SCHEMA = {
 class SettingsImporter:
     """Imports and validates the user settings.
     """
-    def __init__(self, settings_loc):
+    def __init__(self):
         """Inits class with settings file string."""
         self._settings = None
-        self._settings_loc = settings_loc
 
-    def import_settings(self):
-        self._read_settings()
+    def import_settings(self, settings_loc):
+        self._read_settings(settings_loc)
         self._validate_setting()
         self._convert_colours()
 
         return self._settings
 
-    def _read_settings(self):
-        with open(self._settings_loc) as f:
-            self._settings = json.load(f)
+    def _read_settings(self, settings_loc):
+        with open(settings_loc, encoding='UTF-8') as settings_file:
+            self._settings = json.load(settings_file)
 
     def _validate_setting(self):
         validate(self._settings, JSON_SCHEMA)
@@ -130,6 +129,16 @@ class SettingsImporter:
                 for idx, subvalue in enumerate(value):
                     if isinstance(subvalue, list) and all(isinstance(x, int) for x in subvalue):
                         self._settings[key][idx] = tuple(subvalue)
+
+
+class SettingsManager:
+    def __init__(self, importer, settings_loc):
+        self._settings = None
+        self._settings_importer = importer
+        self._settings_loc = settings_loc
+
+    def import_settings(self):
+        self._settings = self._settings_importer.import_settings(self._settings_loc)
 
 
 if __name__ == '__main__':

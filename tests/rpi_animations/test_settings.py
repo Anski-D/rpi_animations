@@ -77,7 +77,7 @@ class TestSettingsImporters:
     @pytest.fixture
     def settings_importer_dummy_input(self, imported_json, monkeypatch):
         monkeypatch.setattr(SettingsImporter, '_read_settings', lambda x: None)
-        settings_importer = SettingsImporter('dummy')
+        settings_importer = SettingsImporter()
         settings_importer._settings = pytest.imported_json
         return settings_importer
 
