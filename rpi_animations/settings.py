@@ -1,6 +1,6 @@
 import json
-from jsonschema import validate
 import random
+from jsonschema import validate
 
 JSON_SCHEMA = {
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -104,25 +104,58 @@ JSON_SCHEMA = {
 
 class SettingsManager:
     def __init__(self, importer: 'SettingsImporter', settings_loc: str):
+        """
+
+        Args:
+            importer:
+            settings_loc:
+        """
         self._importer = importer
         self.settings = self._import_settings(settings_loc)
 
     @property
     def bg_colour(self) -> tuple:
+        """
+
+        Returns:
+
+        """
         return self._bg_colour
 
     @property
     def text_colour(self) -> tuple:
+        """
+
+        Returns:
+
+        """
         return self._text_colour
 
     @property
     def outline_colour(self) -> tuple:
+        """
+
+        Returns:
+
+        """
         return self._outline_colour
+
+    @property
+    def text(self) -> str:
+        """
+
+        Returns:
+
+        """
+        return f"{random.choice(self.settings['messages'])}{self.settings['message_sep']}"
 
     def _import_settings(self, settings_loc: str) -> dict:
         return self._importer.import_settings(settings_loc)
 
     def set_colours(self):
+        """
+
+        """
         # Select a random background colour
         self._bg_colour = random.choice(self.settings['colours'])
 
@@ -145,6 +178,14 @@ class SettingsImporter:
         self._settings = None
 
     def import_settings(self, settings_loc: str) -> dict:
+        """
+
+        Args:
+            settings_loc:
+
+        Returns:
+
+        """
         self._read_settings(settings_loc)
         self._validate_settings()
         self._convert_colours()
@@ -152,13 +193,24 @@ class SettingsImporter:
         return self._settings
 
     def _read_settings(self, settings_loc: str):
+        """
+
+        Args:
+            settings_loc:
+        """
         with open(settings_loc, encoding='UTF-8') as settings_file:
             self._settings = json.load(settings_file)
 
     def _validate_settings(self):
+        """
+
+        """
         validate(self._settings, JSON_SCHEMA)
 
     def _convert_colours(self):
+        """
+
+        """
         for key, value in self._settings.items():
             if isinstance(value, list):
                 for idx, subvalue in enumerate(value):

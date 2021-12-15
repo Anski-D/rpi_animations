@@ -74,17 +74,24 @@ class TestSettingsImporters:
             "reposition_attempts": 50
         }
 
+    @pytest.fixture
+    def settings_manager_setup(self, imported_json, monkeypatch):
+        monkeypatch.setattr(SettingsManager, '_import_settings', lambda x, y: pytest.settings_dict)
+        return SettingsManager(None, None)
+
     def test_settings_settings_importer_convert_colours(self, imported_json):
         settings_importer = SettingsImporter()
         settings_importer._settings = pytest.imported_json
         settings_importer._convert_colours()
         assert settings_importer._settings == pytest.settings_dict
 
-    def test_settings_settings_manager_set_colours(self, imported_json, monkeypatch):
-        monkeypatch.setattr(SettingsManager, '_import_settings', lambda x, y: pytest.settings_dict)
-        settings_manager = SettingsManager(None, None)
-        settings_manager.set_colours()
+    def test_settings_settings_manager_set_colours(self, settings_manager_setup):
+        settings_manager_setup.set_colours()
 
-        assert settings_manager.bg_colour in pytest.settings_dict['colours'] \
-               and settings_manager.text_colour in pytest.settings_dict['colours'] \
-               and settings_manager.outline_colour in pytest.settings_dict['outline_colours']
+        assert settings_manager_setup.bg_colour in pytest.settings_dict['colours'] \
+               and settings_manager_setup.text_colour in pytest.settings_dict['colours'] \
+               and settings_manager_setup.outline_colour in pytest.settings_dict['outline_colours']
+
+    def test_settings_settings_manager_text(self, settings_manager_setup, imported_json):
+        assert settings_manager_setup.text \
+               in [f"{message}{pytest.settings_dict['message_sep']}" for message in pytest.settings_dict['messages']]
