@@ -103,28 +103,23 @@ JSON_SCHEMA = {
 
 
 class SettingsManager:
-    def __init__(self, importer, settings_loc):
+    def __init__(self, importer: 'SettingsImporter', settings_loc: str):
         self._importer = importer
         self.settings = self._import_settings(settings_loc)
 
-        # Set defaults
-        self._bg_colour = None
-        self._text_colour = None
-        self._outline_colour = None
-
     @property
-    def bg_colour(self):
+    def bg_colour(self) -> tuple:
         return self._bg_colour
 
     @property
-    def text_colour(self):
+    def text_colour(self) -> tuple:
         return self._text_colour
 
     @property
-    def outline_colour(self):
+    def outline_colour(self) -> tuple:
         return self._outline_colour
 
-    def _import_settings(self, settings_loc):
+    def _import_settings(self, settings_loc: str) -> dict:
         return self._importer.import_settings(settings_loc)
 
     def set_colours(self):
@@ -149,14 +144,14 @@ class SettingsImporter:
         """Inits class with settings file string."""
         self._settings = None
 
-    def import_settings(self, settings_loc):
+    def import_settings(self, settings_loc: str) -> dict:
         self._read_settings(settings_loc)
         self._validate_settings()
         self._convert_colours()
 
         return self._settings
 
-    def _read_settings(self, settings_loc):
+    def _read_settings(self, settings_loc: str):
         with open(settings_loc, encoding='UTF-8') as settings_file:
             self._settings = json.load(settings_file)
 
