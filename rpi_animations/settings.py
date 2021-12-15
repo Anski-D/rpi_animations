@@ -1,6 +1,6 @@
 import json
-import pathlib
 from jsonschema import validate
+import random
 
 JSON_SCHEMA = {
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -105,10 +105,41 @@ JSON_SCHEMA = {
 class SettingsManager:
     def __init__(self, importer, settings_loc):
         self._importer = importer
-        self._settings = self._import_settings(settings_loc)
+        self.settings = self._import_settings(settings_loc)
+
+        # Set defaults
+        self._bg_colour = None
+        self._text_colour = None
+        self._outline_colour = None
+
+    @property
+    def bg_colour(self):
+        return self._bg_colour
+
+    @property
+    def text_colour(self):
+        return self._text_colour
+
+    @property
+    def outline_colour(self):
+        return self._outline_colour
 
     def _import_settings(self, settings_loc):
         return self._importer.import_settings(settings_loc)
+
+    def set_colours(self):
+        # Select a random background colour
+        self._bg_colour = random.choice(self.settings['colours'])
+
+        # Allocate a different text colour. Need to do this initial one, otherwise it won't change if already
+        # different from the background.
+        self._text_colour = random.choice(self.settings['colours'])
+        # If there is a clash, keep trying
+        while self._text_colour == self._bg_colour:
+            self._text_colour = random.choice(self.settings['colours'])
+
+        # Set the outline colour
+        self._outline_colour = random.choice(self.settings['outline_colours'])
 
 
 class SettingsImporter:
@@ -138,10 +169,3 @@ class SettingsImporter:
                 for idx, subvalue in enumerate(value):
                     if isinstance(subvalue, list) and all(isinstance(x, int) for x in subvalue):
                         self._settings[key][idx] = tuple(subvalue)
-
-
-if __name__ == '__main__':
-    loc = pathlib.Path('C:\\Users\\david\\PythonProjects\\rpi_animations\\inputs', 'settings.json')
-    settings_importer = SettingsImporter()
-    settings = settings_importer.import_settings(loc)
-    print(settings)
