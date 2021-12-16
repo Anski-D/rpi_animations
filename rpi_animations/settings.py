@@ -112,6 +112,7 @@ class SettingsManager:
         """
         self._importer = importer
         self._settings = self._import_settings(settings_loc)
+        self._setup_settings()
 
     @property
     def settings(self):
@@ -153,9 +154,6 @@ class SettingsManager:
         """
         return f"{random.choice(self.settings['messages'])}{self.settings['message_sep']}"
 
-    def _import_settings(self, settings_loc: str) -> dict:
-        return self._importer.import_settings(settings_loc)
-
     def set_colours(self):
         """
 
@@ -172,6 +170,12 @@ class SettingsManager:
 
         # Set the outline colour
         self._outline_colour = random.choice(self.settings['outline_colours'])
+
+    def _import_settings(self, settings_loc: str) -> dict:
+        return self._importer.import_settings(settings_loc)
+
+    def _setup_settings(self):
+        self.set_colours()
 
 
 class SettingsImporter:
