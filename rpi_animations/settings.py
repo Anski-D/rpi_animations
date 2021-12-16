@@ -110,6 +110,12 @@ class SettingsManager:
             importer:
             settings_loc:
         """
+        # Default values
+        self._bg_colour = None
+        self._text_colour = None
+        self._outline_colour = None
+
+        # Run setup
         self._importer = importer
         self._settings = self._import_settings(settings_loc)
         self._setup_settings()
