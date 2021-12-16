@@ -111,7 +111,11 @@ class SettingsManager:
             settings_loc:
         """
         self._importer = importer
-        self.settings = self._import_settings(settings_loc)
+        self._settings = self._import_settings(settings_loc)
+
+    @property
+    def settings(self):
+        return self._settings
 
     @property
     def bg_colour(self) -> tuple:
