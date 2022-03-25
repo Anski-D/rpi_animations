@@ -110,75 +110,38 @@ class SettingsManager:
             importer:
             settings_loc:
         """
-        # Default values
-        self._bg_colour = None
-        self._text_colour = None
-        self._outline_colour = None
 
-        # Run setup
         self._importer = importer
         self._settings = self._import_settings(settings_loc)
+        self._settings['text'] = self._generate_text
         self._setup_settings()
 
     @property
     def settings(self):
         return self._settings
 
-    @property
-    def bg_colour(self) -> tuple:
-        """
-
-        Returns:
-
-        """
-        return self._bg_colour
-
-    @property
-    def text_colour(self) -> tuple:
-        """
-
-        Returns:
-
-        """
-        return self._text_colour
-
-    @property
-    def outline_colour(self) -> tuple:
-        """
-
-        Returns:
-
-        """
-        return self._outline_colour
-
-    @property
-    def text(self) -> str:
-        """
-
-        Returns:
-
-        """
-        return f"{random.choice(self.settings['messages'])}{self.settings['message_sep']}"
-
     def set_colours(self):
         """
 
         """
         # Select a random background colour
-        self._bg_colour = random.choice(self.settings['colours'])
+        self._settings['bg_colour'] = random.choice(self.settings['colours'])
 
         # Allocate a different text colour. Need to do this initial one, otherwise it won't change if already
         # different from the background.
-        self._text_colour = random.choice(self.settings['colours'])
+        self._settings['text_colour'] = random.choice(self.settings['colours'])
         # If there is a clash, keep trying
-        while self._text_colour == self._bg_colour:
-            self._text_colour = random.choice(self.settings['colours'])
+        while self._settings['text_colour'] == self._settings['bg_colour']:
+            self._settings['text_colour'] = random.choice(self.settings['colours'])
 
         # Set the outline colour
-        self._outline_colour = random.choice(self.settings['outline_colours'])
+        self._settings['outline_colour'] = random.choice(self.settings['outline_colours'])
 
     def _import_settings(self, settings_loc: str) -> dict:
         return self._importer.import_settings(settings_loc)
+
+    def _generate_text(self) -> str:
+        return f"{random.choice(self.settings['messages'])}{self.settings['message_sep']}"
 
     def _setup_settings(self):
         self.set_colours()
