@@ -48,12 +48,12 @@ class TestSettingsManager:
     def test_settings_manager_set_colours(self, settings_manager_setup):
         settings_manager_setup.set_colours()
 
-        assert settings_manager_setup.bg_colour in pytest.settings_dict['colours'] \
-               and settings_manager_setup.text_colour in pytest.settings_dict['colours'] \
-               and settings_manager_setup.outline_colour in pytest.settings_dict['outline_colours']
+        assert settings_manager_setup.settings['bg_colour'] in pytest.settings_dict['colours'] \
+               and settings_manager_setup.settings['text_colour'] in pytest.settings_dict['colours'] \
+               and settings_manager_setup.settings['outline_colour'] in pytest.settings_dict['outline_colours']
 
     def test_settings_manager_text(self, settings_manager_setup, settings_dict):
-        assert settings_manager_setup.text \
+        assert settings_manager_setup.settings['text'] \
                in [f"{message}{pytest.settings_dict['message_sep']}" for message in pytest.settings_dict['messages']]
 
 
