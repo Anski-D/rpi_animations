@@ -53,7 +53,7 @@ class TestSettingsManager:
                and settings_manager_setup.settings['outline_colour'] in pytest.settings_dict['outline_colours']
 
     def test_settings_manager_generate_text(self, settings_manager_setup, settings_dict):
-        assert settings_manager_setup._generate_text() \
+        assert settings_manager_setup._generate_message() \
                in [f"{message}{pytest.settings_dict['message_sep']}" for message in pytest.settings_dict['messages']]
 
 

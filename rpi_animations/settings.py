@@ -113,7 +113,7 @@ class SettingsManager:
 
         self._importer = importer
         self._settings = self._import_settings(settings_loc)
-        self._settings['text'] = self._generate_text
+        self._settings['text'] = self._generate_message
         self._setup_settings()
 
     @property
@@ -140,7 +140,7 @@ class SettingsManager:
     def _import_settings(self, settings_loc: str) -> dict:
         return self._importer.import_settings(settings_loc)
 
-    def _generate_text(self) -> str:
+    def _generate_message(self) -> str:
         return f"{random.choice(self.settings['messages'])}{self.settings['message_sep']}"
 
     def _setup_settings(self):
