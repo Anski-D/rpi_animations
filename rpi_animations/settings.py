@@ -103,7 +103,7 @@ JSON_SCHEMA = {
 
 
 class SettingsManager:
-    def __init__(self, importer: 'SettingsImporter', settings_loc: str):
+    def __init__(self, importer: 'SettingsImporter', settings_loc: str) -> None:
         """
 
         Args:
@@ -117,10 +117,10 @@ class SettingsManager:
         self._setup_settings()
 
     @property
-    def settings(self):
+    def settings(self) -> dict:
         return self._settings
 
-    def set_colours(self):
+    def set_colours(self) -> None:
         """
 
         """
@@ -143,7 +143,7 @@ class SettingsManager:
     def _generate_message(self) -> str:
         return f"{random.choice(self.settings['messages'])}{self.settings['message_sep']}"
 
-    def _setup_settings(self):
+    def _setup_settings(self) -> None:
         self.set_colours()
 
 
@@ -169,7 +169,7 @@ class SettingsImporter:
 
         return self._settings
 
-    def _read_settings(self, settings_loc: str):
+    def _read_settings(self, settings_loc: str) -> None:
         """
 
         Args:
@@ -178,13 +178,13 @@ class SettingsImporter:
         with open(settings_loc, encoding='UTF-8') as settings_file:
             self._settings = json.load(settings_file)
 
-    def _validate_settings(self):
+    def _validate_settings(self) -> None:
         """
 
         """
         validate(self._settings, JSON_SCHEMA)
 
-    def _convert_colours(self):
+    def _convert_colours(self) -> None:
         """
 
         """
