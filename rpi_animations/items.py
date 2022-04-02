@@ -1,10 +1,9 @@
 from abc import ABC, abstractmethod
 from pygame.sprite import Sprite
-from pygame import Vector2
 
 
 class Item(ABC, Sprite):
-    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter) -> None:
+    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter: 'pygame.rect') -> None:
         """
 
         Args:
@@ -27,6 +26,17 @@ class Item(ABC, Sprite):
         # Set up the instance
         self._setup()
 
+    @property
+    def content(self):
+        return self._content
+
+    @content.setter
+    def content(self, content) -> None:
+        self._content = content
+
+        if self._rect is None:
+            self._rect = self._content.get_rect()
+
     def _setup(self):
         self._set_content()
         self._set_position()
@@ -41,12 +51,12 @@ class Item(ABC, Sprite):
 
 
 class Message(Item):
-    def __init__(self, group: 'import pygame.sprite', settings: dict, perimeter):
+    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter: 'pygame.rect'):
         super.__init__(group, settings, perimeter)
 
         # Keep accurate track of position
-        self._position.x = self._rect.x
-        self._position.y = self._rect.y
+        self._position['x'] = self._rect.x
+        self._position['y'] = self._rect.y
 
     def update(self) -> None:
         """
@@ -54,14 +64,14 @@ class Message(Item):
         Returns:
 
         """
-        self._position.x = -self._settings['text_speed'] / self._settings['fps']  # px/s / frame/s = px/frame
-        self._rect.x = self._position.x
+        self._position['x'] -= self._settings['text_speed'] / self._settings['fps']  # px/s / frame/s = px/frame
+        self._rect.x = self._position['x']
 
     def _set_content(self) -> None:
-        self._content = self._settings['font'].render(
+        self.content = self._settings['font'].render(
             self._settings['message'],
             self._settings['text_aa'],
-            self._settings['text_colour']
+            self._settings['text_colour'],
         )
 
     def _set_position(self) -> None:
