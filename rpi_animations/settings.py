@@ -1,5 +1,6 @@
 import json
 import random
+import pygame.font
 from jsonschema import validate
 
 JSON_SCHEMA = {
@@ -145,6 +146,15 @@ class SettingsManager:
 
     def _setup_settings(self) -> None:
         self.set_colours()
+        self._set_font()
+
+    def _set_font(self):
+        self._settings['font'] = pygame.font.SysFont(
+            self._settings['typeface'],
+            self._settings['text_size'],
+            bold=self.settings['bold_text'],
+            italic=self._settings['italic_text'],
+        )
 
 
 class SettingsImporter:
