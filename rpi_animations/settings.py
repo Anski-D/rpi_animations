@@ -148,7 +148,7 @@ class SettingsManager:
         self.set_colours()
         self._set_font()
 
-    def _set_font(self):
+    def _set_font(self) -> None:
         self._settings['font'] = pygame.font.SysFont(
             self._settings['typeface'],
             self._settings['text_size'],
