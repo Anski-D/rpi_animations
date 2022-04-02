@@ -4,7 +4,7 @@ from pygame import Vector2
 
 
 class Item(ABC, Sprite):
-    def __init__(self, group: 'pygame.sprite.Group', settings, perimeter) -> None:
+    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter) -> None:
         """
 
         Args:
@@ -18,6 +18,7 @@ class Item(ABC, Sprite):
         # Set some defaults for the instance
         self._content = None
         self._rect = None
+        self._position = None
 
         # Get some information about from the parent
         self._settings = settings
@@ -40,17 +41,30 @@ class Item(ABC, Sprite):
 
 
 class Message(Item):
-    def __init__(self, group: 'import pygame.sprite', parent):
-        pass
+    def __init__(self, group: 'import pygame.sprite', settings: dict, perimeter):
+        super.__init__(group, settings, perimeter)
 
-    def _set_content(self):
+        # Keep accurate track of position
+        self._position.x = self._rect.x
+        self._position.y = self._rect.y
+
+    def update(self) -> None:
+        """
+
+        Returns:
+
+        """
+        self._position.x = -self._settings['text_speed'] / self._settings['fps']  # px/s / frame/s = px/frame
+        self._rect.x = self._position.x
+
+    def _set_content(self) -> None:
         self._content = self._settings['font'].render(
             self._settings['message'],
             self._settings['text_aa'],
             self._settings['text_colour']
         )
 
-    def _set_position(self):
+    def _set_position(self) -> None:
         self._rect.midleft = self._perimeter.midright
 
 
