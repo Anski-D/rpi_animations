@@ -114,7 +114,7 @@ class SettingsManager:
 
         self._importer = importer
         self._settings = self._import_settings(settings_loc)
-        self._settings['text'] = self._generate_message
+        self._settings['message'] = self._generate_message()
         self._setup_settings()
 
     @property

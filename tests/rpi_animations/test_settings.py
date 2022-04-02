@@ -43,6 +43,7 @@ class TestSettingsManager:
     @pytest.fixture
     def settings_manager_setup(self, settings_dict, monkeypatch):
         monkeypatch.setattr(SettingsManager, '_import_settings', lambda x, y: pytest.settings_dict)
+        monkeypatch.setattr(SettingsManager, '_set_font', lambda x: None)
         return SettingsManager(None, None)
 
     def test_settings_manager_set_colours(self, settings_manager_setup):
