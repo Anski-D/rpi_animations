@@ -57,6 +57,9 @@ class Message(Item):
         # Keep accurate track of position
         self._position['x'] = self._rect.x
 
+        # Keep track of whether fully within the right perimeter
+        self._is_within_right = False
+
     def update(self) -> None:
         """
 
@@ -76,6 +79,13 @@ class Message(Item):
             return False
 
         return True
+
+    def is_just_within_right(self):
+        if not self._is_within_right and self._rect.right <= self._perimeter.right:
+            self._is_within_right = True
+            return True
+
+        return False
 
     def _set_content(self) -> None:
         self.content = self._settings['font'].render(

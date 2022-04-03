@@ -31,5 +31,27 @@ class TestMessage:
         message_setup._rect.right = message_setup._perimeter.left + 1
         assert message_setup.is_within_left()
 
-    def test_message_is_just_within_right_perimeter(self):
-        pass
+    def test_message_is_just_within_right(self, message_setup):
+        message_setup._is_within_right = True
+        message_setup._rect.right = message_setup._perimeter.right - 1
+        assert not message_setup.is_just_within_right() and message_setup._is_within_right
+
+        message_setup._is_within_right = True
+        message_setup._rect.right = message_setup._perimeter.right
+        assert not message_setup.is_just_within_right() and message_setup._is_within_right
+
+        message_setup._is_within_right = True
+        message_setup._rect.right = message_setup._perimeter.right + 1
+        assert not message_setup.is_just_within_right() and message_setup._is_within_right
+
+        message_setup._is_within_right = False
+        message_setup._rect.right = message_setup._perimeter.right - 1
+        assert message_setup.is_just_within_right() and message_setup._is_within_right
+
+        message_setup._is_within_right = False
+        message_setup._rect.right = message_setup._perimeter.right
+        assert message_setup.is_just_within_right() and message_setup._is_within_right
+
+        message_setup._is_within_right = False
+        message_setup._rect.right = message_setup._perimeter.right + 1
+        assert not message_setup.is_just_within_right() and not message_setup._is_within_right
