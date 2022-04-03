@@ -80,7 +80,12 @@ class Message(Item):
 
         return True
 
-    def is_just_within_right(self):
+    def is_just_within_right(self) -> None:
+        """
+
+        Returns:
+
+        """
         if not self._is_within_right and self._rect.right <= self._perimeter.right:
             self._is_within_right = True
             return True
