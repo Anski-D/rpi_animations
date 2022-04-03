@@ -3,7 +3,7 @@ from pygame.sprite import Sprite
 
 
 class Item(ABC, Sprite):
-    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter: 'pygame.rect') -> None:
+    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter: 'pygame.Rect') -> None:
         """
 
         Args:
@@ -12,7 +12,7 @@ class Item(ABC, Sprite):
             perimeter:
         """
         # Run super, add self to group
-        super.__init__(group)
+        super().__init__(group)
 
         # Set some defaults for the instance
         self._content = None
@@ -51,12 +51,11 @@ class Item(ABC, Sprite):
 
 
 class Message(Item):
-    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter: 'pygame.rect'):
-        super.__init__(group, settings, perimeter)
+    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter: 'pygame.Rect'):
+        super().__init__(group, settings, perimeter)
 
         # Keep accurate track of position
         self._position['x'] = self._rect.x
-        self._position['y'] = self._rect.y
 
     def update(self) -> None:
         """
@@ -66,6 +65,17 @@ class Message(Item):
         """
         self._position['x'] -= self._settings['text_speed'] / self._settings['fps']  # px/s / frame/s = px/frame
         self._rect.x = self._position['x']
+
+    def is_within_left(self) -> None:
+        """
+
+        Returns:
+
+        """
+        if self._rect.right < self._perimeter.left:
+            return False
+
+        return True
 
     def _set_content(self) -> None:
         self.content = self._settings['font'].render(
