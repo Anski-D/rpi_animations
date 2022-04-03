@@ -1,7 +1,18 @@
 import pytest
-from rpi_animations.items import Message
+from rpi_animations.items import Message, Picture
 from pygame import Rect
 
+
+@pytest.fixture
+def message_setup(self, monkeypatch):
+    def mock_init(mock_self):
+        mock_self._rect = Rect(0, 0, 10, 10)
+        mock_self._position = {'x': 100}
+        mock_self._settings = {'text_speed': 90.0, 'fps': 30}
+        mock_self._perimeter = Rect(0, 0, 1000, 1000)
+
+    monkeypatch.setattr(Message, '__init__', mock_init)
+    return Message()
 
 class TestMessage:
     @pytest.fixture
@@ -55,3 +66,22 @@ class TestMessage:
         message_setup._is_within_right = False
         message_setup._rect.right = message_setup._perimeter.right + 1
         assert not message_setup.is_just_within_right() and not message_setup._is_within_right
+
+
+class TestPicture:
+    @pytest.fixture
+    def common(self):
+        pytest._perimeter_width = 1000
+        pytest._perimeter_height = 1000
+
+    @pytest.fixture
+    def picture_setup(self, common, monkeypatch):
+        def mock_init(mock_self):
+            mock_self._rect = Rect(0, 0, 10, 10)
+            mock_self._perimeter = Rect(0, 0, pytest._perimeter_width, pytest._perimeter_height)
+
+        monkeypatch.setattr(Picture, '__init__', mock_init)
+        return Picture()
+
+    def test_picture_set_position(self):
+        pass

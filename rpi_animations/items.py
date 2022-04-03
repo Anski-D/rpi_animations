@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from pygame.sprite import Sprite
+import random
 
 
 class Item(ABC, Sprite):
@@ -104,4 +105,17 @@ class Message(Item):
 
 
 class Picture(Item):
-    pass
+    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter: 'pygame.Rect', image):
+        self._image = image
+
+        super().__init__(group, settings, perimeter)
+
+    def update(self):
+        pass
+
+    def _set_content(self):
+        self.content = self._image
+
+    def _set_position(self):
+        self._rect.left = random.randint(0, self._perimeter.right - self._rect.width)
+        self._rect.top = random.randint(0, self._perimeter.bottom - self._rect.height)
