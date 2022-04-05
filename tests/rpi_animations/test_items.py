@@ -3,17 +3,6 @@ from rpi_animations.items import Message, Picture
 from pygame import Rect
 
 
-@pytest.fixture
-def message_setup(self, monkeypatch):
-    def mock_init(mock_self):
-        mock_self._rect = Rect(0, 0, 10, 10)
-        mock_self._position = {'x': 100}
-        mock_self._settings = {'text_speed': 90.0, 'fps': 30}
-        mock_self._perimeter = Rect(0, 0, 1000, 1000)
-
-    monkeypatch.setattr(Message, '__init__', mock_init)
-    return Message()
-
 class TestMessage:
     @pytest.fixture
     def message_setup(self, monkeypatch):
