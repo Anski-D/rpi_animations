@@ -111,7 +111,12 @@ class Picture(Item):
         super().__init__(group, settings, perimeter)
 
     def update(self):
-        pass
+        """
+
+        Returns:
+
+        """
+        self._set_position()
 
     def _set_content(self):
         self.content = self._image

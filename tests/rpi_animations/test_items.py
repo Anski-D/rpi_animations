@@ -72,5 +72,9 @@ class TestPicture:
         monkeypatch.setattr(Picture, '__init__', mock_init)
         return Picture()
 
-    def test_picture_set_position(self):
-        pass
+    def test_picture_set_position(self, common, picture_setup):
+        picture_setup._set_position()
+        assert picture_setup._rect.top >= 0 \
+            and picture_setup._rect.left >= 0 \
+            and picture_setup._rect.bottom <= pytest._perimeter_height \
+            and picture_setup._rect.right <= pytest._perimeter_width
