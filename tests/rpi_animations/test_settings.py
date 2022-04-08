@@ -43,7 +43,6 @@ class TestSettingsManager:
     @pytest.fixture
     def settings_manager_setup(self, settings_dict, monkeypatch):
         monkeypatch.setattr(SettingsManager, '_import_settings', lambda x, y: pytest.settings_dict)
-        monkeypatch.setattr(SettingsManager, '_set_font', lambda x: None)
         return SettingsManager(None, None)
 
     def test_settings_manager_set_colours(self, settings_manager_setup):
@@ -53,10 +52,8 @@ class TestSettingsManager:
                and settings_manager_setup.settings['text_colour'] in pytest.settings_dict['colours'] \
                and settings_manager_setup.settings['outline_colour'] in pytest.settings_dict['outline_colours']
 
-    def test_settings_manager_generate_message(self, settings_manager_setup, settings_dict):
+    def test_settings_manager_generate_text(self, settings_manager_setup, settings_dict):
         assert settings_manager_setup._generate_message() \
-               in [f"{message}{pytest.settings_dict['message_sep']}" for message in pytest.settings_dict['messages']] \
-               and settings_manager_setup.settings['message'] \
                in [f"{message}{pytest.settings_dict['message_sep']}" for message in pytest.settings_dict['messages']]
 
 

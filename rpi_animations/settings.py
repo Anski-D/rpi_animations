@@ -1,6 +1,5 @@
 import json
 import random
-import pygame.font
 from jsonschema import validate
 
 JSON_SCHEMA = {
@@ -104,7 +103,7 @@ JSON_SCHEMA = {
 
 
 class SettingsManager:
-    def __init__(self, importer: 'SettingsImporter', settings_loc: str) -> None:
+    def __init__(self, importer: 'SettingsImporter', settings_loc: str):
         """
 
         Args:
@@ -114,14 +113,14 @@ class SettingsManager:
 
         self._importer = importer
         self._settings = self._import_settings(settings_loc)
-        self._settings['message'] = self._generate_message()
+        self._settings['text'] = self._generate_message
         self._setup_settings()
 
     @property
-    def settings(self) -> dict:
+    def settings(self):
         return self._settings
 
-    def set_colours(self) -> None:
+    def set_colours(self):
         """
 
         """
@@ -144,17 +143,8 @@ class SettingsManager:
     def _generate_message(self) -> str:
         return f"{random.choice(self.settings['messages'])}{self.settings['message_sep']}"
 
-    def _setup_settings(self) -> None:
+    def _setup_settings(self):
         self.set_colours()
-        self._set_font()
-
-    def _set_font(self) -> None:
-        self._settings['font'] = pygame.font.SysFont(
-            self._settings['typeface'],
-            self._settings['text_size'],
-            bold=self.settings['bold_text'],
-            italic=self._settings['italic_text'],
-        )
 
 
 class SettingsImporter:
@@ -179,7 +169,7 @@ class SettingsImporter:
 
         return self._settings
 
-    def _read_settings(self, settings_loc: str) -> None:
+    def _read_settings(self, settings_loc: str):
         """
 
         Args:
@@ -188,13 +178,13 @@ class SettingsImporter:
         with open(settings_loc, encoding='UTF-8') as settings_file:
             self._settings = json.load(settings_file)
 
-    def _validate_settings(self) -> None:
+    def _validate_settings(self):
         """
 
         """
         validate(self._settings, JSON_SCHEMA)
 
-    def _convert_colours(self) -> None:
+    def _convert_colours(self):
         """
 
         """
