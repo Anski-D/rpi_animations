@@ -4,51 +4,47 @@ import random
 
 
 class Item(ABC, Sprite):
-    def __init__(self, group: 'pygame.sprite.Group', settings: dict, perimeter: 'pygame.Rect') -> None:
+    def __init__(self, group: 'pygame.sprite.Group', content, perimeter: 'pygame.Rect', movement=None) -> None:
         """
 
         Args:
             group:
-            settings:
+            content:
             perimeter:
         """
-        # Run super, add self to group
         super().__init__(group)
-
-        # Set some defaults for the instance
-        self._content = None
-        self._rect = None
-        self._position = None
-
-        # Get some information about from the parent
-        self._settings = settings
-        self._perimeter = perimeter
-
-        # Set up the instance
-        self._setup()
+        self.content = content
+        self._movement = movement
 
     @property
     def content(self):
+        """
+
+        Returns:
+
+        """
         return self._content
 
     @content.setter
     def content(self, content) -> None:
+        """
+
+        Args:
+            content:
+
+        Returns:
+
+        """
         self._content = content
 
         if self._rect is None:
             self._rect = self._content.get_rect()
 
-    def _setup(self):
-        self._set_content()
-        self._set_position()
+    def set_position(self, item_ref, target_position):
+        self._rect.__setattr__(item_ref, target_position)
 
-    @abstractmethod
-    def _set_content(self):
-        pass
-
-    @abstractmethod
-    def _set_position(self):
-        pass
+    def move(self, *args, **kwargs):
+        self._movement.move(*args, **kwargs)
 
 
 class Message(Item):
