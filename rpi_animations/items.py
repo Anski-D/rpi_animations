@@ -4,14 +4,10 @@ from pygame.sprite import Group, Sprite
 import random
 
 
-class Item(Sprite):
-    def __init__(self, group: Group, content, perimeter: Rect, movement=None) -> None:
-        super().__init__(group)
+class Movable(ABC):
+    def __init__(self):
         self._rect = None
         self._perimeter = None
-        self.content = content
-        self.perimeter = perimeter
-        self.movement = movement
 
     @property
     def rect(self):
@@ -23,15 +19,6 @@ class Item(Sprite):
             self._rect = rect
 
     @property
-    def content(self):
-        return self._content
-
-    @content.setter
-    def content(self, content) -> None:
-        self._content = content
-        self._rect = self._content.get_rect()
-
-    @property
     def perimeter(self):
         return self._perimeter
 
@@ -39,6 +26,31 @@ class Item(Sprite):
     def perimeter(self, perimeter):
         if isinstance(perimeter, Rect):
             self._perimeter = perimeter
+
+    def set_position(self, item_ref, target_position):
+        if self._rect is not None:
+            self._rect.__setattr__(item_ref, target_position)
+
+    @abstractmethod
+    def move(self):
+        pass
+
+
+class Item(Sprite, Movable):
+    def __init__(self, group: Group, content, perimeter: Rect, movement=None) -> None:
+        super().__init__(group)
+        self.content = content
+        self.perimeter = perimeter
+        self.movement = movement
+
+    @property
+    def content(self):
+        return self._content
+
+    @content.setter
+    def content(self, content) -> None:
+        self._content = content
+        self._rect = self._content.get_rect()
 
     @property
     def movement(self):
@@ -57,9 +69,6 @@ class Item(Sprite):
     def create_random_item(cls, group, content, perimeter):
         return Item(group, content, perimeter, movement=RandomMovement())
 
-    def set_position(self, item_ref, target_position):
-        self._rect.__setattr__(item_ref, target_position)
-
     def move(self):
         if self._movement is not None:
             self._movement.move(self)
@@ -67,7 +76,7 @@ class Item(Sprite):
 
 class Movement:
     @abstractmethod
-    def move(self, item: Item):
+    def move(self, movable: Movable):
         pass
 
 
@@ -84,12 +93,12 @@ class ScrollingMovement(Movement):
         if isinstance(speed, (int, float)):
             self._speed = speed
 
-    def move(self, item: Item, speed=None):
+    def move(self, movable: Movable, speed=None):
         self.speed = speed
-        item.set_position('x', item.rect.x - self._speed)  # pixel/frame
+        movable.set_position('x', movable.rect.x - self._speed)  # pixel/frame
 
 
 class RandomMovement(Movement):
-    def move(self, item: Item):
-        item.set_position('left', random.randint(0, item.perimeter.right - item.rect.width))
-        item.set_position('top', random.randint(0, item.perimeter.bottom - item.rect.height))
+    def move(self, movable: Movable):
+        movable.set_position('left', random.randint(0, movable.perimeter.right - movable.rect.width))
+        movable.set_position('top', random.randint(0, movable.perimeter.bottom - movable.rect.height))
