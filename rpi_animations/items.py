@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from pygame import Rect
+from pygame import Rect, Surface
 from pygame.sprite import Group, Sprite
 import random
 
@@ -48,9 +48,10 @@ class Item(Sprite, Movable):
         return self._content
 
     @content.setter
-    def content(self, content) -> None:
-        self._content = content
-        self._rect = self._content.get_rect()
+    def content(self, content: Surface) -> None:
+        if isinstance(content, Surface):
+            self._content = content
+            self.rect = self._content.get_rect()
 
     @property
     def movement(self):
