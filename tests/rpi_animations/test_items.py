@@ -1,5 +1,5 @@
 import pytest
-from rpi_animations.items import Movable, RandomMovement, ScrollingMovement
+from rpi_animations.items import Item, Movable, RandomMovement, ScrollingMovement
 import pygame
 
 
@@ -105,7 +105,31 @@ class TestRandomMovement:
 
 
 class TestItem:
-    pass
+    @pytest.fixture
+    def item_setup(self):
+        content = pygame.Surface((20, 10))
+        perimeter = pygame.Rect(0, 0, 1000, 500)
+        return Item(pygame.sprite.Group(), content, perimeter)
+
+    def test_item_set_content(self, item_setup):
+        content1 = item_setup.content
+        assert item_setup.rect == pygame.Rect(0, 0, 20, 10)
+
+        content2 = pygame.Surface((40, 20))
+        item_setup.content = content2
+        assert item_setup.content is not content1
+        assert item_setup.rect == pygame.Rect(0, 0, 40, 20)
+
+    def test_item_create_items(self):
+        group = pygame.sprite.Group()
+        content = pygame.Surface((20, 10))
+        perimeter = pygame.Rect(0, 0, 1000, 500)
+
+        scrolling_item = Item.create_scrolling_item(group, content, perimeter)
+        assert isinstance(scrolling_item, Item)
+
+        random_item = Item.create_random_item(group, content, perimeter)
+        assert isinstance(random_item, Item)
 
 
 # class TestMessage:

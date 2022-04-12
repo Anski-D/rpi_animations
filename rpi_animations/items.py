@@ -32,7 +32,7 @@ class Movable(ABC):
 
 
 class Item(pygame.sprite.Sprite, Movable):
-    def __init__(self, group: pygame.sprite.Group, content, perimeter: pygame.Rect, movement=None) -> None:
+    def __init__(self, group: pygame.sprite.Group, content: pygame.Surface, perimeter: pygame.Rect, movement=None) -> None:
         super().__init__(group)
         self.content = content
         self.perimeter = perimeter
