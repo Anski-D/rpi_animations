@@ -26,10 +26,6 @@ class Movable(ABC):
         if isinstance(perimeter, pygame.Rect):
             self._perimeter = perimeter
 
-    def set_position(self, item_ref, target_position):
-        if self._rect is not None:
-            self._rect.__setattr__(item_ref, target_position)
-
     @abstractmethod
     def move(self):
         pass

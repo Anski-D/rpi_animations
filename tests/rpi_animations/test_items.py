@@ -15,10 +15,14 @@ class TestMovable:
         movable_setup.rect = 'test'
         assert movable_setup.rect is None
 
-        rect_example = pygame.Rect(0, 0, 10, 10)
+        rect_example = pygame.Rect(0, 0, 20, 10)
         movable_setup.rect = rect_example
         assert isinstance(movable_setup.rect, pygame.Rect)
         assert movable_setup.rect is rect_example
+
+        rect = movable_setup.rect
+        rect.x = 5
+        assert movable_setup.rect.x == 5
 
     def test_movable_perimeter_set(self, movable_setup):
         assert movable_setup.perimeter is None
@@ -26,19 +30,14 @@ class TestMovable:
         movable_setup.perimeter = 'test'
         assert movable_setup.perimeter is None
 
-        perimeter_example = pygame.Rect(0, 0, 100, 100)
+        perimeter_example = pygame.Rect(0, 0, 1000, 500)
         movable_setup.perimeter = perimeter_example
         assert isinstance(movable_setup.perimeter, pygame.Rect)
         assert movable_setup.perimeter is perimeter_example
 
-    def test_movable_set_position(self, movable_setup):
-        movable_setup.rect = pygame.Rect(0, 0, 100, 50)
-
-        movable_setup.set_position('left', 50)
-        assert movable_setup.rect.left == 50
-
-        movable_setup.set_position('height', 25)
-        assert movable_setup.rect.height == 25
+        perimeter = movable_setup.perimeter
+        perimeter.x = 50
+        assert movable_setup.perimeter.x == 50
 
 
 class TestScrollingMovement:
