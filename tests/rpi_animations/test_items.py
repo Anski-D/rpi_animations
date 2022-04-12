@@ -1,6 +1,6 @@
 import pytest
 from rpi_animations.items import Movable, Item
-from pygame import Rect
+import pygame
 
 
 class TestMovable:
@@ -15,9 +15,9 @@ class TestMovable:
         movable_setup.rect = 'test'
         assert movable_setup.rect is None
 
-        rect_example = Rect(0, 0, 10, 10)
+        rect_example = pygame.Rect(0, 0, 10, 10)
         movable_setup.rect = rect_example
-        assert isinstance(movable_setup.rect, Rect)
+        assert isinstance(movable_setup.rect, pygame.Rect)
         assert movable_setup.rect is rect_example
 
     def test_movable_perimeter_set(self, movable_setup):
@@ -26,13 +26,13 @@ class TestMovable:
         movable_setup.perimeter = 'test'
         assert movable_setup.perimeter is None
 
-        perimeter_example = Rect(0, 0, 100, 100)
+        perimeter_example = pygame.Rect(0, 0, 100, 100)
         movable_setup.perimeter = perimeter_example
-        assert isinstance(movable_setup.perimeter, Rect)
+        assert isinstance(movable_setup.perimeter, pygame.Rect)
         assert movable_setup.perimeter is perimeter_example
 
     def test_movable_set_position(self, movable_setup):
-        movable_setup.rect = Rect(0, 0, 100, 50)
+        movable_setup.rect = pygame.Rect(0, 0, 100, 50)
 
         movable_setup.set_position('left', 50)
         assert movable_setup.rect.left == 50

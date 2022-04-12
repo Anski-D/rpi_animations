@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from pygame import Rect, Surface
-from pygame.sprite import Group, Sprite
+import pygame
 import random
 
 
@@ -14,8 +13,8 @@ class Movable(ABC):
         return self._rect
 
     @rect.setter
-    def rect(self, rect: Rect):
-        if isinstance(rect, Rect):
+    def rect(self, rect: pygame.Rect):
+        if isinstance(rect, pygame.Rect):
             self._rect = rect
 
     @property
@@ -24,7 +23,7 @@ class Movable(ABC):
 
     @perimeter.setter
     def perimeter(self, perimeter):
-        if isinstance(perimeter, Rect):
+        if isinstance(perimeter, pygame.Rect):
             self._perimeter = perimeter
 
     def set_position(self, item_ref, target_position):
@@ -36,8 +35,8 @@ class Movable(ABC):
         pass
 
 
-class Item(Sprite, Movable):
-    def __init__(self, group: Group, content, perimeter: Rect, movement=None) -> None:
+class Item(pygame.sprite.Sprite, Movable):
+    def __init__(self, group: pygame.sprite.Group, content, perimeter: pygame.Rect, movement=None) -> None:
         super().__init__(group)
         self.content = content
         self.perimeter = perimeter
@@ -48,8 +47,8 @@ class Item(Sprite, Movable):
         return self._content
 
     @content.setter
-    def content(self, content: Surface) -> None:
-        if isinstance(content, Surface):
+    def content(self, content: pygame.Surface) -> None:
+        if isinstance(content, pygame.Surface):
             self._content = content
             self.rect = self._content.get_rect()
 
