@@ -120,6 +120,13 @@ class TestItem:
         assert item_setup.content is not content1
         assert item_setup.rect == pygame.Rect(0, 0, 40, 20)
 
+    def test_item_set_movement(self, item_setup):
+        item_setup.movement = ScrollingMovement()
+        assert isinstance(item_setup.movement, ScrollingMovement)
+
+        item_setup.movement = RandomMovement()
+        assert isinstance(item_setup.movement, RandomMovement)
+
     def test_item_create_items(self):
         group = pygame.sprite.Group()
         content = pygame.Surface((20, 10))
