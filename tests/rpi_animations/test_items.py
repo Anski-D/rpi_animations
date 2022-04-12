@@ -1,11 +1,11 @@
 import pytest
-from rpi_animations.items import Movable, Item
+from rpi_animations.items import Movable, ScrollingMovement
 import pygame
 
 
 class TestMovable:
     @pytest.fixture
-    def movable_setup(self, monkeypatch):
+    def movable_setup(self):
         Movable.__abstractmethods__ = set()
         return Movable()
 
@@ -39,6 +39,49 @@ class TestMovable:
 
         movable_setup.set_position('height', 25)
         assert movable_setup.rect.height == 25
+
+
+class TestScrollingMovement:
+    @pytest.fixture
+    def movable_setup(self):
+        Movable.__abstractmethods__ = set()
+        movable = Movable()
+        movable.rect = pygame.Rect(50, 50, 20, 10)
+        return movable
+
+    def test_scrolling_movement_speed_set(self):
+        scroller = ScrollingMovement(5)
+        assert scroller.speed == 5
+
+        scroller.speed = 'test'
+        assert scroller.speed == 5
+
+        scroller.speed = 10
+        assert scroller.speed == 10
+
+    def test_scrolling_movement_move(self, movable_setup):
+        assert movable_setup.rect.x == 50
+
+        scroller = ScrollingMovement(1)
+        scroller.move(movable_setup)
+        assert movable_setup.rect.x == 49
+
+        scroller.move(movable_setup, 10)
+        assert movable_setup.rect.x == 39
+
+
+class TestRandomMovement:
+    @pytest.fixture
+    def movable_setup(self):
+        Movable.__abstractmethods__ = set()
+        movable = Movable()
+        movable.rect = pygame.Rect(50, 50, 20, 10)
+        movable.perimeter = pygame.Rect(0, 0, 1000, 500)
+        return movable
+
+
+class TestItem:
+    pass
 
 
 # class TestMessage:
