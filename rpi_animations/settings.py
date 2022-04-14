@@ -1,6 +1,6 @@
 import json
 import random
-import pygame.font
+import pygame as pg
 from jsonschema import validate
 
 JSON_SCHEMA = {
@@ -149,7 +149,7 @@ class SettingsManager:
         self._set_font()
 
     def _set_font(self) -> None:
-        self._settings['font'] = pygame.font.SysFont(
+        self._settings['font'] = pg.font.SysFont(
             self._settings['typeface'],
             self._settings['text_size'],
             bold=self.settings['bold_text'],

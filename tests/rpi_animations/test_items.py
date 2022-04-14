@@ -1,6 +1,6 @@
 import pytest
 from rpi_animations.items import Item, Movable, RandomMovement, ScrollingMovement
-import pygame
+import pygame as pg
 
 
 class TestMovable:
@@ -15,9 +15,9 @@ class TestMovable:
         movable_setup.rect = 'test'
         assert movable_setup.rect is None
 
-        rect_example = pygame.Rect(0, 0, 20, 10)
+        rect_example = pg.Rect(0, 0, 20, 10)
         movable_setup.rect = rect_example
-        assert isinstance(movable_setup.rect, pygame.Rect)
+        assert isinstance(movable_setup.rect, pg.Rect)
         assert movable_setup.rect is rect_example
 
         rect = movable_setup.rect
@@ -30,9 +30,9 @@ class TestMovable:
         movable_setup.perimeter = 'test'
         assert movable_setup.perimeter is None
 
-        perimeter_example = pygame.Rect(0, 0, 1000, 500)
+        perimeter_example = pg.Rect(0, 0, 1000, 500)
         movable_setup.perimeter = perimeter_example
-        assert isinstance(movable_setup.perimeter, pygame.Rect)
+        assert isinstance(movable_setup.perimeter, pg.Rect)
         assert movable_setup.perimeter is perimeter_example
 
         perimeter = movable_setup.perimeter
@@ -45,7 +45,7 @@ class TestScrollingMovement:
     def movable_setup(self):
         Movable.__abstractmethods__ = set()
         movable = Movable()
-        movable.rect = pygame.Rect(50, 50, 20, 10)
+        movable.rect = pg.Rect(50, 50, 20, 10)
         return movable
 
     def test_scrolling_movement_speed_set(self):
@@ -74,8 +74,8 @@ class TestRandomMovement:
     def movable_setup(self):
         Movable.__abstractmethods__ = set()
         movable = Movable()
-        movable.rect = pygame.Rect(50, 50, 20, 10)
-        movable.perimeter = pygame.Rect(0, 0, 1000, 500)
+        movable.rect = pg.Rect(50, 50, 20, 10)
+        movable.perimeter = pg.Rect(0, 0, 1000, 500)
         return movable
 
     def test_random_movement_move(self, movable_setup):
@@ -107,18 +107,18 @@ class TestRandomMovement:
 class TestItem:
     @pytest.fixture
     def item_setup(self):
-        content = pygame.Surface((20, 10))
-        perimeter = pygame.Rect(0, 0, 1000, 500)
-        return Item(pygame.sprite.Group(), content, perimeter)
+        content = pg.Surface((20, 10))
+        perimeter = pg.Rect(0, 0, 1000, 500)
+        return Item(pg.sprite.Group(), content, perimeter)
 
     def test_item_set_content(self, item_setup):
         content1 = item_setup.content
-        assert item_setup.rect == pygame.Rect(0, 0, 20, 10)
+        assert item_setup.rect == pg.Rect(0, 0, 20, 10)
 
-        content2 = pygame.Surface((40, 20))
+        content2 = pg.Surface((40, 20))
         item_setup.content = content2
         assert item_setup.content is not content1
-        assert item_setup.rect == pygame.Rect(0, 0, 40, 20)
+        assert item_setup.rect == pg.Rect(0, 0, 40, 20)
 
     def test_item_set_movement(self, item_setup):
         item_setup.movement = ScrollingMovement()
@@ -128,9 +128,9 @@ class TestItem:
         assert isinstance(item_setup.movement, RandomMovement)
 
     def test_item_create_items(self):
-        group = pygame.sprite.Group()
-        content = pygame.Surface((20, 10))
-        perimeter = pygame.Rect(0, 0, 1000, 500)
+        group = pg.sprite.Group()
+        content = pg.Surface((20, 10))
+        perimeter = pg.Rect(0, 0, 1000, 500)
 
         scrolling_item = Item.create_scrolling_item(group, content, perimeter)
         assert isinstance(scrolling_item, Item)
