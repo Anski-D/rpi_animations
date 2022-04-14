@@ -69,6 +69,9 @@ class Item(pygame.sprite.Sprite, Movable):
         if self._movement is not None:
             self._movement.move(self)
 
+    def update(self):
+        self.move()
+
 
 class Movement:
     @abstractmethod
