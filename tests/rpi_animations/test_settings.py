@@ -58,7 +58,9 @@ class TestSettingsManager:
         assert isinstance(settings_manager_setup.settings['font'], pg.font.Font)
 
     def test_settings_manager_generate_message_text(self, settings_manager_setup, settings_dict):
-        assert settings_manager_setup._generate_message_text() \
+        message_text = settings_manager_setup._generate_message_text()
+        assert isinstance(message_text, str) \
+            and message_text \
                in [f"{message}{pytest.settings_dict['message_sep']}" for message in pytest.settings_dict['messages']]
 
     def test_settings_manager_generate_message(self, settings_manager_setup):
