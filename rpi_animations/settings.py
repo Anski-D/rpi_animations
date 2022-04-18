@@ -114,7 +114,6 @@ class SettingsManager:
 
         self._importer = importer
         self._settings = self._import_settings(settings_loc)
-        self._settings['message'] = self._generate_message()
         self._setup_settings()
 
     @property
@@ -141,13 +140,6 @@ class SettingsManager:
     def _import_settings(self, settings_loc: str) -> dict:
         return self._importer.import_settings(settings_loc)
 
-    def _generate_message(self) -> str:
-        return f"{random.choice(self.settings['messages'])}{self.settings['message_sep']}"
-
-    def _setup_settings(self) -> None:
-        self.set_colours()
-        self._set_font()
-
     def _set_font(self) -> None:
         self._settings['font'] = pg.font.SysFont(
             self._settings['typeface'],
@@ -155,6 +147,21 @@ class SettingsManager:
             bold=self.settings['bold_text'],
             italic=self._settings['italic_text'],
         )
+
+    def _generate_message_text(self) -> str:
+        return f"{random.choice(self.settings['messages'])}{self.settings['message_sep']}"
+
+    def _generate_message(self) -> pg.Surface:
+        return self._settings['font'].render(
+            self._generate_message_text(),
+            self._settings['text_aa'],
+            self._settings['text_colour'],
+        )
+
+    def _setup_settings(self) -> None:
+        self.set_colours()
+        self._set_font()
+        self._settings['message'] = self._generate_message()
 
 
 class SettingsImporter:
