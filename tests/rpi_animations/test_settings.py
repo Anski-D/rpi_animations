@@ -10,7 +10,7 @@ class TestSettingsManager:
             "colours": [
                 (255, 0, 0),
                 (0, 255, 0),
-                (0, 0, 255)
+                (0, 0, 255),
             ],
             "messages": [
                 "TEST MESSAGE 1!",
@@ -28,7 +28,7 @@ class TestSettingsManager:
             "outline_width": 3,
             "outline_colours": [
                 (0, 0, 0),
-                (255, 255, 255)
+                (255, 255, 255),
             ],
             "image_sources": [
                 "pic1.bmp",
@@ -75,7 +75,7 @@ class TestSettingsImporter:
             "colours": [
                 [255, 0, 0],
                 [0, 255, 0],
-                [0, 0, 255]
+                [0, 0, 255],
             ],
             "messages": [
                 "TEST MESSAGE 1!",
@@ -93,7 +93,7 @@ class TestSettingsImporter:
             "outline_width": 3,
             "outline_colours": [
                 [0, 0, 0],
-                [255, 255, 255]
+                [255, 255, 255],
             ],
             "image_sources": [
                 "pic1.bmp",
@@ -109,7 +109,7 @@ class TestSettingsImporter:
             "colours": [
                 (255, 0, 0),
                 (0, 255, 0),
-                (0, 0, 255)
+                (0, 0, 255),
             ],
             "messages": [
                 "TEST MESSAGE 1!",
@@ -127,7 +127,7 @@ class TestSettingsImporter:
             "outline_width": 3,
             "outline_colours": [
                 (0, 0, 0),
-                (255, 255, 255)
+                (255, 255, 255),
             ],
             "image_sources": [
                 "pic1.bmp",
