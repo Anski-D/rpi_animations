@@ -171,6 +171,10 @@ class SettingsImporter:
         """Inits class with settings file string."""
         self._settings = None
 
+    @property
+    def settings(self):
+        return self._settings
+
     def import_settings(self, settings_loc: str) -> dict:
         """
 
