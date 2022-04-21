@@ -114,6 +114,7 @@ class SettingsManager:
 
         self._importer = importer
         self._settings = self._import_settings(settings_loc)
+        self._settings['images'] = None
         self._setup_settings()
 
     @property
@@ -140,6 +141,12 @@ class SettingsManager:
     def _import_settings(self, settings_loc: str) -> dict:
         return self._importer.import_settings(settings_loc)
 
+    def _setup_settings(self) -> None:
+        self.set_colours()
+        self._set_font()
+        self._settings['message'] = self._generate_message()
+        self._load_images()
+
     def _set_font(self) -> None:
         self._settings['font'] = pg.font.SysFont(
             self._settings['typeface'],
@@ -158,10 +165,13 @@ class SettingsManager:
             self._settings['text_colour'],
         )
 
-    def _setup_settings(self) -> None:
-        self.set_colours()
-        self._set_font()
-        self._settings['message'] = self._generate_message()
+    def _load_images(self):
+        if len(self._settings['images_sources']) >= 1:
+            self._settings['images'] = []
+            for image in self._settings['image_sources']:
+                self._settings['images'].append(
+                    pg.image.load(image)
+                )
 
 
 class SettingsImporter:
