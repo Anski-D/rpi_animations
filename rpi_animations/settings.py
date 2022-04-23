@@ -166,7 +166,7 @@ class SettingsManager:
         )
 
     def _load_images(self):
-        if len(self._settings['images_sources']) >= 1:
+        if len(self._settings['image_sources']) >= 1:
             self._settings['images'] = []
             for image in self._settings['image_sources']:
                 self._settings['images'].append(

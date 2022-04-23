@@ -45,6 +45,7 @@ class TestSettingsManager:
     def settings_manager_setup(self, settings_dict, monkeypatch):
         pg.init()
         monkeypatch.setattr(SettingsManager, '_import_settings', lambda x, y: pytest.settings_dict)
+        monkeypatch.setattr(pg.image, 'load', lambda x: pg.Surface((20, 10)))
         return SettingsManager(None, None)
 
     def test_settings_manager_set_colours(self, settings_manager_setup):
