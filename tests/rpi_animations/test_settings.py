@@ -55,7 +55,7 @@ class TestSettingsManager:
                and settings_manager_setup.settings['text_colour'] in pytest.settings_dict['colours'] \
                and settings_manager_setup.settings['outline_colour'] in pytest.settings_dict['outline_colours']
 
-    def test_settings_set_font(self, settings_manager_setup):
+    def test_settings_manager_set_font(self, settings_manager_setup):
         assert isinstance(settings_manager_setup.settings['font'], pg.font.Font)
 
     def test_settings_manager_generate_message_text(self, settings_manager_setup, settings_dict):
