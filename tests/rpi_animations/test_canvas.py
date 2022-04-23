@@ -52,4 +52,4 @@ class TestCanvas:
 
     def test_create_images(self, canvas_setup):
         canvas_setup._create_images()
-        assert len(canvas_setup._images) == 3
+        assert len(canvas_setup._images) == 30

@@ -48,7 +48,7 @@ class TestScrollingMovement:
         movable.rect = pg.Rect(50, 50, 20, 10)
         return movable
 
-    def test_scrolling_movement_speed_set(self):
+    def test_speed_set(self):
         scroller = ScrollingMovement(5)
         assert scroller.speed == 5
 
@@ -58,7 +58,7 @@ class TestScrollingMovement:
         scroller.speed = 10
         assert scroller.speed == 10
 
-    def test_scrolling_movement_move(self, movable_setup):
+    def test_move(self, movable_setup):
         assert movable_setup.rect.x == 50
 
         scroller = ScrollingMovement(1)
@@ -78,7 +78,7 @@ class TestRandomMovement:
         movable.perimeter = pg.Rect(0, 0, 1000, 500)
         return movable
 
-    def test_random_movement_move(self, movable_setup):
+    def test_move(self, movable_setup):
         right1 = movable_setup.rect.right
         bottom1 = movable_setup.rect.bottom
         assert right1 == 70 and bottom1 == 60
@@ -111,7 +111,7 @@ class TestItem:
         perimeter = pg.Rect(0, 0, 1000, 500)
         return Item(pg.sprite.Group(), content, perimeter)
 
-    def test_item_set_content(self, item_setup):
+    def test_set_content(self, item_setup):
         content1 = item_setup.content
         assert item_setup.rect == pg.Rect(0, 0, 20, 10)
 
@@ -120,14 +120,14 @@ class TestItem:
         assert item_setup.content is not content1
         assert item_setup.rect == pg.Rect(0, 0, 40, 20)
 
-    def test_item_set_movement(self, item_setup):
+    def test_set_movement(self, item_setup):
         item_setup.movement = ScrollingMovement()
         assert isinstance(item_setup.movement, ScrollingMovement)
 
         item_setup.movement = RandomMovement()
         assert isinstance(item_setup.movement, RandomMovement)
 
-    def test_item_create_items(self):
+    def test_create_items(self):
         group = pg.sprite.Group()
         content = pg.Surface((20, 10))
         perimeter = pg.Rect(0, 0, 1000, 500)

@@ -48,27 +48,27 @@ class TestSettingsManager:
         monkeypatch.setattr(pg.image, 'load', lambda x: pg.Surface((20, 10)))
         return SettingsManager(None, None)
 
-    def test_settings_manager_set_colours(self, settings_manager_setup):
+    def test_set_colours(self, settings_manager_setup):
         settings_manager_setup.set_colours()
 
         assert settings_manager_setup.settings['bg_colour'] in pytest.settings_dict['colours'] \
                and settings_manager_setup.settings['text_colour'] in pytest.settings_dict['colours'] \
                and settings_manager_setup.settings['outline_colour'] in pytest.settings_dict['outline_colours']
 
-    def test_settings_manager_set_font(self, settings_manager_setup):
+    def test_set_font(self, settings_manager_setup):
         assert isinstance(settings_manager_setup.settings['font'], pg.font.Font)
 
-    def test_settings_manager_generate_message_text(self, settings_manager_setup, settings_dict):
+    def test_generate_message_text(self, settings_manager_setup, settings_dict):
         message_text = settings_manager_setup._generate_message_text()
         assert isinstance(message_text, str) \
             and message_text \
                in [f"{message}{pytest.settings_dict['message_sep']}" for message in pytest.settings_dict['messages']]
 
-    def test_settings_manager_generate_message(self, settings_manager_setup):
+    def test_generate_message(self, settings_manager_setup):
         assert isinstance(settings_manager_setup._generate_message(), pg.Surface) \
             and isinstance(settings_manager_setup.settings['message'], pg.Surface)
 
-    def test_settings_manager_load_images(self, settings_manager_setup):
+    def test_load_images(self, settings_manager_setup):
         assert len(settings_manager_setup.settings['images']) == 3
 
 
@@ -144,12 +144,12 @@ class TestSettingsImporter:
             "reposition_attempts": 50
         }
 
-    def test_settings_importer_settings_get(self, imported_json):
+    def test_settings_get(self, imported_json):
         settings_importer = SettingsImporter()
         settings_importer._settings = pytest.settings_dict
         assert settings_importer.settings == pytest.settings_dict
 
-    def test_settings_importer_convert_colours(self, imported_json):
+    def test_convert_colours(self, imported_json):
         settings_importer = SettingsImporter()
         settings_importer._settings = pytest.imported_json
         settings_importer._convert_colours()
