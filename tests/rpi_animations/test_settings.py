@@ -68,6 +68,9 @@ class TestSettingsManager:
         assert isinstance(settings_manager_setup._generate_message(), pg.Surface) \
             and isinstance(settings_manager_setup.settings['message'], pg.Surface)
 
+    def test_settings_manager_load_images(self, settings_manager_setup):
+        assert len(settings_manager_setup.settings['images']) == 3
+
 
 class TestSettingsImporter:
     @pytest.fixture
