@@ -9,9 +9,13 @@ class Canvas:
         self._settings = self._settings_manager.settings
         self._screen = screen
         self._perimeter = self._screen.get_rect()
+        self._messages = pg.sprite.Group()
         self._images = pg.sprite.Group()
 
     def _create_images(self):
         for _ in range(self._settings['num_images']):
             for image in self._settings['images']:
                 Item.create_random_item(self._images, image, self._perimeter)
+
+    def _create_message(self):
+        Item.create_scrolling_item(self._messages, self._settings['message'], self._perimeter)
