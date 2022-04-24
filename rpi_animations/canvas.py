@@ -19,3 +19,8 @@ class Canvas:
 
     def _create_message(self):
         Item.create_scrolling_item(self._messages, self._settings['message'], self._perimeter)
+
+    def _is_within_perimeter(self, item: Item):
+        if self._perimeter.contains(item.rect):
+            return True
+        return False

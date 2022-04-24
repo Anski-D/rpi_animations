@@ -57,3 +57,15 @@ class TestCanvas:
     def test_create_message(self, canvas_setup):
         canvas_setup._create_message()
         assert len(canvas_setup._messages) == 1
+
+    def test_is_within_perimeter(self, canvas_setup):
+        tests = []
+        perimeter = canvas_setup._perimeter
+        item = Item.create_scrolling_item(pg.sprite.Group(), pg.Surface((20, 10)), perimeter)
+        item.rect.x = 100
+        item.rect.y = 50
+        tests.append(canvas_setup._is_within_perimeter(item))
+        item.rect.x = 1100
+        item.rect.y = 550
+        tests.append(not canvas_setup._is_within_perimeter(item))
+        assert all(tests)
