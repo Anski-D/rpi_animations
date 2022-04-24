@@ -24,3 +24,8 @@ class Canvas:
         if self._perimeter.contains(item.rect):
             return True
         return False
+
+    def _is_within_perimeter_right(self, item: Item):
+        if item.rect.right < self._perimeter.right:
+            return True
+        return False
