@@ -71,7 +71,7 @@ class TestCanvas:
 
     def test_is_within_perimeter_right(self, canvas_setup):
         tests = []
-        item = Item.create_scrolling_item(pg.sprite.Group(), pg.Surface((20, 10)), canvas_setup._perimete)
+        item = Item.create_scrolling_item(pg.sprite.Group(), pg.Surface((20, 10)), canvas_setup._perimeter)
         item.rect.right = 1001
         tests.append(not canvas_setup._is_within_perimeter_right(item))
         item.rect.right = 990
