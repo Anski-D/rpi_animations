@@ -24,12 +24,14 @@ class Canvas:
     def _is_within_perimeter(self, item: Item):
         if self._perimeter.contains(item.rect):
             return True
-        return False
+        else:
+            return False
 
     def _is_within_perimeter_right(self, item: Item):
         if item.rect.right <= self._perimeter.right:
             return True
-        return False
+        else:
+            return False
 
     def _update_messages(self):
         self._messages.update()
