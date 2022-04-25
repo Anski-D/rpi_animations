@@ -79,29 +79,32 @@ class TestRandomMovement:
         return movable
 
     def test_move(self, movable_setup):
+        tests = []
         right1 = movable_setup.rect.right
         bottom1 = movable_setup.rect.bottom
-        assert right1 == 70 and bottom1 == 60
+        tests.append(right1 == 70 and bottom1 == 60)
 
         random_mover = RandomMovement()
 
         random_mover.move(movable_setup)
         right2 = movable_setup.rect.right
         bottom2 = movable_setup.rect.bottom
-        assert right2 <= movable_setup.perimeter.right and bottom2 <= movable_setup.perimeter.bottom
-        assert right2 != right1 and bottom2 != bottom1
+        tests.append(movable_setup.perimeter.contains(movable_setup.rect))
+        tests.append(right2 != right1 and bottom2 != bottom1)
 
         random_mover.move(movable_setup)
         right3 = movable_setup.rect.right
         bottom3 = movable_setup.rect.bottom
-        assert right3 <= movable_setup.perimeter.right and bottom3 <= movable_setup.perimeter.bottom
-        assert right3 != right2 and bottom3 != bottom2
+        tests.append(movable_setup.perimeter.contains(movable_setup.rect))
+        tests.append(right3 != right2 and bottom3 != bottom2)
 
         random_mover.move(movable_setup)
         right4 = movable_setup.rect.right
         bottom4 = movable_setup.rect.bottom
-        assert right4 <= movable_setup.perimeter.right and bottom4 <= movable_setup.perimeter.bottom
-        assert right4 != right3 and bottom4 != bottom3
+        tests.append(movable_setup.perimeter.contains(movable_setup.rect))
+        tests.append(right4 != right3 and bottom4 != bottom3)
+
+        assert all(tests)
 
 
 class TestItem:
