@@ -94,13 +94,10 @@ class ScrollingMovement(Movement):
 
     def move(self, movable: Movable, speed=None):
         self.speed = speed
-        # movable.set_position('x', movable.rect.x - self._speed)  # pixel/frame
         movable.rect.x -= self._speed # pixel/frame
 
 
 class RandomMovement(Movement):
     def move(self, movable: Movable):
-        # movable.set_position('left', random.randint(0, movable.perimeter.right - movable.rect.width))
-        # movable.set_position('top', random.randint(0, movable.perimeter.bottom - movable.rect.height))
         movable.rect.left = random.randint(0, movable.perimeter.right - movable.rect.width)
         movable.rect.top = random.randint(0, movable.perimeter.bottom - movable.rect.height)
