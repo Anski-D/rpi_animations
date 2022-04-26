@@ -52,7 +52,10 @@ class TestCanvas:
 
     def test_create_message(self, canvas_setup):
         canvas_setup._create_message()
-        assert len(canvas_setup._messages) == 1
+        assert len(canvas_setup._messages) == 1 \
+            and canvas_setup._messages.sprites()[0].rect.left == canvas_setup._perimeter.right \
+            and canvas_setup._messages.sprites()[0].rect.y == 250 - pytest.settings_dict['text_size'] / 2 \
+            and canvas_setup._messages.sprites()[0].movement.speed == pytest.settings_dict['text_speed'] / pytest.settings_dict['fps']
 
     def test_create_images(self, canvas_setup):
         canvas_setup._create_images()
