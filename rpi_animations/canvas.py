@@ -13,7 +13,7 @@ class Canvas:
         self._images = pg.sprite.Group()
 
     def _create_message(self):
-        message = Item.create_scrolling_item(self._messages, self._settings['message'], self._perimeter)
+        message = Item.create_scrolling_item(self._messages, self._settings['message'](), self._perimeter)
         message.rect.midleft = self._perimeter.midright
         message.movement.speed = self._settings['text_speed'] / self._settings['fps']
 

@@ -65,8 +65,11 @@ class TestSettingsManager:
                in [f"{message}{pytest.settings_dict['message_sep']}" for message in pytest.settings_dict['messages']]
 
     def test_generate_message(self, settings_manager_setup):
+        message1 = settings_manager_setup.settings['message']()
+        message2 = settings_manager_setup.settings['message']()
         assert isinstance(settings_manager_setup._generate_message(), pg.Surface) \
-            and isinstance(settings_manager_setup.settings['message'], pg.Surface)
+            and isinstance(settings_manager_setup.settings['message'](), pg.Surface) \
+            and message2 is not message1
 
     def test_load_images(self, settings_manager_setup):
         assert len(settings_manager_setup.settings['images']) == 3
