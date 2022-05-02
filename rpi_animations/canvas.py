@@ -10,17 +10,19 @@ class Canvas:
         self._screen = screen
         self._perimeter = self._screen.get_rect()
         self._messages = pg.sprite.Group()
+        self._message_factory = self._setup_item_factory(self._messages, 'scrolling')
         self._images = pg.sprite.Group()
+        self._image_factory = self._setup_item_factory(self._images, 'random')
 
     def _create_message(self):
-        message = Item.create_scrolling_item(self._messages, self._settings['message'](), self._perimeter)
+        message = self._message_factory(self._settings['message']())
         message.rect.midleft = self._perimeter.midright
         message.movement.speed = self._settings['text_speed'] / self._settings['fps']
 
     def _create_images(self):
         for _ in range(self._settings['num_images']):
             for image in self._settings['images']:
-                Item.create_random_item(self._images, image, self._perimeter)
+                self._image_factory(image)
 
     def _is_within_perimeter(self, item: Item):
         if self._perimeter.contains(item.rect):
