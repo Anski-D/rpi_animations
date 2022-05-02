@@ -123,3 +123,12 @@ class ItemFactory:
 
     def create(self, group: pg.sprite.Group, content: pg.Surface, perimeter: pg.Rect):
         return Item(group, content, perimeter, movement=self.factory_type)
+
+
+item_type_dict = {
+    'scrolling': ScrollingMovement,
+    'random': RandomMovement,
+}
+
+for key, value in item_type_dict.items():
+    ItemFactory.register_type(key, value)
