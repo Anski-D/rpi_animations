@@ -68,7 +68,7 @@ class Item(pg.sprite.Sprite, Movable):
     def move(self):
         if self._movement is not None:
             self._movement.move(self)
-            
+
     def update(self):
         self.move()
 
@@ -101,3 +101,33 @@ class RandomMovement(Movement):
     def move(self, movable: Movable):
         movable.rect.left = random.randint(0, movable.perimeter.right - movable.rect.width)
         movable.rect.top = random.randint(0, movable.perimeter.bottom - movable.rect.height)
+
+
+class ItemFactory:
+    _types = {}
+
+    def __init__(self, key=None):
+        self._key = key
+
+    @property
+    def key(self):
+        return self._key
+
+    @key.setter
+    def key(self, key: str):
+        self._key = key
+
+    @property
+    def factory_type(self):
+        factory_type = self._types.get(self._key)
+        if factory_type is None:
+            return None
+        return factory_type()
+
+    @classmethod
+    def register_type(cls, key, handle):
+        if key not in cls._types:
+            cls._types[key] = handle
+
+    def create(self, group: pg.sprite.Group, content: pg.Surface, perimeter: pg.Rect):
+        return Item(group, content, perimeter, movement=self.factory_type)
