@@ -107,19 +107,11 @@ class ItemFactory:
     _types = {}
 
     def __init__(self, key=None):
-        self._key = key
-
-    @property
-    def key(self):
-        return self._key
-
-    @key.setter
-    def key(self, key: str):
-        self._key = key
+        self.key = key
 
     @property
     def factory_type(self):
-        factory_type = self._types.get(self._key)
+        factory_type = self._types.get(self.key)
         if factory_type is None:
             return None
         return factory_type()
