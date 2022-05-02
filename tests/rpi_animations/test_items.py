@@ -146,4 +146,40 @@ class TestItemFactory:
     def test_register_type(self):
         ItemFactory.register_type('scrolling', ScrollingMovement)
         assert 'scrolling' in ItemFactory._types \
-            and isinstance(ItemFactory._types['scrolling'](), ScrollingMovement)
+            and isinstance(ItemFactory._types.get('scrolling')(), ScrollingMovement) \
+            and ItemFactory._types.get('test') is None
+
+    def test_create(self):
+        tests = []
+        group = pg.sprite.Group()
+        content = pg.Surface((20, 10))
+        perimeter = pg.Rect(0, 0, 1000, 500)
+
+        ItemFactory.register_type('scrolling', ScrollingMovement)
+        ItemFactory.register_type('random', RandomMovement)
+
+        scrolling_item_factory = ItemFactory('scrolling')
+        scrolling_item1 = scrolling_item_factory.create(group, content, perimeter)
+        tests.append(isinstance(scrolling_item1, Item))
+        tests.append(isinstance(scrolling_item1.movement, ScrollingMovement))
+        scrolling_item2 = scrolling_item_factory.create(group, content, perimeter)
+        tests.append(isinstance(scrolling_item2, Item))
+        tests.append(isinstance(scrolling_item2.movement, ScrollingMovement))
+
+        random_item_factory = ItemFactory('random')
+        random_item1 = random_item_factory.create(group, content, perimeter)
+        tests.append(isinstance(random_item1, Item))
+        tests.append(isinstance(random_item1.movement, RandomMovement))
+        random_item2 = random_item_factory.create(group, content, perimeter)
+        tests.append(isinstance(random_item2, Item))
+        tests.append(isinstance(random_item2.movement, RandomMovement))
+
+        none_item_factory = ItemFactory()
+        none_item1 = none_item_factory.create(group, content, perimeter)
+        tests.append(isinstance(none_item1, Item))
+        tests.append(none_item1.movement is None)
+        none_item2 = none_item_factory.create(group, content, perimeter)
+        tests.append(isinstance(none_item2, Item))
+        tests.append(none_item2.movement is None)
+
+        assert all(tests)

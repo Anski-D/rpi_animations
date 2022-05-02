@@ -34,8 +34,11 @@ class Movable(ABC):
 class Item(pg.sprite.Sprite, Movable):
     def __init__(self, group: pg.sprite.Group, content: pg.Surface, perimeter: pg.Rect, movement=None) -> None:
         super().__init__(group)
+        self._content = None
         self.content = content
+        self._perimeter = None
         self.perimeter = perimeter
+        self._movement = None
         self.movement = movement
 
     @property
