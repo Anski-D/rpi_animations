@@ -1,5 +1,5 @@
 import pytest
-from rpi_animations.items import Item, Movable, RandomMovement, ScrollingMovement
+from rpi_animations.items import Item, ItemFactory, Movable, RandomMovement, ScrollingMovement
 import pygame as pg
 
 
@@ -140,3 +140,10 @@ class TestItem:
 
         random_item = Item.create_random_item(group, content, perimeter)
         assert isinstance(random_item, Item)
+
+
+class TestItemFactory:
+    def test_register_type(self):
+        ItemFactory.register_type('scrolling', ScrollingMovement)
+        assert 'scrolling' in ItemFactory._types \
+            and isinstance(ItemFactory._types['scrolling'](), ScrollingMovement)
