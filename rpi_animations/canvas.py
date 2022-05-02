@@ -1,4 +1,4 @@
-from .items import Item
+from .items import Item, ItemFactory
 from .settings import SettingsManager
 import pygame as pg
 
@@ -43,3 +43,9 @@ class Canvas:
             self._is_within_perimeter_right(message) for message in self._messages.sprites()
         ):
             self._create_message()
+
+    def _setup_item_factory(self, group: pg.sprite.Group, item_type: str):
+        def factory(content: pg.Surface):
+            return item_factory.create(group, content, self._perimeter)
+        item_factory = ItemFactory(item_type)
+        return factory
