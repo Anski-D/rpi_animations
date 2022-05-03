@@ -1,8 +1,9 @@
 import pytest
 import pygame as pg
+import math
 from rpi_animations.settings import SettingsManager
 from rpi_animations.canvas import Canvas
-from rpi_animations.items import Item
+from rpi_animations.items import Item, ScrollingMovement
 
 
 class TestCanvas:
@@ -61,22 +62,23 @@ class TestCanvas:
         canvas_setup._create_images()
         assert len(canvas_setup._images) == len(pytest.settings_dict['image_sources']) * pytest.settings_dict['num_images']
 
-    def test_is_within_perimeter(self, canvas_setup):
+    def test_update_messages(self, canvas_setup, monkeypatch):
         tests = []
-        item = Item.create_scrolling_item(pg.sprite.Group(), pg.Surface((20, 10)), canvas_setup._perimeter)
-        item.rect.x = 100
-        item.rect.y = 50
-        tests.append(canvas_setup._is_within_perimeter(item))
-        item.rect.x = 1100
-        item.rect.y = 550
-        tests.append(not canvas_setup._is_within_perimeter(item))
-        assert all(tests)
+        speed = pytest.settings_dict['text_speed'] / pytest.settings_dict['fps']
+        canvas = canvas_setup
 
-    def test_is_within_perimeter_right(self, canvas_setup):
-        tests = []
-        item = Item.create_scrolling_item(pg.sprite.Group(), pg.Surface((20, 10)), canvas_setup._perimeter)
-        item.rect.right = 1001
-        tests.append(not canvas_setup._is_within_perimeter_right(item))
-        item.rect.right = 990
-        tests.append(canvas_setup._is_within_perimeter_right(item))
+        canvas._create_message()
+        tests.append(len(canvas._messages.sprites()) == 1)
+
+        message1_width = canvas._messages.sprites()[0].rect.width
+        for _ in range(math.ceil(message1_width / speed)):
+            canvas._update_messages()
+        tests.append(len(canvas._messages.sprites()) == 2)
+
+        monkeypatch.setattr(Canvas, '_create_message', lambda x: None)
+        message2_width = canvas._messages.sprites()[-1].rect.width
+        for _ in range(math.ceil((canvas._perimeter.width + message2_width) / speed)):
+            canvas._update_messages()
+        tests.append(len(canvas._messages.sprites()) == 0)
+
         assert all(tests)

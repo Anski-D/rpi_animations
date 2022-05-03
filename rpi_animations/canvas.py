@@ -24,26 +24,12 @@ class Canvas:
             for image in self._settings['images']:
                 self._image_factory(image)
 
-    def _is_within_perimeter(self, item: Item):
-        if self._perimeter.contains(item.rect):
-            return True
-        else:
-            return False
-
-    def _is_within_perimeter_right(self, item: Item):
-        if item.rect.right <= self._perimeter.right:
-            return True
-        else:
-            return False
-
     def _update_messages(self):
         self._messages.update()
         for message in self._messages.sprites():
-            if not self._is_within_perimeter(message):
+            if message.rect.right < self._perimeter.left:
                 message.kill()
-        if all(
-            self._is_within_perimeter_right(message) for message in self._messages.sprites()
-        ):
+        if all(message.rect.right <= self._perimeter.right for message in self._messages.sprites()):
             self._create_message()
 
     def _setup_item_factory(self, group: pg.sprite.Group, item_type: str):
