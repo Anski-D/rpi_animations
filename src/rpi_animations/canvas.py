@@ -32,6 +32,16 @@ class Canvas:
         if all(message.rect.right <= self._perimeter.right for message in self._messages.sprites()):
             self._create_message()
 
+    def _update_images(self):
+        group = pg.sprite.Group()
+        for image in self._images.sprites():
+            self._images.remove(image)
+            image.update()
+            while pg.sprite.spritecollideany(image, group):
+                image.update()
+            group.add(image)
+        self._images = group
+
     def _setup_item_factory(self, group: pg.sprite.Group, item_type: str):
         def factory(content: pg.Surface):
             return item_factory.create(group, content, self._perimeter)

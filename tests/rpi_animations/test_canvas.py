@@ -3,7 +3,6 @@ import pygame as pg
 import math
 from rpi_animations.settings import SettingsManager
 from rpi_animations.canvas import Canvas
-from rpi_animations.items import Item, ScrollingMovement
 
 
 class TestCanvas:
