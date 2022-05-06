@@ -60,14 +60,6 @@ class Item(pg.sprite.Sprite, Movable):
         if isinstance(movement, Movement):
             self._movement = movement
 
-    @classmethod
-    def create_scrolling_item(cls, group, content, perimeter):
-        return Item(group, content, perimeter, movement=ScrollingMovement())
-
-    @classmethod
-    def create_random_item(cls, group, content, perimeter):
-        return Item(group, content, perimeter, movement=RandomMovement())
-
     def move(self):
         if self._movement is not None:
             self._movement.move(self)

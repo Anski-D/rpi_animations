@@ -130,17 +130,6 @@ class TestItem:
         item_setup.movement = RandomMovement()
         assert isinstance(item_setup.movement, RandomMovement)
 
-    def test_create_items(self):
-        group = pg.sprite.Group()
-        content = pg.Surface((20, 10))
-        perimeter = pg.Rect(0, 0, 1000, 500)
-
-        scrolling_item = Item.create_scrolling_item(group, content, perimeter)
-        assert isinstance(scrolling_item, Item)
-
-        random_item = Item.create_random_item(group, content, perimeter)
-        assert isinstance(random_item, Item)
-
 
 class TestItemFactory:
     def test_register_type(self):
