@@ -81,3 +81,12 @@ class TestCanvas:
         tests.append(len(canvas._messages.sprites()) == 0)
 
         assert all(tests)
+
+    def test_update_images(self, canvas_setup):
+        canvas = canvas_setup
+        canvas._create_images()
+        canvas._update_images()
+        xy_orig = [(image.rect.x, image.rect.y) for image in canvas._images.sprites()]
+        canvas._update_images()
+        xy_new = [(image.rect.x, image.rect.y) for image in canvas._images.sprites()]
+        assert xy_new != xy_orig
