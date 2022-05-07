@@ -60,12 +60,12 @@ class Item(pg.sprite.Sprite, Movable):
         if isinstance(movement, Movement):
             self._movement = movement
 
-    def move(self):
+    def move(self, *args, **kwargs):
         if self._movement is not None:
-            self._movement.move(self)
+            self._movement.move(self, *args, **kwargs)
 
-    def update(self):
-        self.move()
+    def update(self, *args, **kwargs):
+        self.move(*args, **kwargs)
 
 
 class Movement:

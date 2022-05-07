@@ -130,6 +130,46 @@ class TestItem:
         item_setup.movement = RandomMovement()
         assert isinstance(item_setup.movement, RandomMovement)
 
+    def test_move(self, item_setup):
+        tests = []
+        item = item_setup
+
+        item.rect.x = 50
+        item.move()
+        tests.append(item.rect.x == 50)
+
+        item.movement = ScrollingMovement()
+        item.move()
+        tests.append(item.rect.x == 50)
+
+        item.move(1)
+        tests.append(item.rect.x == 49)
+
+        item.move(2)
+        tests.append(item.rect.x == 47)
+
+        assert all(tests)
+
+    def test_update(self, item_setup):
+        tests = []
+        item = item_setup
+
+        item.rect.x = 50
+        item.update()
+        tests.append(item.rect.x == 50)
+
+        item.movement = ScrollingMovement()
+        item.update()
+        tests.append(item.rect.x == 50)
+
+        item.update(1)
+        tests.append(item.rect.x == 49)
+
+        item.update(2)
+        tests.append(item.rect.x == 47)
+
+        assert all(tests)
+
 
 class TestItemFactory:
     def test_register_type(self):
