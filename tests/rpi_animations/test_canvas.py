@@ -89,4 +89,10 @@ class TestCanvas:
         xy_orig = [(image.rect.x, image.rect.y) for image in canvas._images.sprites()]
         canvas._update_images()
         xy_new = [(image.rect.x, image.rect.y) for image in canvas._images.sprites()]
-        assert xy_new != xy_orig
+        collide_test = []
+        for image in canvas._images.sprites():
+            canvas._images.remove(image)
+            collide_test.append(not pg.sprite.spritecollideany(image, canvas._images))
+            canvas._images.add(image)
+
+        assert xy_new != xy_orig and all(collide_test)
