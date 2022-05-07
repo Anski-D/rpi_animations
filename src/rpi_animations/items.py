@@ -87,13 +87,13 @@ class ScrollingMovement(Movement):
         if isinstance(speed, (int, float)):
             self._speed = speed
 
-    def move(self, movable: Movable, speed=None):
+    def move(self, movable: Movable, speed=None, *args, **kwargs):
         self.speed = speed
-        movable.rect.x -= self._speed # pixel/frame
+        movable.rect.x -= self._speed  # pixel/frame
 
 
 class RandomMovement(Movement):
-    def move(self, movable: Movable):
+    def move(self, movable: Movable, *args, **kwargs):
         movable.rect.left = random.randint(0, movable.perimeter.right - movable.rect.width)
         movable.rect.top = random.randint(0, movable.perimeter.bottom - movable.rect.height)
 

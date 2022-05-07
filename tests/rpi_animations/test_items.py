@@ -106,6 +106,14 @@ class TestRandomMovement:
 
         assert all(tests)
 
+    def test_move_with_args(self, movable_setup):
+        movable = movable_setup
+        movable.rect.x = 50
+        random_mover = RandomMovement()
+        random_mover.move(movable, 5)
+
+        assert movable.rect.x != 50 and movable.rect.x != 45
+
 
 class TestItem:
     @pytest.fixture
