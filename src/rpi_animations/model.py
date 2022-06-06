@@ -3,7 +3,7 @@ from .settings import SettingsManager
 import pygame as pg
 
 
-class Canvas:
+class Model:
     def __init__(self, settings_manager: SettingsManager, screen: pg.Surface):
         self._settings_manager = settings_manager
         self._settings = self._settings_manager.settings
